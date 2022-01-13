@@ -34,6 +34,7 @@ class Cell extends \yii\db\ActiveRecord
             [['answer1_id', 'answer2_id'], 'required'],
             [['answer1_id', 'answer2_id'], 'default', 'value' => null],
             [['answer1_id', 'answer2_id'], 'integer'],
+            [['answer1_id', 'answer2_id'], 'unique', 'targetAttribute' => ['answer1_id', 'answer2_id']],
             [['answer1_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answer::class, 'targetAttribute' => ['answer1_id' => 'id']],
             [['answer2_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answer::class, 'targetAttribute' => ['answer2_id' => 'id']],
         ];
@@ -46,8 +47,8 @@ class Cell extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'answer1_id' => 'first answer ID',
-            'answer2_id' => 'second answer ID',
+            'answer1_id' => 'first answer',
+            'answer2_id' => 'second answer',
         ];
     }
 

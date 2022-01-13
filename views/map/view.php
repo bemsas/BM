@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Map */
 /* @var $answer1Index string */
 /* @var $answer2Index string */
+/* @var $cellIndex string */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['index']];
@@ -34,3 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h2><?= Html::encode($model->question2_text) ?></h2>
 <?= $answer2Index ?>
+
+<h2>Cells</h2>
+<?= $cellIndex ?>

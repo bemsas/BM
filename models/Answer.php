@@ -91,4 +91,31 @@ class Answer extends \yii\db\ActiveRecord
             2 => 'second'
         ];
     }
+    public static function getAnswerList($mapId, $question): array {
+        $models = self::find()->andWhere(['map_id' => $mapId, 'question' => $question])->orderBy('id')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->content;
+        }
+        return $list;
+    }
+    
+    public static function getAnswerPositions1(int $mapId): array {
+        $models = self::find()->andWhere(['map_id' => $mapId, 'question' => 1])->orderBy('id')->all();        
+        $list = [];
+        $i = 'A';
+        foreach($models as $model) {
+            $list[$model->id] = $i++;
+        }
+        return $list;
+    }
+    public static function getAnswerPositions2(int $mapId): array {
+        $models = self::find()->andWhere(['map_id' => $mapId, 'question' => 2])->orderBy('id')->all();
+        $list = [];
+        $i = 1;
+        foreach($models as $model) {
+            $list[$model->id] = $i++;
+        }
+        return $list;
+    }
 }

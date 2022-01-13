@@ -5,6 +5,9 @@
 use yii\helpers\Html;
 
 $this->title = 'Belief map toolkit';
+for($i = 'A'; $i < 'C'; $i++) {
+    echo $i;    
+}
 ?>
 <div class="site-index">
 
