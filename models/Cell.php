@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Answer;
 
 /**
  * This is the model class for table "cell".
@@ -81,4 +82,21 @@ class Cell extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Shift::class, ['cell_start_id' => 'id']);
     }    
+    /**
+     * Get all cell Codes by mapId
+     * @param int $mapId map id
+     * @return array
+     */
+    public static function getCodeList(int $mapId): array {
+        $positions1 = Answer::getAnswerPositions1($mapId);
+        $positions2 = Answer::getAnswerPositions2($mapId);
+        
+        $list = [];
+        $models = self::find()->joinWith(['answer1 a1'])->andWhere(['a1.map_id' => $mapId])->orderBy('answer1_id, answer2_id')->all();        
+        foreach($models as $model) {
+            $code = $positions1[$model->answer1_id].$positions2[$model->answer2_id];
+            $list[$model->id] = $code;
+        }
+        return $list;
+    }
 }

@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\models\Map;
+use app\models\Cell;
 use app\models\MapSearch;
 use app\models\Answer;
 use app\models\AnswerSearch;
 use app\models\CellSearch;
+use app\models\ShiftSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,7 +65,8 @@ class MapController extends Controller
             'model' => $model,
             'answer1Index' => $this->renderAnswerIndex($model, 1),
             'answer2Index' => $this->renderAnswerIndex($model, 2),
-            'cellIndex' => $this->renderCellIndex($model)
+            'cellIndex' => $this->renderCellIndex($model),
+            'shiftIndex' => $this->renderShiftIndex($model)
         ]);
     }
     
@@ -98,9 +101,29 @@ class MapController extends Controller
 
         return $this->renderPartial('/cell/index', [
             'searchModel' => $searchModel,
+            'map' => $model,
             'dataProvider' => $dataProvider,
             'answerPositions1' => Answer::getAnswerPositions1($model->id),
             'answerPositions2' => Answer::getAnswerPositions2($model->id),
+        ]);
+    }
+    
+    /**
+     * Lists all Shift models.
+     *
+     * @return string
+     */
+    public function renderShiftIndex(Map $model)
+    {
+        $searchModel = new ShiftSearch();
+        $searchModel->mapId = $model->id;
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->renderPartial('/shift/index', [
+            'searchModel' => $searchModel,
+            'map' => $model,
+            'dataProvider' => $dataProvider,
+            'cellCodes' => Cell::getCodeList($model->id)
         ]);
     }
 

@@ -36,8 +36,8 @@ class Shift extends \yii\db\ActiveRecord
             [['cell_start_id', 'cell_end_id'], 'default', 'value' => null],
             [['cell_start_id', 'cell_end_id'], 'integer'],
             [['question1_content', 'question2_content'], 'string', 'max' => 2000],
-            [['cell_start_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cell::className(), 'targetAttribute' => ['cell_start_id' => 'id']],
-            [['cell_end_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cell::className(), 'targetAttribute' => ['cell_end_id' => 'id']],
+            [['cell_start_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cell::class, 'targetAttribute' => ['cell_start_id' => 'id']],
+            [['cell_end_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cell::class, 'targetAttribute' => ['cell_end_id' => 'id']],
         ];
     }
 
@@ -48,8 +48,8 @@ class Shift extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cell_start_id' => 'start cell ID',
-            'cell_end_id' => 'end cell ID',
+            'cell_start_id' => 'Start cell',
+            'cell_end_id' => 'End cell',
             'question1_content' => 'Question 1 content',
             'question2_content' => 'Question 2 content',
         ];
@@ -62,7 +62,7 @@ class Shift extends \yii\db\ActiveRecord
      */
     public function getCellEnd()
     {
-        return $this->hasOne(Cell::className(), ['id' => 'cell_end_id']);
+        return $this->hasOne(Cell::class, ['id' => 'cell_end_id']);
     }
 
     /**
@@ -72,6 +72,6 @@ class Shift extends \yii\db\ActiveRecord
      */
     public function getCellStart()
     {
-        return $this->hasOne(Cell::className(), ['id' => 'cell_start_id']);
+        return $this->hasOne(Cell::class, ['id' => 'cell_start_id']);
     }
 }

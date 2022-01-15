@@ -2,18 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\Cell;
 use app\models\Map;
-use app\models\Answer;
-use app\models\CellSearch;
+use app\models\Cell;
+use app\models\Shift;
+use app\models\ShiftSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CellController implements the CRUD actions for Cell model.
+ * ShiftController implements the CRUD actions for Shift model.
  */
-class CellController extends Controller
+class ShiftController extends Controller
 {
     /**
      * @inheritDoc
@@ -24,7 +24,7 @@ class CellController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::class,
+                    'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -34,13 +34,13 @@ class CellController extends Controller
     }
 
     /**
-     * Lists all Cell models.
+     * Lists all Shift models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new CellSearch();
+        $searchModel = new ShiftSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,25 +49,30 @@ class CellController extends Controller
         ]);
     }
 
-    public function actionView($id) {
-        $model = $this->findModel($id);
+    /**
+     * Displays a single Shift model.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
         return $this->render('view', [
-            'model' => $model
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Cell model.
+     * Creates a new Shift model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate($mapId)
     {
-        $model = new Cell();
-
+        $model = new Shift();
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/map/view', 'id' => $model->answer1->map_id]);
+                return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -76,13 +81,12 @@ class CellController extends Controller
         return $this->render('form', [
             'model' => $model,
             'map' => Map::findOne($mapId),
-            'answers1' => Answer::getAnswerList($mapId, 1),
-            'answers2' => Answer::getAnswerList($mapId, 2),
+            'cells' => Cell::getCodeList($mapId)
         ]);
     }
 
     /**
-     * Updates an existing Cell model.
+     * Updates an existing Shift model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -93,19 +97,18 @@ class CellController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['/map/view', 'id' => $model->answer1->map_id]);
+            return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
         }
 
         return $this->render('form', [
             'model' => $model,
-            'map' => $model->answer1->map,
-            'answers1' => Answer::getAnswerList($model->answer1->map_id, 1),
-            'answers2' => Answer::getAnswerList($model->answer1->map_id, 2),
+            'map' => $model->cellStart->answer1->map,
+            'cells' => Cell::getCodeList($model->cellStart->answer1->map_id)
         ]);
     }
 
     /**
-     * Deletes an existing Cell model.
+     * Deletes an existing Shift model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -119,15 +122,15 @@ class CellController extends Controller
     }
 
     /**
-     * Finds the Cell model based on its primary key value.
+     * Finds the Shift model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Cell the loaded model
+     * @return Shift the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cell::findOne(['id' => $id])) !== null) {
+        if (($model = Shift::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

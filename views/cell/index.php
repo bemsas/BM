@@ -6,6 +6,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
+/* @var $map app\models\Map */
 /* @var $searchModel app\models\CellSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $answerPositions1 array */
@@ -28,13 +29,22 @@ use yii\widgets\Pjax;
             [
                 'attribute' => 'id',
                 'value' => function(Cell $model) use ($answerPositions1, $answerPositions2) {
-                    return $answerPositions1[$model->answer1_id].$answerPositions2[$model->answer2_id];
-                }
+                    return Html::a($answerPositions1[$model->answer1_id].$answerPositions2[$model->answer2_id], ['/cell/view', 'id' => $model->id]);
+                },
+                'format' => 'raw',
             ],
-            'answer1.content',
-            'answer2.content',
+            [
+                'attribute' => 'answer1.content',
+                'label' => $map->question1_text,
+            ],
+            [
+                'attribute' => 'answer2.content',
+                'label' => $map->question2_text,
+            ],
             [
                 'class' => ActionColumn::class,
+                'header' => 'controls',
+                'controller' => 'cell',
                 'template' => '{update} {delete}'
             ],
         ],

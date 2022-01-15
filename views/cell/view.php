@@ -3,14 +3,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Map */
-/* @var $answer1Index string */
-/* @var $answer2Index string */
-/* @var $cellIndex string */
-/* @var $shiftIndex string */
+/* @var $model app\models\Cell */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
+$this->params['breadcrumbs'][] = ['label' => $model->answer1->map->name, 'url' => ['map/view', 'id' => $model->answer1->map_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -30,15 +27,3 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>    
 
 </div>
-
-<h2><?= Html::encode($model->question1_text) ?></h2>
-<?= $answer1Index ?>
-
-<h2><?= Html::encode($model->question2_text) ?></h2>
-<?= $answer2Index ?>
-
-<h2>Cells</h2>
-<?= $cellIndex ?>
-
-<h2>Shifts</h2>
-<?= $shiftIndex ?>
