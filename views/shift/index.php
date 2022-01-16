@@ -42,14 +42,6 @@ use app\models\Shift;
                 'format' => 'raw'
             ],
             [
-                'attribute' => 'question1_content',
-                'label' => $map->question1_text
-            ],
-            [
-                'attribute' => 'question2_content',
-                'label' => $map->question2_text
-            ],
-            [
                 'class' => ActionColumn::class,
                 'header' => 'controls',
                 'template' => '{update} {delete}',

@@ -81,7 +81,24 @@ class Cell extends \yii\db\ActiveRecord
     public function getShifts()
     {
         return $this->hasMany(Shift::class, ['cell_start_id' => 'id']);
-    }    
+    }
+    /**
+     * Получить все переходы по цепочке из ячейки в a1
+     * @return Shift[]
+     */
+    public function getAllShifts(): array {
+        $result = [];
+        $shifts = $this->shifts;
+        while($shifts) {
+            $newShifts = [];
+            foreach($shifts as $shift) {
+                $result[] = $shift;
+                $newShifts = array_merge($newShifts, $shift->cellEnd->shifts);
+            }
+            $shifts = $newShifts;
+        }
+        return $result;
+    }
     /**
      * Get all cell Codes by mapId
      * @param int $mapId map id

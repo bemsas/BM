@@ -24,11 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'cell_start_id')->dropDownList($cells) ?>
 
-        <?= $form->field($model, 'cell_end_id')->dropDownList($cells) ?>
-
-        <?= $form->field($model, 'question1_content')->textArea(['maxlength' => 2000, 'rows' => 5])->label($map->question1_text) ?>
-
-        <?= $form->field($model, 'question2_content')->textArea(['maxlength' => 2000, 'rows' => 5])->label($map->question2_text) ?>
+        <?= $form->field($model, 'cell_end_id')->dropDownList($cells) ?>        
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

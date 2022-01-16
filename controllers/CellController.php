@@ -9,6 +9,7 @@ use app\models\CellSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Shift;
 
 /**
  * CellController implements the CRUD actions for Cell model.
@@ -51,8 +52,12 @@ class CellController extends Controller
 
     public function actionView($id) {
         $model = $this->findModel($id);
+        $cellCodes = Cell::getCodeList($model->answer1->map_id);        
         return $this->render('view', [
-            'model' => $model
+            'model' => $model,
+            'code' => $cellCodes[$model->id],
+            'cellCodes' => $cellCodes,
+            'shifts' => $model->getAllShifts()
         ]);
     }
 

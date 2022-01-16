@@ -68,7 +68,7 @@ class MapController extends Controller
             'cellIndex' => $this->renderCellIndex($model),
             'shiftIndex' => $this->renderShiftIndex($model)
         ]);
-    }
+    }    
     
     /**
      * Lists all Answer models.
@@ -123,6 +123,16 @@ class MapController extends Controller
             'searchModel' => $searchModel,
             'map' => $model,
             'dataProvider' => $dataProvider,
+            'cellCodes' => Cell::getCodeList($model->id)
+        ]);
+    }
+    
+    public function actionSelect($id) {
+        $model = $this->findModel($id);
+        return $this->render('select', [
+            'model' => $model,
+            'answers1' => Answer::getAnswerList($model->id, 1, true),
+            'answers2' => Answer::getAnswerList($model->id, 2, true),
             'cellCodes' => Cell::getCodeList($model->id)
         ]);
     }

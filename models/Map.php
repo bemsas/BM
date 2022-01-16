@@ -17,6 +17,7 @@ use Yii;
  */
 class Map extends \yii\db\ActiveRecord
 {
+    public $question1, $question2;   
     /**
      * {@inheritdoc}
      */
@@ -33,6 +34,7 @@ class Map extends \yii\db\ActiveRecord
         return [
             [['name', 'question1_text', 'question2_text'], 'required'],
             [['name', 'question1_text', 'question2_text'], 'string', 'max' => 200],
+            [['question1', 'question2'], 'safe']
         ];
     }
 
@@ -45,7 +47,7 @@ class Map extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'question1_text' => 'Question 1',
-            'question2_text' => 'Question 2',
+            'question2_text' => 'Question 2',            
         ];
     }
 

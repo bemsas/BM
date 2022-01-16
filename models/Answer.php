@@ -91,11 +91,12 @@ class Answer extends \yii\db\ActiveRecord
             2 => 'second'
         ];
     }
-    public static function getAnswerList($mapId, $question): array {
+    public static function getAnswerList($mapId, $question, $withCode = false): array {
         $models = self::find()->andWhere(['map_id' => $mapId, 'question' => $question])->orderBy('id')->all();
         $list = [];
+        $i = $question == 1 ? 'A' : '1';
         foreach($models as $model) {
-            $list[$model->id] = $model->content;
+            $list[$withCode ? $i++ : $model->id] = $model->content;
         }
         return $list;
     }
