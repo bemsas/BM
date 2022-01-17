@@ -82,3 +82,99 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+.bg-A1 {
+    background: #EFEECC;
+}
+.bg-A2 {
+    background: #E7E5AA;
+}
+.bg-A3 {
+    background: #DEDB7D;
+}
+.bg-A4 {
+    background: #D5D10E;
+}
+.bg-B1 {
+    background: #E0E8E9;
+}
+.bg-B2 {
+    background: #CEDBDD;
+}
+.bg-B3 {
+    background: #BACCCF;
+}
+.bg-B4 {
+    background: #A2BDC1;
+}
+.bg-C1 {
+    background: #DEE0E0;
+}
+.bg-C2 {
+    background: #CACDCD;
+}
+.bg-C3 {
+    background: #B4B9B9;
+}
+.bg-C4 {
+    background: #9AA1A1;
+}
+.bg-D1 {
+    background: #CDCFD2;
+}
+.bg-D2 {
+    background: #ADB1B6;
+}
+.bg-D3 {
+    background: #898A92;
+}
+.bg-D4 {
+    background: #667A8A;
+}
+
+.cell-view {
+    h1, h2, h3, h5 {
+        padding: 5px;        
+    }
+    h1 {
+        text-align: right;
+    }
+    h5 {
+        margin-top: 10px;
+    }
+}
+.answer-block {
+    background: #eee;
+    height: 200px;
+}
+.cell {        
+    height: 80px;
+    text-align: left;        
+    color: #000;
+}
+.cell-selected {
+    border: 1px solid red;
+}
+.shift-block {
+    min-height: 160px;        
+    font-size: 9pt;
+}
+.shift-title {
+    margin-left: auto;        
+    margin-right: 0;
+    height: 160px;
+    writing-mode: vertical-lr;
+    text-align: center;
+    font-size: 12pt;
+    text-transform: uppercase;
+}
+.arrow {
+    position: relative; width: 50%; height: 30%; top: 30%; z-index: 1;
+}
+.arrow-top {
+    transform: rotate(-90deg);
+}
+.arrow-right-top {
+    transform: rotate(-45deg);
+}
