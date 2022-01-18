@@ -3,11 +3,6 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
-
-$this->title = 'Belief map toolkit';
-for($i = 'A'; $i < 'C'; $i++) {
-    echo $i;    
-}
 ?>
 <div class="site-index">
 
@@ -18,11 +13,11 @@ for($i = 'A'; $i < 'C'; $i++) {
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-6">
+            <!--<div class="col-lg-6">
                 <h2>Client vision</h2>
 
                 <?= Html::a('Maps', ['map/index']) ?><br>  
-            </div>
+            </div> !-->
             <div class="col-lg-6">
                 <h2>Administration</h2>
 

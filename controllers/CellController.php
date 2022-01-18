@@ -9,7 +9,7 @@ use app\models\CellSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Shift;
+use yii\filters\AccessControl;
 
 /**
  * CellController implements the CRUD actions for Cell model.
@@ -24,6 +24,15 @@ class CellController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::class,
                     'actions' => [

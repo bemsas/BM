@@ -136,4 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <?php } ?>
     </div>
+    <div class="row">
+        <?= Html::a('back to map', ['map/view', 'id' => $model->answer1->map_id], ['class' => 'btn btn-info']) ?>
+    </div>
 </div>

@@ -21,24 +21,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Map', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php Pjax::begin(); ?>    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'name',
-            'question1_text',
-            'question2_text',
             [
-                'class' => ActionColumn::class,
-                'template' => '{view}',
-                'urlCreator' => function ($action, Map $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'attribute' => 'name',
+                'value' => function(Map $model) {
+                    return Html::a($model->name, ['view', 'id' => $model->id], ['data-pjax' => 0]);
+                },
+                'format' => 'raw'
             ],
+            'question1_text',
+            'question2_text',            
         ],
     ]); ?>
 
