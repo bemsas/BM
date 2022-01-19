@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Cell;
+use yii\data\Sort;
 
 /**
  * CellSearch represents the model behind the search form of `app\models\Cell`.
@@ -43,9 +44,13 @@ class CellSearch extends Cell
         $query = Cell::find();
 
         // add conditions that should always apply here
+        
+        $sort = new Sort();
+        $sort->defaultOrder = ['id' => SORT_ASC];
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => $sort
         ]);
 
         $this->load($params);

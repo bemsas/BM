@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Shift;
+use yii\data\Sort;
 
 /**
  * ShiftSearch represents the model behind the search form of `app\models\Shift`.
@@ -44,9 +45,12 @@ class ShiftSearch extends Shift
         $query = Shift::find();
 
         // add conditions that should always apply here
+        $sort = new Sort();
+        $sort->defaultOrder = ['id' => SORT_ASC];
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => $sort
         ]);
 
         $this->load($params);
