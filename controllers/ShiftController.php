@@ -80,6 +80,8 @@ class ShiftController extends Controller
     public function actionCreate($mapId)
     {
         $model = new Shift();
+        $model->question1_content = '';
+        $model->question2_content = '';
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
@@ -105,6 +107,8 @@ class ShiftController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->question1_content = '';
+        $model->question2_content = '';
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
