@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use app\models\User;
 
 class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
@@ -9,16 +10,17 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
     public $password;
     public $authKey;
     public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'Fg4!_cZ9',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],        
-    ];
+    
+    public $user;
+    
+    private static function generate(User $user): UserIdentity {
+        $identity = new self();
+        $identity->id = $user->id;
+        $identity->username = $user->email;
+        $identity->password = $user->password_hash;
+        $identity->user = $user;
+        return $identity;
+    }
 
 
     /**
@@ -26,7 +28,7 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return ($user = User::findOne($id)) ? self::generate($user) : null;        
     }
 
     /**
@@ -34,13 +36,7 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return ($user = User::findOne(['password_hash' => $token])) ? self::generate($user) : null; //@todo need token field later        
     }
 
     /**
@@ -51,13 +47,7 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return ($user = User::findOne(['email' => $username])) ? self::generate($user) : null;
     }
 
     /**
@@ -92,6 +82,6 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return \Yii::$app->security->validatePassword($password, $this->user->password_hash);        
     }
 }
