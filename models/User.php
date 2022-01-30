@@ -17,7 +17,11 @@ use Yii;
  * @property Company $company
  */
 class User extends \yii\db\ActiveRecord
-{
+{   
+    public $password;
+    public const TYPE_ADMIN = 1;
+    public const TYPE_COMPANY_MANAGER = 2;
+    public const TYPE_USER = 3;
     /**
      * {@inheritdoc}
      */
@@ -31,14 +35,24 @@ class User extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        $types = self::getTypeList();
         return [
             [['email', 'name', 'password_hash', 'company_id'], 'required'],
             [['type', 'company_id'], 'default', 'value' => null],
             [['type', 'company_id'], 'integer'],
-            [['email', 'name', 'password_hash'], 'string', 'max' => 200],
+            [['type'], 'in', 'range' => array_keys($types)],
+            [['email', 'name', 'password_hash', 'password'], 'string', 'max' => 200],
             [['email'], 'unique'],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
+    }
+    
+    public function beforeValidate() {
+        if($this->password) {
+            $this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+            $this->password = '';
+        }
+        return parent::beforeValidate();
     }
 
     /**
@@ -51,8 +65,9 @@ class User extends \yii\db\ActiveRecord
             'email' => 'Email',
             'name' => 'Name',
             'password_hash' => 'Password hash',
+            'password' => 'Password',
             'type' => 'Access type',
-            'company_id' => 'company ID',
+            'company_id' => 'Company',
         ];
     }
 
@@ -63,6 +78,14 @@ class User extends \yii\db\ActiveRecord
      */
     public function getCompany()
     {
-        return $this->hasOne(Company::className(), ['id' => 'company_id']);
+        return $this->hasOne(Company::class, ['id' => 'company_id']);
+    }
+    
+    public static function getTypeList(): array {
+        return [
+            self::TYPE_ADMIN => 'Administrator',
+            self::TYPE_COMPANY_MANAGER => 'Company manager',
+            self::TYPE_USER => 'Regular user',
+        ];
     }
 }

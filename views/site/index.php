@@ -21,7 +21,9 @@ use yii\helpers\Html;
             <div class="col-lg-6">
                 <h2>Administration</h2>
 
-                <?= Html::a('Maps', ['map/index']) ?><br>                  
+                <?= Html::a('Maps', ['map/index']) ?><br>
+                <?= Html::a('Companies', ['company/index']) ?><br>
+                <?= Html::a('Users', ['user/index']) ?><br>
             </div>                        
         </div>
 
