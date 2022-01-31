@@ -74,4 +74,14 @@ class Shift extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cell::class, ['id' => 'cell_start_id']);
     }
+    
+    public static function add(Cell $start, Cell $end): Shift {
+        $shift = new self();
+        $shift->cell_start_id = $start->id;
+        $shift->cell_end_id = $end->id;
+        $shift->question1_content = '1';
+        $shift->question2_content = '2';
+        $shift->save();
+        return $shift;
+    }
 }

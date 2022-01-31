@@ -59,6 +59,7 @@ class MapController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'sizes' => Map::getSizeList() 
         ]);
     }
 
@@ -76,7 +77,7 @@ class MapController extends Controller
             'answer1Index' => $this->renderAnswerIndex($model, 1),
             'answer2Index' => $this->renderAnswerIndex($model, 2),
             'cellIndex' => $this->renderCellIndex($model),
-            'shiftIndex' => $this->renderShiftIndex($model)
+            'shiftIndex' => $this->renderShiftIndex($model),            
         ]);
     }    
     
@@ -164,8 +165,9 @@ class MapController extends Controller
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
+        return $this->render('form', [
             'model' => $model,
+            'sizes' => Map::getSizeList()
         ]);
     }
 
@@ -184,8 +186,9 @@ class MapController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('update', [
+        return $this->render('form', [
             'model' => $model,
+            'sizes' => Map::getSizeList()
         ]);
     }
 

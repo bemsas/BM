@@ -9,6 +9,7 @@ use app\models\Map;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MapSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $sizes array */
 
 $this->title = 'Maps';
 $this->params['breadcrumbs'][] = $this->title;
@@ -34,6 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->name, ['view', 'id' => $model->id], ['data-pjax' => 0]);
                 },
                 'format' => 'raw'
+            ],
+            [
+                'attribute' => 'size',
+                'value' => function(Map $model) use ($sizes){
+                    return $sizes[$model->size] ?: $model->size; 
+                },
+                'filter' => $sizes,
             ],
             'question1_text',
             'question2_text',            

@@ -17,7 +17,7 @@ class MapSearch extends Map
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'size'], 'integer'],
             [['name', 'question1_text', 'question2_text'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class MapSearch extends Map
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'size' => $this->size,
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])

@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\models\Answer;
+use app\models\Cell;
+use app\models\Shift;
 use Yii;
 
 /**
@@ -11,13 +14,14 @@ use Yii;
  * @property string $name Name
  * @property string $question1_text Question 1
  * @property string $question2_text Question 2
+ * @property int $size
  *
  * @property Answer[] $answers1 question 1 answers
  * @property Answer[] $answers2 question 2 answers
  */
 class Map extends \yii\db\ActiveRecord
 {
-    public $question1, $question2;   
+    public $question1, $question2;    
     /**
      * {@inheritdoc}
      */
@@ -31,11 +35,42 @@ class Map extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        $sizes = self::getSizeList();
         return [
-            [['name', 'question1_text', 'question2_text'], 'required'],
+            [['name', 'question1_text', 'question2_text', 'size'], 'required'],
+            [['size'], 'integer'],
+            [['size'], 'in', 'range' =>array_keys($sizes)],
             [['name', 'question1_text', 'question2_text'], 'string', 'max' => 200],
             [['question1', 'question2'], 'safe']
         ];
+    }       
+    
+    public function afterSave($insert, $changedAttributes) {
+        if($insert) {
+            $answers1 = [];
+            $answers2 = [];
+            for($i = 1; $i <= $this->size; $i++) {
+                $answers1[$i] = Answer::add($this, 1, "Answer $i for question 1");
+                $answers2[$i] = Answer::add($this, 2, "Answer $i for question 2");                
+            }
+            $cells = [];
+            foreach($answers1 as $i => $answer1) {
+                foreach($answers2 as $j => $answer2) {
+                    if(in_array($j, [$i, $i+1, $i-1])) {
+                        $cell = Cell::add($answer1, $answer2);                        
+                        $cells[$i][$j] = $cell;
+                        if($j == $i && $j > 1) {
+                            Shift::add($cell, $cells[$i-1][$j-1]);                            
+                        } elseif($j == $i + 1) {
+                            Shift::add($cell, $cells[$i][$j-1]);                            
+                        } elseif($j == $i - 1 && $j > 1) {
+                            Shift::add($cell, $cells[$i-1][$j]);                            
+                        }
+                    }
+                }
+            }
+        }
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**
@@ -47,7 +82,8 @@ class Map extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'question1_text' => 'Question 1',
-            'question2_text' => 'Question 2',            
+            'question2_text' => 'Question 2',
+            'size' => 'Size'
         ];
     }
 
@@ -69,5 +105,13 @@ class Map extends \yii\db\ActiveRecord
     public function getAnswers2()
     {
         return $this->hasMany(Answer::class, ['map_id' => 'id'])->onCondition('question = 2')->orderBy('id');
+    }
+    
+    public static function getSizeList(): array {
+        return [
+            3 => '3x3',
+            4 => '4x4',
+            5 => '5x5',
+        ];
     }
 }

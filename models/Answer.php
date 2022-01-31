@@ -119,4 +119,13 @@ class Answer extends \yii\db\ActiveRecord
         }
         return $list;
     }
+    
+    public static function add(Map $map, int $question, $content): Answer {
+        $answer = new Answer();
+        $answer->map_id = $map->id;
+        $answer->question = $question;
+        $answer->content = $content;
+        $answer->save();
+        return $answer;
+    }
 }

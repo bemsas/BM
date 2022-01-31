@@ -116,4 +116,12 @@ class Cell extends \yii\db\ActiveRecord
         }
         return $list;
     }
+    
+    public static function add(Answer $answer1, Answer $answer2): Cell {
+        $cell = new Cell();
+        $cell->answer1_id = $answer1->id;
+        $cell->answer2_id = $answer2->id;
+        $cell->save();
+        return $cell;
+    }
 }
