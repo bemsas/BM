@@ -9,9 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $cell_start_id start cell ID
- * @property int $cell_end_id end cell ID
- * @property string $question1_content Question 1 content
- * @property string $question2_content Question 2 content
+ * @property int $cell_end_id end cell ID 
  *
  * @property Cell $cellEnd
  * @property Cell $cellStart
@@ -32,10 +30,9 @@ class Shift extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cell_start_id', 'cell_end_id', 'question1_content', 'question2_content'], 'required'],
+            [['cell_start_id', 'cell_end_id'], 'required'],
             [['cell_start_id', 'cell_end_id'], 'default', 'value' => null],
-            [['cell_start_id', 'cell_end_id'], 'integer'],
-            [['question1_content', 'question2_content'], 'string', 'max' => 2000],
+            [['cell_start_id', 'cell_end_id'], 'integer'],            
             [['cell_start_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cell::class, 'targetAttribute' => ['cell_start_id' => 'id']],
             [['cell_end_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cell::class, 'targetAttribute' => ['cell_end_id' => 'id']],
         ];
@@ -49,9 +46,7 @@ class Shift extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cell_start_id' => 'Start cell',
-            'cell_end_id' => 'End cell',
-            'question1_content' => 'Question 1 content',
-            'question2_content' => 'Question 2 content',
+            'cell_end_id' => 'End cell',            
         ];
     }
 
@@ -79,8 +74,6 @@ class Shift extends \yii\db\ActiveRecord
         $shift = new self();
         $shift->cell_start_id = $start->id;
         $shift->cell_end_id = $end->id;
-        $shift->question1_content = '1';
-        $shift->question2_content = '2';
         $shift->save();
         return $shift;
     }

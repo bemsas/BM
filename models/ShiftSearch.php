@@ -19,8 +19,7 @@ class ShiftSearch extends Shift
     public function rules()
     {
         return [
-            [['id', 'cell_start_id', 'cell_end_id'], 'integer'],
-            [['question1_content', 'question2_content'], 'safe'],
+            [['id', 'cell_start_id', 'cell_end_id'], 'integer'],            
         ];
     }
 
@@ -70,10 +69,7 @@ class ShiftSearch extends Shift
             'id' => $this->id,
             'cell_start_id' => $this->cell_start_id,
             'cell_end_id' => $this->cell_end_id,
-        ]);
-
-        $query->andFilterWhere(['ilike', 'question1_content', $this->question1_content])
-            ->andFilterWhere(['ilike', 'question2_content', $this->question2_content]);
+        ]);        
 
         return $dataProvider;
     }
