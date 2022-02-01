@@ -60,12 +60,15 @@ $this->registerJs($js);
         </div>
         <p>&nbsp;</p>
         <div class="map" style="width: 60%; margin:auto;">            
-            <?php 
-                foreach(['A', 'B', 'C', 'D'] as $position1) {
+            <?php
+                $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
+                $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
+                $wide = 7 - $model->size;
+                foreach($rows as $row) {
                     echo Html::beginTag('div', ['class' => 'row']);
-                    foreach(['4', '3', '2', '1'] as $position2) {
-                        $value = isset($cellCodes[$position1.$position2]) ? Html::a($position1.$position2, ['cell/view', 'id' => $cellCodes[$position1.$position2]]) : '&nbsp;';
-                        echo Html::tag("div", $value, ['class' => "col-lg-3 cell bg-{$position1}{$position2}", 'id' => "cell-$position1$position2"]), "\n";
+                    foreach($columns as $column) {
+                        $value = isset($cellCodes[$row.$column]) ? Html::a($row.$column, ['cell/view', 'id' => $cellCodes[$row.$column]]) : '&nbsp;';
+                        echo Html::tag("div", $value, ['class' => "col-lg-$wide cell bg-{$row}{$column}", 'id' => "cell-$row$column"]), "\n";
                     }
                     echo Html::endTag('div');
                 }                                

@@ -8,9 +8,10 @@ use yii\helpers\Html;
 /* @var $code string */
 /* @var $shifts \app\models\Shift[] */
 
+$map = $model->answer1->map;
 $this->title = $code;
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
-$this->params['breadcrumbs'][] = ['label' => $model->answer1->map->name, 'url' => ['map/view', 'id' => $model->answer1->map_id]];
+$this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cell-view">
@@ -23,10 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <h2 class="bg-<?=$code ?>"><?= $code ?> Profile</h2>
             <div class="row">
                 <div class="col-lg-6">
-                    <h3 class="bg-<?=$code ?>"><?= $model->answer1->map->question1_text ?></h3>
+                    <h3 class="bg-<?=$code ?>"><?= $map->question1_text ?></h3>
                 </div>
                 <div class="col-lg-6">
-                    <h3 class="bg-<?=$code ?>"><?= $model->answer1->map->question2_text ?></h3>
+                    <h3 class="bg-<?=$code ?>"><?= $map->question2_text ?></h3>
                 </div>
             </div>
             <div class="row">
@@ -53,24 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 if($code == 'A1') {
                     echo Html::tag("div", "No approach shifts required for A1 profile payers", ['class' => "answer-block"]), "\n";
                 } else {
-                    foreach(['A', 'B', 'C', 'D'] as $position1) {
+                    $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $map->size);
+                    $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $map->size, $map->size);
+                    $wide = 7 - $map->size;
+                    foreach($rows as $row) {
                         echo Html::beginTag('div', ['class' => 'row']);
-                        foreach(['4', '3', '2', '1'] as $position2) {
+                        foreach($columns as $column) {
                             $arrow = '';
                             foreach($shifts as $shift) {
-                                if($cellCodes[$shift->cell_start_id] == $position1.$position2) {
+                                if($cellCodes[$shift->cell_start_id] == $row.$column) {
                                     $endCell = $cellCodes[$shift->cell_end_id];
-                                    if($endCell[0] == $position1) {
+                                    if($endCell[0] == $row) {
                                         $vectorClass = '';
-                                    } elseif($endCell[1] == $position2) {
+                                    } elseif($endCell[1] == $column) {
                                         $vectorClass = 'arrow-top';
                                     } else {
                                         $vectorClass = 'arrow-right-top';
                                     }
                                     $arrow = Html::img('images/arrow.png', ['class' => "arrow $vectorClass"]);
                                 }
-                            }
-                            echo Html::tag("div", $position1.$position2. $arrow, ['class' => "col-lg-3 cell bg-{$position1}{$position2}"]), "\n";
+                            }                            
+                            echo Html::tag("div", $row.$column. $arrow, ['class' => "col-lg-$wide cell bg-{$row}{$column}"]), "\n";
                         }
                         echo Html::endTag('div');
                     }
@@ -84,39 +88,39 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } else { ?>
         <div class="col-lg-1">
             <div class="row">
-                <div class="bg-<?=$code ?> shift-title"> <?= $model->answer1->map->question1_text ?></div>
+                <div class="bg-<?=$code ?> shift-title"> <?= $map->question1_text ?></div>
             </div>
             <div class="row">
-                <div class="bg-<?=$code ?> shift-title"> <?= $model->answer1->map->question2_text ?></div>
+                <div class="bg-<?=$code ?> shift-title"> <?= $map->question2_text ?></div>
             </div>            
         </div>
         <div class="col-lg-7">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-<?= $wide?>">
                     <div class="bg-<?=$code ?> shift-block"> <?=$model->answer1->content ?></div>
                 </div>
                 <?php
                     foreach($shifts as $shift) { ?>
-                        <div class="col-lg-3">
+                        <div class="col-lg-<?= $wide?>">
                             <div class="bg-<?=$cellCodes[$shift->cell_end_id] ?> shift-block"> <?=$shift->cellEnd->answer1->content ?></div>
                         </div>
                     <?php }
                 ?>                
             </div>
             <div class="row" style="margin-top: 5px">
-                <div class="col-lg-3">
+                <div class="col-lg-<?= $wide?>">
                     <div class="bg-<?=$code ?> shift-block"> <?=$model->answer2->content ?></div>
                 </div>
                 <?php
                     foreach($shifts as $shift) { ?>
-                        <div class="col-lg-3">
+                        <div class="col-lg-<?= $wide?>">
                             <div class="bg-<?=$cellCodes[$shift->cell_end_id] ?> shift-block"> <?=$shift->cellEnd->answer2->content ?></div>
                         </div>
                     <?php }
                 ?>
             </div>
             <div class="row" style="margin-top: 5px">
-                <div class="col-lg-3">
+                <div class="col-lg-<?= $wide?>">
                     <div class="bg-<?=$code ?>"> 
                         <?=$code ?>
                         <image src="images/arrow.png" class="arrow">
@@ -124,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php
                     foreach($shifts as $shift) { ?>
-                        <div class="col-lg-3">
+                        <div class="col-lg-<?= $wide?>">
                             <div class="bg-<?=$cellCodes[$shift->cell_end_id] ?>"> 
                                 <image src="images/arrow.png" class="arrow">
                                 <?=$cellCodes[$shift->cell_end_id] ?>

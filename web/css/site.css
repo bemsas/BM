@@ -96,6 +96,9 @@ a.desc:after {
 .bg-A4 {
     background: #D5D10E;
 }
+.bg-A5 {
+    background: #E1DD01;
+}
 .bg-B1 {
     background: #E0E8E9;
 }
@@ -107,6 +110,9 @@ a.desc:after {
 }
 .bg-B4 {
     background: #A2BDC1;
+}
+.bg-B5 {
+    background: #89A8AC;
 }
 .bg-C1 {
     background: #DEE0E0;
@@ -120,6 +126,9 @@ a.desc:after {
 .bg-C4 {
     background: #9AA1A1;
 }
+.bg-C5 {
+    background: #888E8E;
+}
 .bg-D1 {
     background: #CDCFD2;
 }
@@ -130,7 +139,25 @@ a.desc:after {
     background: #898A92;
 }
 .bg-D4 {
-    background: #667A8A;
+    background: #7E8088;
+}
+.bg-D5 {
+    background: #717277;
+}
+.bg-E1 {
+    background: #C8C5D2;
+}
+.bg-E2 {
+    background: #BDB9C8;
+}
+.bg-E3 {
+    background: #A7A4B0;
+}
+.bg-E4 {
+    background: #8F8C99;
+}
+.bg-E5 {
+    background: #64616C;
 }
 
 .cell-view {
