@@ -10,6 +10,7 @@ use app\models\Map;
 /* @var $searchModel app\models\MapSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $sizes array */
+/* @var $isAdmin bool */
 
 $this->title = 'Maps';
 $this->params['breadcrumbs'][] = $this->title;
@@ -31,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'name',
-                'value' => function(Map $model) {
-                    return Html::a($model->name, ['view', 'id' => $model->id], ['data-pjax' => 0]);
+                'value' => function(Map $model) use ($isAdmin) {
+                    return Html::a($model->name, [$isAdmin ? 'view' : 'select', 'id' => $model->id], ['data-pjax' => 0]);
                 },
                 'format' => 'raw'
             ],

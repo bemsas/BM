@@ -10,12 +10,22 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use Yii;
+use app\models\User;
 
 /**
  * CellController implements the CRUD actions for Cell model.
  */
 class CellController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
     /**
      * @inheritDoc
      */
@@ -30,6 +40,15 @@ class CellController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['@'],
+                            'matchCallback' => function()
+                            {
+                                return $this->isAdmin();                                
+                            }
+                        ],
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],                            
                         ],
                     ],
                 ],

@@ -7,12 +7,23 @@ use app\models\CompanySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use Yii;
+use app\models\User;
 
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
 class CompanyController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
     /**
      * @inheritDoc
      */
@@ -21,6 +32,19 @@ class CompanyController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function()
+                            {
+                                return $this->isAdmin();                                
+                            }
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::class,
                     'actions' => [

@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $isAdmin bool */
 
 use yii\helpers\Html;
 ?>
@@ -19,14 +20,16 @@ use yii\helpers\Html;
                 <?= Html::a('Contacts', ['contact/index']) ?><br>
                 <?= Html::a('Logbook', ['logbook/index']) ?><br>
             </div>
-            <div class="col-lg-6">
-                <h2>Administration</h2>
+            <?php if($isAdmin) { ?>
+                <div class="col-lg-6">
+                    <h2>Administration</h2>
 
-                <?= Html::a('Maps', ['map/index']) ?><br>
-                <?= Html::a('Companies', ['company/index']) ?><br>
-                <?= Html::a('Users', ['user/index']) ?><br>
-                <?= Html::a('All contacts', ['contact/index', 'all' => 1]) ?><br>
-            </div>                        
+                    <?= Html::a('Maps', ['map/index']) ?><br>
+                    <?= Html::a('Companies', ['company/index']) ?><br>
+                    <?= Html::a('Users', ['user/index']) ?><br>
+                    <?= Html::a('All contacts', ['contact/index', 'all' => 1]) ?><br>
+                </div>                 
+            <?php } ?>
         </div>
 
     </div>

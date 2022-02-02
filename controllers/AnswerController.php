@@ -8,12 +8,22 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use Yii;
+use app\models\User;
 
 /**
  * AnswerController implements the CRUD actions for Answer model.
  */
 class AnswerController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
     /**
      * @inheritDoc
      */
@@ -28,6 +38,10 @@ class AnswerController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['@'],
+                            'matchCallback' => function()
+                            {
+                                return $this->isAdmin();                                
+                            }
                         ],
                     ],
                 ],

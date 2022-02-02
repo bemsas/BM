@@ -13,12 +13,22 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use Yii;
+use app\models\User;
 
 /**
  * MapController implements the CRUD actions for Map model.
  */
 class MapController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
     /**
      * @inheritDoc
      */
@@ -33,8 +43,17 @@ class MapController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['@'],
+                            'matchCallback' => function()
+                            {
+                                return $this->isAdmin();                                
+                            }
                         ],
-                    ],
+                        [
+                            'actions' => ['index', 'select', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],                            
+                        ],
+                    ]
                 ],
                 'verbs' => [
                     'class' => VerbFilter::class,
@@ -59,7 +78,8 @@ class MapController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'sizes' => Map::getSizeList() 
+            'sizes' => Map::getSizeList(),
+            'isAdmin' => $this->isAdmin(),
         ]);
     }
 
@@ -71,8 +91,11 @@ class MapController extends Controller
      */
     public function actionView($id)
     {
+        if(!$this->isAdmin()) {
+            $this->redirect(['select', 'id' => $id]);
+        }
         $model = $this->findModel($id);
-        return $this->render('view', [
+        return $this->render('view', [            
             'model' => $model,
             'answer1Index' => $this->renderAnswerIndex($model, 1),
             'answer2Index' => $this->renderAnswerIndex($model, 2),
