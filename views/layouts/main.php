@@ -9,8 +9,16 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use app\models\User;
 
 AppAsset::register($this);
+
+if(Yii::$app->user->isGuest) {
+    $type = 'guest';
+} else {
+    $types = User::getTypeList();
+    $type = $types[Yii::$app->user->identity->user->type];
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -46,7 +54,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->username . ', '. $type. ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

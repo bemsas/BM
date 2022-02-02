@@ -67,8 +67,26 @@ class Contact extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
     
+    public static function getListByCompanyId($companyId): array {
+        $models = self::find()->joinWith('user u', false)->andWhere(['u.company_id' => $companyId])->orderBy('contact.name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    } 
+    
     public static function getListByUserId($userId): array {
         $models = self::find()->andWhere(['user_id' => $userId])->orderBy('name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    } 
+    
+    public static function getList(): array {
+        $models = self::find()->orderBy('name')->all();
         $list = [];
         foreach($models as $model) {
             $list[$model->id] = $model->name;

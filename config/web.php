@@ -8,6 +8,7 @@ $config = [
     'name' => 'Belief MAP',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'timezone' => 'Europe/Paris',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

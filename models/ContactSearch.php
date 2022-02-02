@@ -11,13 +11,14 @@ use app\models\Contact;
  */
 class ContactSearch extends Contact
 {
+    public $company_id;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
+            [['id', 'user_id', 'company_id'], 'integer'],
             [['name', 'phone', 'email', 'comment'], 'safe'],
         ];
     }
@@ -46,14 +47,19 @@ class ContactSearch extends Contact
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
+        ]);                
 
-        $this->load($params);
+        $this->load($params);               
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+        
+        if($this->company_id) {
+            $query->joinWith('user u');
+            $query->andWhere(['u.company_id' => $this->company_id]);
         }
 
         // grid filtering conditions

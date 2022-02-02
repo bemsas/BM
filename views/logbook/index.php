@@ -9,6 +9,7 @@ use app\models\Logbook;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\LogbookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $users array */
 /* @var $contacts array */
 
 $this->title = 'Logbooks';
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function(Logbook $model) {
                     return $model->user->name;
                 },
-                'filter' => false
+                'filter' => $users
             ],
             [
                 'attribute' => 'contact_id',

@@ -88,4 +88,22 @@ class User extends \yii\db\ActiveRecord
             self::TYPE_USER => 'Regular user',
         ];
     }
+    
+    public static function getListByCompanyId($companyId): array {
+        $models = self::find()->andWhere(['company_id' => $companyId])->orderBy('name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    }         
+    
+    public static function getList(): array {
+        $models = self::find()->orderBy('name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    } 
 }

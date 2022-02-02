@@ -9,12 +9,30 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\User;
+use Yii;
 
 /**
  * LogbookController implements the CRUD actions for Logbook model.
  */
 class LogbookController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
+    private function isManager(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_COMPANY_MANAGER;
+    }
     /**
      * @inheritDoc
      */
@@ -33,7 +51,7 @@ class LogbookController extends Controller
                     ],
                 ],
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -47,18 +65,28 @@ class LogbookController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($all = false)
     {
-        $searchModel = new LogbookSearch($all = false);
-        if(!$all) {
+        $searchModel = new LogbookSearch();        
+        if($all && $this->isAdmin()) {     
+            $contacts = Contact::getList();
+            $users = User::getList();
+        } elseif($all && $this->isManager()) {
+            $searchModel->company_id = \Yii::$app->user->identity->user->company_id;
+            $users = User::getListByCompanyId($searchModel->company_id);
+            $contacts = Contact::getListByCompanyId($searchModel->company_id);
+        } else {
             $searchModel->user_id = \Yii::$app->user->id;
-        }
+            $users = false;
+            $contacts = Contact::getListByUserId(\Yii::$app->user->id);
+        }        
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'contacts' => Contact::getListByUserId(\Yii::$app->user->id)
+            'users' => $users,
+            'contacts' => $contacts
         ]);
     }
 

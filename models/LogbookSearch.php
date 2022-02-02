@@ -11,13 +11,14 @@ use app\models\Logbook;
  */
 class LogbookSearch extends Logbook
 {
+    public $company_id;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'contact_id'], 'integer'],
+            [['id', 'user_id', 'contact_id', 'company_id'], 'integer'],
             [['date_in', 'content'], 'safe'],
         ];
     }    
@@ -46,7 +47,7 @@ class LogbookSearch extends Logbook
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
+        ]);                
 
         $this->load($params);
 
@@ -54,6 +55,11 @@ class LogbookSearch extends Logbook
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+        
+        if($this->company_id) {
+            $query->joinWith('user u');
+            $query->andWhere(['u.company_id' => $this->company_id]);
         }
 
         // grid filtering conditions

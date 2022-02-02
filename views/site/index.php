@@ -17,8 +17,8 @@ use yii\helpers\Html;
             <div class="col-lg-6">
                 <h2>Client vision</h2>
                 <?= Html::a('Maps', ['map/index']) ?><br>
-                <?= Html::a('Contacts', ['contact/index']) ?><br>
-                <?= Html::a('Logbook', ['logbook/index']) ?><br>
+                <?= Html::a('Contacts', ['contact/index', 'all' => 1]) ?><br>
+                <?= Html::a('Logbook', ['logbook/index', 'all' => 1]) ?><br>
             </div>
             <?php if($isAdmin) { ?>
                 <div class="col-lg-6">

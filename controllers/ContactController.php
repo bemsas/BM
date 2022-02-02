@@ -8,12 +8,30 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use Yii;
+use app\models\User;
 
 /**
  * ContactController implements the CRUD actions for Contact model.
  */
 class ContactController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
+    private function isManager(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_COMPANY_MANAGER;
+    }
     /**
      * @inheritDoc
      */
@@ -49,14 +67,21 @@ class ContactController extends Controller
     public function actionIndex($all = false)
     {
         $searchModel = new ContactSearch();
-        if(!$all) {
+        if($all && $this->isAdmin()) {     
+            $users = User::getList();
+        } elseif($all && $this->isManager()) {
+            $searchModel->company_id = \Yii::$app->user->identity->user->company_id;
+            $users = User::getListByCompanyId($searchModel->company_id);            
+        } else {
             $searchModel->user_id = \Yii::$app->user->id;
+            $users = false;            
         }
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'users' => $users
         ]);
     }
 
