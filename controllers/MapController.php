@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Map;
 use app\models\Cell;
 use app\models\MapSearch;
+use app\models\MapCompanySearch;
 use app\models\Answer;
 use app\models\AnswerSearch;
 use app\models\CellSearch;
@@ -73,13 +74,17 @@ class MapController extends Controller
     public function actionIndex()
     {
         $searchModel = new MapSearch();
+        $isAdmin = $this->isAdmin();
+        if(!$isAdmin) {
+            $searchModel->companyId = \Yii::$app->user->identity->user->company_id;
+        }
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'sizes' => Map::getSizeList(),
-            'isAdmin' => $this->isAdmin(),
+            'isAdmin' => $isAdmin,
         ]);
     }
 
@@ -97,12 +102,30 @@ class MapController extends Controller
         $model = $this->findModel($id);
         return $this->render('view', [            
             'model' => $model,
+            'companyIndex' => $this->renderCompanyIndex($model),
             'answer1Index' => $this->renderAnswerIndex($model, 1),
             'answer2Index' => $this->renderAnswerIndex($model, 2),
             'cellIndex' => $this->renderCellIndex($model),
             'shiftIndex' => $this->renderShiftIndex($model),            
         ]);
     }    
+    
+    /**
+     * Lists all Answer models.
+     *
+     * @return string
+     */
+    private function renderCompanyIndex(Map $model)
+    {
+        $searchModel = new MapCompanySearch();
+        $searchModel->map_id = $model->id;        
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->renderPartial('/map-company/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     
     /**
      * Lists all Answer models.

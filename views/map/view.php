@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Map */
+/* @var $companyIndex string */
 /* @var $answer1Index string */
 /* @var $answer2Index string */
 /* @var $cellIndex string */
@@ -31,6 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>    
 
 </div>
+
+<h2>Company Access</h2>
+<?= $companyIndex ?>
 
 <h2><?= Html::encode($model->question1_text) ?></h2>
 <?= $answer1Index ?>

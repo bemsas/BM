@@ -18,6 +18,7 @@ use Yii;
  *
  * @property Answer[] $answers1 question 1 answers
  * @property Answer[] $answers2 question 2 answers
+ * @property MapCompany[] $mapCompanies
  */
 class Map extends \yii\db\ActiveRecord
 {
@@ -105,6 +106,16 @@ class Map extends \yii\db\ActiveRecord
     public function getAnswers2()
     {
         return $this->hasMany(Answer::class, ['map_id' => 'id'])->onCondition('question = 2')->orderBy('id');
+    }
+    
+    /**
+     * Gets query for [[MapCompanies]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMapCompanies()
+    {
+        return $this->hasMany(MapCompany::class, ['map_id' => 'id']);
     }
     
     public static function getSizeList(): array {
