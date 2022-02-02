@@ -39,7 +39,7 @@ if(Yii::$app->user->isGuest) {
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-info fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top',
         ],
     ]);
     echo Nav::widget([

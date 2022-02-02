@@ -159,6 +159,9 @@ a.desc:after {
 .bg-E5 {
     background: #64616C;
 }
+.bg-main {
+    background: #c3d500;
+}
 
 .cell-view {
     h1, h2, h3, h5 {
