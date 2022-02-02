@@ -11,6 +11,7 @@ use app\models\User;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $types array */
 /* @var $companies array */
+/* @var $isAdmin */
 
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,9 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if($isAdmin) { ?>
     <p>
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php } ?>
 
     <?php Pjax::begin(); ?>    
 
@@ -50,14 +53,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function(User $model) {
                     return $model->company->name;
                 },
-                'filter' => $companies
+                'filter' => $companies,
+                'visible' => $isAdmin,
             ],
             [
                 'header' => 'Controls',
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                'visible' => $isAdmin
             ],
         ],
     ]); ?>

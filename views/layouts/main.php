@@ -46,8 +46,8 @@ if(Yii::$app->user->isGuest) {
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Contacts', 'url' => ['/contact/index'], 'linkOptions' => ['target' => 'blank']],
-            ['label' => 'Logbook', 'url' => ['/logbook/index'], 'linkOptions' => ['target' => 'blank']],
+            ['label' => 'Contacts', 'url' => ['/contact/index'], 'linkOptions' => ['target' => '_blank'], 'visible' => $type !== 'guest'],
+            ['label' => 'Logbook', 'url' => ['/logbook/index'], 'linkOptions' => ['target' => '_blank'], 'visible' => $type !== 'guest'],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

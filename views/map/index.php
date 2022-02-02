@@ -19,9 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Map', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if($isAdmin) { ?>
+        <p>
+            <?= Html::a('Create Map', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php } ?>
 
     <?php Pjax::begin(); ?>    
 

@@ -43,6 +43,11 @@ class UserController extends Controller
                                 return $this->isAdmin();                                
                             }
                         ],
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],                            
+                        ],
                     ],
                 ],
                 'verbs' => [
@@ -63,13 +68,18 @@ class UserController extends Controller
     public function actionIndex()
     {
         $searchModel = new UserSearch();
+        $isAdmin = $this->isAdmin();
+        if(!$isAdmin) {
+            $searchModel->company_id = \Yii::$app->user->identity->user->company_id;
+        }
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'types' => User::getTypeList(),
-            'companies' => Company::getList()
+            'companies' => Company::getList(),
+            'isAdmin' => $isAdmin,
         ]);
     }
 

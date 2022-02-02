@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $isAdmin bool */
+/* @var $isManager bool */
 
 use yii\helpers\Html;
 ?>
@@ -19,6 +20,10 @@ use yii\helpers\Html;
                 <?= Html::a('Maps', ['map/index']) ?><br>
                 <?= Html::a('Contacts', ['contact/index', 'all' => 1]) ?><br>
                 <?= Html::a('Logbook', ['logbook/index', 'all' => 1]) ?><br>
+                <?php if($isManager) {
+                    echo Html::a('Your company users', ['user/index']), '<br>';
+                } 
+                ?>
             </div>
             <?php if($isAdmin) { ?>
                 <div class="col-lg-6">

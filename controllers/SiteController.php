@@ -12,6 +12,14 @@ use app\models\User;
 
 class SiteController extends Controller
 {
+    private function isManager(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_COMPANY_MANAGER;
+    }
     private function isAdmin(): bool {
         if(Yii::$app->user->isGuest) {
             return false;
@@ -71,6 +79,7 @@ class SiteController extends Controller
     {
         return $this->render('index', [
             'isAdmin' => $this->isAdmin(),
+            'isManager' => $this->isManager(),
         ]);
     }
 
