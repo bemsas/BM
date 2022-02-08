@@ -6,6 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Cell */
 /* @var $cellCodes array */
 /* @var $code string */
+/* @var $colors array*/
+/* @var $color string */
 /* @var $shifts \app\models\Shift[] */
 
 $map = $model->answer1->map;
@@ -15,37 +17,13 @@ $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', '
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cell-view">
-
+    
     <div class="row">
         <div class="col-lg-4">
-            <h1 class="bg-<?=$code ?>"><?= $code ?></h1>
-        </div>
-        <div class="col-lg-8">
-            <h2 class="bg-<?=$code ?>"><?= $code ?> Profile</h2>
-            <div class="row">
-                <div class="col-lg-6">
-                    <h3 class="bg-<?=$code ?>"><?= $map->question1_text ?></h3>
-                </div>
-                <div class="col-lg-6">
-                    <h3 class="bg-<?=$code ?>"><?= $map->question2_text ?></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="answer-block"> <?=$model->answer1->content ?></div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="answer-block"> <?=$model->answer2->content ?></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <h5 class="bg-<?=$code ?>"> Ideal Journey and Approach Shifts</h5>
+            <h5 style="background: <?=$color ?>" > Ideal Journey and Approach Shifts</h5>
         </div>        
         <div class="col-lg-8">
-            <h5 class="bg-<?=$code ?>"><?= $code ?> Approach & Funding Shifts</h5>
+            <h5 style="background: <?=$color ?>"><?= $code ?> Approach & Funding Shifts</h5>
         </div>
     </div>
     <div class="row">
@@ -61,8 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo Html::beginTag('div', ['class' => 'row']);
                         foreach($columns as $column) {
                             $arrow = '';
+                            $cellCode = $row.$column;
                             foreach($shifts as $shift) {
-                                if($cellCodes[$shift->cell_start_id] == $row.$column) {
+                                if($cellCodes[$shift->cell_start_id] == $cellCode) {
                                     $endCell = $cellCodes[$shift->cell_end_id];
                                     if($endCell[0] == $row) {
                                         $vectorClass = '';
@@ -74,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $arrow = Html::img('images/arrow.png', ['class' => "arrow $vectorClass"]);
                                 }
                             }                            
-                            echo Html::tag("div", $row.$column. $arrow, ['class' => "col-lg-$wide cell bg-{$row}{$column}"]), "\n";
+                            echo Html::tag("div", $cellCode. $arrow, ['class' => "col-lg-$wide cell", 'style' => 'background: '.$colors[$cellCode]]), "\n";
                         }
                         echo Html::endTag('div');
                     }
@@ -88,48 +67,57 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } else { ?>
         <div class="col-lg-1">
             <div class="row">
-                <div class="bg-<?=$code ?> shift-title"> <?= $map->question1_text ?></div>
+                <div style="background: <?=$color ?>" class="shift-title"> <?= $map->question1_text ?></div>
             </div>
             <div class="row">
-                <div class="bg-<?=$code ?> shift-title"> <?= $map->question2_text ?></div>
+                <div style="background: <?=$color ?>" class="shift-title"> <?= $map->question2_text ?></div>
             </div>            
         </div>
         <div class="col-lg-7">
             <div class="row">
                 <div class="col-lg-<?= $wide?>">
-                    <div class="bg-<?=$code ?> shift-block"> <?=$model->answer1->content ?></div>
+                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->answer1->content ?></div>
                 </div>
                 <?php
-                    foreach($shifts as $shift) { ?>
+                    foreach($shifts as $shift) { 
+                            $cellCode = $cellCodes[$shift->cell_end_id];
+                            $cellColor = $colors[$cellCode];
+                        ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div class="bg-<?=$cellCodes[$shift->cell_end_id] ?> shift-block"> <?=$shift->cellEnd->answer1->content ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->answer1->content ?></div>
                         </div>
                     <?php }
                 ?>                
             </div>
             <div class="row" style="margin-top: 5px">
                 <div class="col-lg-<?= $wide?>">
-                    <div class="bg-<?=$code ?> shift-block"> <?=$model->answer2->content ?></div>
+                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->answer2->content ?></div>
                 </div>
                 <?php
-                    foreach($shifts as $shift) { ?>
+                    foreach($shifts as $shift) { 
+                            $cellCode = $cellCodes[$shift->cell_end_id];
+                            $cellColor = $colors[$cellCode];
+                        ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div class="bg-<?=$cellCodes[$shift->cell_end_id] ?> shift-block"> <?=$shift->cellEnd->answer2->content ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->answer2->content ?></div>
                         </div>
                     <?php }
                 ?>
             </div>
             <div class="row" style="margin-top: 5px">
                 <div class="col-lg-<?= $wide?>">
-                    <div class="bg-<?=$code ?>"> 
+                    <div style="background: <?=$color ?>"> 
                         <?=$code ?>
                         <image src="images/arrow.png" class="arrow">
                     </div>
                 </div>
                 <?php
-                    foreach($shifts as $shift) { ?>
+                    foreach($shifts as $shift) { 
+                            $cellCode = $cellCodes[$shift->cell_end_id];
+                            $cellColor = $colors[$cellCode];
+                        ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div class="bg-<?=$cellCodes[$shift->cell_end_id] ?>"> 
+                            <div style="background: <?=$cellColor ?>"> 
                                 <image src="images/arrow.png" class="arrow">
                                 <?=$cellCodes[$shift->cell_end_id] ?>
                             </div>

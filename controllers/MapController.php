@@ -160,8 +160,7 @@ class MapController extends Controller
             'searchModel' => $searchModel,
             'map' => $model,
             'dataProvider' => $dataProvider,
-            'answerPositions1' => Answer::getAnswerPositions1($model->id),
-            'answerPositions2' => Answer::getAnswerPositions2($model->id),
+            'cellCodes' =>  Cell::getCodeList($model->id),
         ]);
     }
     

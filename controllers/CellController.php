@@ -81,10 +81,24 @@ class CellController extends Controller
     public function actionView($id) {
         $model = $this->findModel($id);
         $cellCodes = Cell::getCodeList($model->answer1->map_id);        
+        $cells = Cell::findAllByMapId($model->answer1->map_id);
+        
+        $colors = [];
+        $defaultColors = Cell::defaultColors();
+        $cellIds = array_flip($cellCodes);
+        foreach($defaultColors as $code => $color) { //@todo need refactoring. Create method to find all map cells and indexed my code.
+            $colors[$code] = $color;
+            if(key_exists($code, $cellIds)) {
+                $cell = Cell::findOne($cellIds[$code]);
+                $colors[$code] = $cell->getColor($code);
+            }
+        }        
         return $this->render('view', [
             'model' => $model,
             'code' => $cellCodes[$model->id],
             'cellCodes' => $cellCodes,
+            'color' => $colors[$cellCodes[$model->id]],
+            'colors' => $colors,
             'shifts' => $model->getAllShifts()
         ]);
     }
@@ -124,6 +138,11 @@ class CellController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if(!$model->color) {
+            $colors = Cell::defaultColors();
+            $codes = Cell::getCodeList($model->answer1->map_id);
+            $model->color = $colors[$codes[$model->id]];
+        }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['/map/view', 'id' => $model->answer1->map_id]);

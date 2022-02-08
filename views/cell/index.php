@@ -9,8 +9,7 @@ use yii\widgets\Pjax;
 /* @var $map app\models\Map */
 /* @var $searchModel app\models\CellSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $answerPositions1 array */
-/* @var $answerPositions2 array */
+/* @var $cellCodes array */
 ?>
 <div class="cell-index">
 
@@ -28,8 +27,12 @@ use yii\widgets\Pjax;
         'columns' => [
             [
                 'attribute' => 'id',
-                'value' => function(Cell $model) use ($answerPositions1, $answerPositions2) {
-                    return Html::a($answerPositions1[$model->answer1_id].$answerPositions2[$model->answer2_id], ['/cell/view', 'id' => $model->id]);
+                'value' => function(Cell $model) use ($cellCodes) {
+                    return Html::a($cellCodes[$model->id], ['/cell/view', 'id' => $model->id]);
+                },
+                'contentOptions' => function(Cell $model) use ($cellCodes) {
+                    $color = $model->getColor($cellCodes[$model->id]);
+                    return ['style' => "background: $color"];
                 },
                 'format' => 'raw',
             ],

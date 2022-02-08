@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\color\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cell */
@@ -27,6 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'answer1_id')->dropDownList($answers1) ?>
 
         <?= $form->field($model, 'answer2_id')->dropDownList($answers2) ?>
+        <?= $form->field($model, 'color')->widget(ColorInput::class, [
+                'options' => ['placeholder' => 'Select color ...'],
+            ])
+        ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
