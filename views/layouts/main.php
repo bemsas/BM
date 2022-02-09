@@ -10,14 +10,24 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use app\models\User;
+use app\models\Company;
 
 AppAsset::register($this);
 
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
+    $company = null;
 } else {
     $types = User::getTypeList();
     $type = $types[Yii::$app->user->identity->user->type];
+    $company = Yii::$app->user->identity->user->company;
+}
+if($company) {
+    $brandLabel = $company->name;
+    $brandColor = $company->getColor();
+} else {
+    $brandLabel = Yii::$app->name;
+    $brandColor = Company::DEFAULT_COLOR;
 }
 ?>
 <?php $this->beginPage() ?>
@@ -36,10 +46,11 @@ if(Yii::$app->user->isGuest) {
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => $brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top',
+            'style' => "background: $brandColor;",
         ],
     ]);
     echo Nav::widget([

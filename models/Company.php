@@ -9,11 +9,13 @@ use Yii;
  *
  * @property int $id ID
  * @property string $name Name
+ * @property string $color color
  *
  * @property User[] $users
  */
 class Company extends \yii\db\ActiveRecord
 {
+    const DEFAULT_COLOR = '#c3d500';
     /**
      * {@inheritdoc}
      */
@@ -30,6 +32,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 200],
+            [['color'], 'string', 'max' => 20],
         ];
     }
 
@@ -41,6 +44,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'color' => 'banner color'
         ];
     }
 
@@ -61,5 +65,12 @@ class Company extends \yii\db\ActiveRecord
             $list[$model->id] = $model->name;
         }
         return $list;
+    }
+    
+    public function getColor(): string {
+        if($this->color) {
+            return $this->color;
+        }
+        return '#c3d500';
     }
 }

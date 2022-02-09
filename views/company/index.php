@@ -30,6 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             [
+                'attribute' => 'name',
+                'contentOptions' => function(Company $model) {
+                    $color = $model->getColor();
+                    return ['style' => "background: $color"];
+                },
+            ],
+            [
                 'header' => 'Controls',
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Company $model, $key, $index, $column) {

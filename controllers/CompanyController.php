@@ -92,6 +92,7 @@ class CompanyController extends Controller
     public function actionCreate()
     {
         $model = new Company();
+        $model->color = $model->getColor();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -116,6 +117,7 @@ class CompanyController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->color = $model->getColor();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['index']);

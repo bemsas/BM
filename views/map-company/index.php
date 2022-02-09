@@ -27,7 +27,7 @@ use app\models\MapCompany;
                 'attribute' => 'company_id',
                 'value' => function(MapCompany $model) {
                     return $model->company->name;
-                }
+                },
             ],
             [
                 'header' => 'controls',
