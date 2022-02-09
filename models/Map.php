@@ -15,6 +15,7 @@ use Yii;
  * @property string $question1_text Question 1
  * @property string $question2_text Question 2
  * @property int $size
+ * @property string $intro
  *
  * @property Answer[] $answers1 question 1 answers
  * @property Answer[] $answers2 question 2 answers
@@ -43,6 +44,7 @@ class Map extends \yii\db\ActiveRecord
             [['size'], 'integer'],
             [['size'], 'in', 'range' =>array_keys($sizes)],
             [['name', 'question1_text', 'question2_text', 'contactName'], 'string', 'max' => 200],
+            [['intro'], 'string', 'max' => 2000],
             [['question1', 'question2'], 'safe']
         ];
     }       
@@ -85,7 +87,8 @@ class Map extends \yii\db\ActiveRecord
             'name' => 'Name',
             'question1_text' => 'Question 1',
             'question2_text' => 'Question 2',
-            'size' => 'Size'
+            'size' => 'Size',
+            'intro' => 'Intro content'
         ];
     }
 

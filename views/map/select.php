@@ -46,7 +46,7 @@ $this->registerJs($js);
 
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <p>Please, insert your contact name and answer two key customer questions:</p>
+    <p><?=$model->intro ?></p>
     
     <div class="map-form">
 

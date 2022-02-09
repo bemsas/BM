@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>
+        
+        <?= $form->field($model, 'intro')->textArea(['maxlength' => 2000]) ?>
         
         <?= $form->field($model, 'size')->dropDownList($sizes) ?>
 
