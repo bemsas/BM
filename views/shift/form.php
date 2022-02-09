@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'cell_start_id')->dropDownList($cells) ?>
 
-        <?= $form->field($model, 'cell_end_id')->dropDownList($cells) ?>        
-
+        <?= $form->field($model, 'cell_end_id')->dropDownList($cells) ?>
+        
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
         </div>

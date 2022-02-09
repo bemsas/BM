@@ -12,6 +12,10 @@ use app\models\Answer;
  * @property int $answer1_id first answer ID
  * @property int $answer2_id second answer ID
  * @property string $color color
+ * @property string $question1_compact compact content for question 1
+ * @property string $question2_compact compact content for question 2
+ * @property string $content full content
+ * @property string $links links
  *
  * @property Answer $answer1
  * @property Answer $answer2
@@ -33,13 +37,15 @@ class Cell extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['answer1_id', 'answer2_id'], 'required'],
+            [['answer1_id', 'answer2_id', 'question1_compact', 'question2_compact', 'content'], 'required'],
             [['answer1_id', 'answer2_id'], 'default', 'value' => null],
             [['answer1_id', 'answer2_id'], 'integer'],
             [['answer1_id', 'answer2_id'], 'unique', 'targetAttribute' => ['answer1_id', 'answer2_id']],
             [['answer1_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answer::class, 'targetAttribute' => ['answer1_id' => 'id']],
             [['answer2_id'], 'exist', 'skipOnError' => true, 'targetClass' => Answer::class, 'targetAttribute' => ['answer2_id' => 'id']],
             [['color'], 'string', 'max' => 20],
+            [['question1_compact', 'question2_compact'], 'string', 'max' => 200],
+            [['content', 'links'], 'string', 'max' => 4000],
         ];
     }
 
@@ -52,7 +58,11 @@ class Cell extends \yii\db\ActiveRecord
             'id' => 'ID',
             'answer1_id' => 'first answer',
             'answer2_id' => 'second answer',
-            'color' => 'background color'
+            'color' => 'background color',
+            'question1_compact' => 'Question 1 compact text',
+            'question2_compact' => 'Question 2 compact text',
+            'content' => 'Content',
+            'links' => 'links'
         ];
     }
 
@@ -129,7 +139,10 @@ class Cell extends \yii\db\ActiveRecord
         $cell = new Cell();
         $cell->answer1_id = $answer1->id;
         $cell->answer2_id = $answer2->id;
-        $cell->color = null;
+        $cell->question1_compact = 'question 1 compact content';
+        $cell->question2_compact = 'question 2 compact content';
+        $cell->content = 'shift full content';
+        $cell->color = null;        
         $cell->save();
         return $cell;
     }

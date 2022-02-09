@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
 $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<h1><?=$map->name ?> - <?=$code ?></h1>
 <div class="cell-view">
     
     <div class="row">
@@ -76,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-7">
             <div class="row">
                 <div class="col-lg-<?= $wide?>">
-                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->answer1->content ?></div>
+                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->question1_compact ?></div>
                 </div>
                 <?php
                     foreach($shifts as $shift) { 
@@ -84,14 +85,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             $cellColor = $colors[$cellCode];
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->answer1->content ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->question1_compact ?></div>
                         </div>
                     <?php }
                 ?>                
             </div>
             <div class="row" style="margin-top: 5px">
                 <div class="col-lg-<?= $wide?>">
-                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->answer2->content ?></div>
+                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->question1_compact ?></div>
                 </div>
                 <?php
                     foreach($shifts as $shift) { 
@@ -99,34 +100,32 @@ $this->params['breadcrumbs'][] = $this->title;
                             $cellColor = $colors[$cellCode];
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->answer2->content ?></div>
-                        </div>
-                    <?php }
-                ?>
-            </div>
-            <div class="row" style="margin-top: 5px">
-                <div class="col-lg-<?= $wide?>">
-                    <div style="background: <?=$color ?>"> 
-                        <?=$code ?>
-                        <image src="images/arrow.png" class="arrow">
-                    </div>
-                </div>
-                <?php
-                    foreach($shifts as $shift) { 
-                            $cellCode = $cellCodes[$shift->cell_end_id];
-                            $cellColor = $colors[$cellCode];
-                        ?>
-                        <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>"> 
-                                <image src="images/arrow.png" class="arrow">
-                                <?=$cellCodes[$shift->cell_end_id] ?>
-                            </div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->question2_compact ?></div>
                         </div>
                     <?php }
                 ?>
             </div>            
         </div>
-        <?php } ?>
+            <?php 
+            $count = count($shifts);
+            foreach($shifts as $i => $shift) {
+                    $num = $i +1;
+                    $links = '';
+                    if($shift->cellEnd->links) {
+                        $urls = explode(' ', $shift->cellEnd->links);
+                        $links = [];
+                        foreach($urls as $j => $url) {                        
+                            $linkNum = $j + 1;
+                            $links[] = Html::a('link '.$linkNum, $url);
+                        }
+                        $links = Html::tag('div', implode(', ', $links));                    
+                    }
+                    echo Html::tag('div',$num.') '.$shift->cellEnd->content.$links, ['class' => 'shift-content']);
+                    if($i < $count - 1) {
+                        echo Html::tag('div', '<image src="images/arrow.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
+                    }
+            }
+        } ?>
     </div>
     <div class="row">
         <?= Html::a('back to map', ['map/view', 'id' => $model->answer1->map_id], ['class' => 'btn btn-info']) ?>

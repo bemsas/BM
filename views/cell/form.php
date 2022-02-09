@@ -28,6 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'answer1_id')->dropDownList($answers1) ?>
 
         <?= $form->field($model, 'answer2_id')->dropDownList($answers2) ?>
+        
+        <?= $form->field($model, 'question1_compact')->textInput(['maxlength' => '150']) ?>
+        
+        <?= $form->field($model, 'question2_compact')->textInput(['maxlength' => '150']) ?>
+        
+        <?= $form->field($model, 'content')->textArea(['maxlength' => '4000']) ?>
+        
+        <?= $form->field($model, 'links')->textArea(['maxlength' => '4000'])->hint('Use space as separator between links') ?>
+        
         <?= $form->field($model, 'color')->widget(ColorInput::class, [
                 'options' => ['placeholder' => 'Select color ...'],
             ])

@@ -44,6 +44,9 @@ use yii\widgets\Pjax;
                 'attribute' => 'answer2.content',
                 'label' => $map->question2_text,
             ],
+            'question1_compact',
+            'question2_compact',
+            'links',
             [
                 'class' => ActionColumn::class,
                 'header' => 'controls',

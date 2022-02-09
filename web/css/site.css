@@ -174,6 +174,13 @@ a.desc:after {
         margin-top: 10px;
     }
 }
+.shift-content {
+    border: 1px solid;
+    padding: 10px;
+    margin: 25px 0;
+    width: 100%;
+    border-radius: 5px;
+}
 .answer-block {
     background: #eee;
     height: 200px;
@@ -201,6 +208,18 @@ a.desc:after {
 }
 .arrow {
     position: relative; width: 50%; height: 30%; top: 30%; z-index: 1;
+}
+.container-arrow {
+    width: 100%;
+    text-align: center;
+    height: 50px;
+}
+.arrow-small {
+    margin-top: 1px;
+    height: 90%;
+}
+.arrow-bottom {
+    transform: rotate(90deg);
 }
 .arrow-top {
     transform: rotate(-90deg);

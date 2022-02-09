@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property int $cell_start_id start cell ID
  * @property int $cell_end_id end cell ID 
- *
+ 
  * @property Cell $cellEnd
  * @property Cell $cellStart
  */
@@ -46,7 +46,7 @@ class Shift extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cell_start_id' => 'Start cell',
-            'cell_end_id' => 'End cell',            
+            'cell_end_id' => 'End cell', 
         ];
     }
 
