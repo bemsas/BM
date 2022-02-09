@@ -9,9 +9,12 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $contacts array */
 
-$this->title = $model->isNewRecord ? 'Add Logbook' : 'Update logbook';
-$this->params['breadcrumbs'][] = ['label' => 'Logbooks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+if(get_class($this->context) == \app\controllers\LogbookController::class) {    
+    $this->title = $model->isNewRecord ? 'Add Logbook' : 'Update logbook';
+    $this->params['breadcrumbs'][] = ['label' => 'Logbooks', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
+}    
+
 $url = $model->isNewRecord ? Url::to(['logbook/create']) : Url::to(['logbook/update', 'id' => $model->id]);
 ?>
 <div class="logbook-create">

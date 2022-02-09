@@ -93,7 +93,7 @@ class Contact extends \yii\db\ActiveRecord
         if(!$model) {
             $model = new Contact();
             $model->name = $name;
-            $model->user_id = $userId;
+            $model->user_id = $user->id;
             $model->save();
         }
         return $model;

@@ -16,8 +16,19 @@ $this->title = $code;
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
 $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;
+
+$js = "$('.shift-block').on('click', function(){
+        let num = $(this).data('num');
+        console.log(num);
+        $('.shift-block.active').removeClass('active');
+        $('.shift-block[data-num='+num+']').addClass('active');
+        num -= 1;
+        location.hash = 'cell-content-'+num;
+        
+    });";
+$this->registerJs($js);
 ?>
-<h1><?=$map->name ?> - <?=$code ?></h1>
+<h2><?=$map->name ?> - <?=$code ?></h2>
 <div class="cell-view">
     
     <div class="row">
@@ -78,35 +89,37 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-7">
             <div class="row">
                 <div class="col-lg-<?= $wide?>">
-                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->question1_compact ?></div>
+                    <div style="background: <?=$color ?>" class="shift-block active" data-num="1"> <?=$model->question1_compact ?></div>
                 </div>
                 <?php
-                    foreach($shifts as $shift) { 
+                    foreach($shifts as $i => $shift) { 
                             $cellCode = $cellCodes[$shift->cell_end_id];
                             $cellColor = $colors[$cellCode];
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->question1_compact ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block" data-num="<?=$i+2 ?>"> <?=$shift->cellEnd->question1_compact ?></div>
                         </div>
                     <?php }
                 ?>                
             </div>
             <div class="row" style="margin-top: 5px">
                 <div class="col-lg-<?= $wide?>">
-                    <div style="background: <?=$color ?>" class="shift-block"> <?=$model->question1_compact ?></div>
+                    <div style="background: <?=$color ?>" class="shift-block active" data-num="1"> <?=$model->question1_compact ?></div>
                 </div>
                 <?php
-                    foreach($shifts as $shift) { 
+                    foreach($shifts as $i => $shift) { 
                             $cellCode = $cellCodes[$shift->cell_end_id];
                             $cellColor = $colors[$cellCode];
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block"> <?=$shift->cellEnd->question2_compact ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block" data-num="<?=$i+2 ?>"> <?=$shift->cellEnd->question2_compact ?></div>
                         </div>
                     <?php }
                 ?>
             </div>            
         </div>
+            <h3>Full content journey</h3>
+            <div class="full-content-container">
             <?php 
             $count = count($shifts);
             foreach($shifts as $i => $shift) {
@@ -121,12 +134,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                         $links = Html::tag('div', implode(', ', $links));                    
                     }
-                    echo Html::tag('div',$num.') '.$shift->cellEnd->content.$links, ['class' => 'shift-content']);
+                    echo Html::tag('div',$num.') '.$shift->cellEnd->content.$links, ['class' => 'cell-content', 'id' => 'cell-content-'.$i]);
                     if($i < $count - 1) {
                         echo Html::tag('div', '<image src="images/arrow.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
                     }
             }
         } ?>
+            </div>
     </div>    
 </div>
 <p>
