@@ -132,5 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <p>
     &nbsp;
 </p>
-<h2>Add logbook</h2>
-<?= $logbookForm ?>
+<?php
+ if($logbookForm) {
+     echo "<h2>Add logbook</h2>\n", $logbookForm;
+ }

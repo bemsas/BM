@@ -115,7 +115,7 @@ class LogbookController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+                return $this->redirect($model->fromCell ? ['cell/view', 'id' => $model->cell_id, 'contactId' => $model->contact_id] : ['index']);
             }
         } else {
             $model->loadDefaultValues();

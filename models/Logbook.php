@@ -20,6 +20,7 @@ use Yii;
  */
 class Logbook extends \yii\db\ActiveRecord
 {
+    public $fromCell = false;
     /**
      * {@inheritdoc}
      */
@@ -37,7 +38,7 @@ class Logbook extends \yii\db\ActiveRecord
             [['user_id', 'contact_id', 'date_in', 'content'], 'required'],
             [['user_id', 'contact_id'], 'default', 'value' => null],
             [['user_id', 'contact_id', 'cell_id'], 'integer'],
-            [['date_in'], 'safe'],
+            [['date_in', 'fromCell'], 'safe'],
             [['content'], 'string', 'max' => 2000],
             [['contact_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contact::class, 'targetAttribute' => ['contact_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],

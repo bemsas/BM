@@ -26,6 +26,12 @@ $url = $model->isNewRecord ? Url::to(['logbook/create']) : Url::to(['logbook/upd
         <?php $form = ActiveForm::begin(['action' => $url]); ?>        
 
         <?= $form->field($model, 'content')->textArea(['maxlength' => 2000]) ?>
+        
+        <?= $form->field($model, 'fromCell')->hiddenInput()->label(false); ?>
+        
+        <?= $form->field($model, 'cell_id')->hiddenInput()->label(false); ?>
+        
+        <?= $form->field($model, 'contact_id')->hiddenInput()->label(false); ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

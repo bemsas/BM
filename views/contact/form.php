@@ -18,11 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="contact-form">
 
         <?php $form = ActiveForm::begin(); ?>        
-
+        
         <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>        
 
         <?= $form->field($model, 'comment')->textArea(['maxlength' => 2000]) ?>
-
+                
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
         </div>

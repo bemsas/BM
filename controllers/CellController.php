@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 use Yii;
 use app\models\User;
 use app\models\Logbook;
+use yii\helpers\Url;
 
 /**
  * CellController implements the CRUD actions for Cell model.
@@ -87,6 +88,7 @@ class CellController extends Controller
             $model->cell_id = $cellId;
             $model->contact_id = $contactId;
             $model->user_id = $userId;
+            $model->fromCell = true;
         }
         return $this->renderPartial('/logbook/form', [
             'model' => $model,
