@@ -2,25 +2,28 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Logbook */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $contacts array */
 
-$this->title = $model->isNewRecord ? 'Create Logbook' : 'Update logbook';
+$this->title = $model->isNewRecord ? 'Add Logbook' : 'Update logbook';
 $this->params['breadcrumbs'][] = ['label' => 'Logbooks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$url = $model->isNewRecord ? Url::to(['logbook/create']) : Url::to(['logbook/update', 'id' => $model->id]);
 ?>
 <div class="logbook-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php
+        if(get_class($this->context) == \app\controllers\LogbookController::class) { ?>
+            <h1><?= Html::encode($this->title) ?></h1>
+        <?php } ?>    
     
     <div class="logbook-form">
 
-        <?php $form = ActiveForm::begin(); ?>        
-
-        <?= $form->field($model, 'contact_id')->dropDownList($contacts) ?>        
+        <?php $form = ActiveForm::begin(['action' => $url]); ?>        
 
         <?= $form->field($model, 'content')->textArea(['maxlength' => 2000]) ?>
 

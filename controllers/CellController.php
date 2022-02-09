@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii;
 use app\models\User;
+use app\models\Logbook;
 
 /**
  * CellController implements the CRUD actions for Cell model.
@@ -77,8 +78,23 @@ class CellController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    private function renderLogbookForm($cellId, $contactId, $userId) {
+        //$model = Logbook::findOne(['cell_id' => $cellId, 'contact_id' => $contactId, 'user_id' => $userId]);
+        $model = null;
+        if(!$model) {
+            $model = new Logbook();
+            $model->cell_id = $cellId;
+            $model->contact_id = $contactId;
+            $model->user_id = $userId;
+        }
+        return $this->renderPartial('/logbook/form', [
+            'model' => $model,
+            
+        ]);
+    }
 
-    public function actionView($id) {
+    public function actionView($id, $contactId = null) {
         $model = $this->findModel($id);
         $cellCodes = Cell::getCodeList($model->answer1->map_id);        
         $cells = Cell::findAllByMapId($model->answer1->map_id);
@@ -92,14 +108,17 @@ class CellController extends Controller
                 $cell = Cell::findOne($cellIds[$code]);
                 $colors[$code] = $cell->getColor($code);
             }
-        }        
+        }
+                
         return $this->render('view', [
             'model' => $model,
             'code' => $cellCodes[$model->id],
             'cellCodes' => $cellCodes,
             'color' => $colors[$cellCodes[$model->id]],
             'colors' => $colors,
-            'shifts' => $model->getAllShifts()
+            'shifts' => $model->getAllShifts(),
+            'contactId' => $contactId,
+            'logbookForm' => $contactId ? $this->renderLogbookForm($id, $contactId, \Yii::$app->user->id) : '',
         ]);
     }
 

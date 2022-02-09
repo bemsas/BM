@@ -17,11 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="logbook-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Logbook', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h1><?= Html::encode($this->title) ?></h1>    
 
     <?php Pjax::begin(); ?>
 
@@ -30,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             [
                 'attribute' => 'user_id',
                 'value' => function(Logbook $model) {
@@ -45,6 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->contact->name;
                 },
                 'filter' => $contacts
+            ],
+            [
+                'attribute' => 'cell_id',
+                'label' => 'Map',
+                'value' => function(Logbook $model) {
+                    return $model->cell->answer1->map->name;
+                },
+                'filter' => false
             ],
             'date_in:datetime',
             'content:ntext',

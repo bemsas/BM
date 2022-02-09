@@ -22,6 +22,7 @@ use Yii;
  */
 class Map extends \yii\db\ActiveRecord
 {
+    public $contactName;
     public $question1, $question2;    
     /**
      * {@inheritdoc}
@@ -41,7 +42,7 @@ class Map extends \yii\db\ActiveRecord
             [['name', 'question1_text', 'question2_text', 'size'], 'required'],
             [['size'], 'integer'],
             [['size'], 'in', 'range' =>array_keys($sizes)],
-            [['name', 'question1_text', 'question2_text'], 'string', 'max' => 200],
+            [['name', 'question1_text', 'question2_text', 'contactName'], 'string', 'max' => 200],
             [['question1', 'question2'], 'safe']
         ];
     }       

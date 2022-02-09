@@ -19,11 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>        
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>
-
-        <?= $form->field($model, 'phone')->textInput(['maxlength' => 20]) ?>
-
-        <?= $form->field($model, 'email')->textInput(['maxlength' => 200]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>        
 
         <?= $form->field($model, 'comment')->textArea(['maxlength' => 2000]) ?>
 

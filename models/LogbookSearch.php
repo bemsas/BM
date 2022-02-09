@@ -18,7 +18,7 @@ class LogbookSearch extends Logbook
     public function rules()
     {
         return [
-            [['id', 'user_id', 'contact_id', 'company_id'], 'integer'],
+            [['id', 'user_id', 'contact_id', 'company_id', 'cell_id'], 'integer'],
             [['date_in', 'content'], 'safe'],
         ];
     }    
@@ -67,6 +67,7 @@ class LogbookSearch extends Logbook
             'id' => $this->id,
             'user_id' => $this->user_id,
             'contact_id' => $this->contact_id,
+            'cell_id' => $this->cell_id,
             'date_in' => $this->date_in,
         ]);
 

@@ -21,8 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Contact', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php Pjax::begin(); ?>    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -36,9 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => false
             ],
-            'name',
-            'phone',
-            'email:email',            
+            'name',            
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Contact $model, $key, $index, $column) {

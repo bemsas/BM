@@ -9,6 +9,7 @@ use yii\helpers\Html;
 /* @var $colors array*/
 /* @var $color string */
 /* @var $shifts \app\models\Shift[] */
+/* @var $logbookForm string */
 
 $map = $model->answer1->map;
 $this->title = $code;
@@ -126,8 +127,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
             }
         } ?>
-    </div>
-    <div class="row">
-        <?= Html::a('back to map', ['map/view', 'id' => $model->answer1->map_id], ['class' => 'btn btn-info']) ?>
-    </div>
+    </div>    
 </div>
+<p>
+    &nbsp;
+</p>
+<h2>Add logbook</h2>
+<?= $logbookForm ?>

@@ -10,8 +10,6 @@ use Yii;
  * @property int $id
  * @property int $user_id user ID
  * @property string $name Name
- * @property string|null $phone Phone
- * @property string|null $email Email
  * @property string|null $comment Comment
  *
  * @property User $user
@@ -35,8 +33,7 @@ class Contact extends \yii\db\ActiveRecord
             [['user_id', 'name'], 'required'],
             [['user_id'], 'default', 'value' => null],
             [['user_id'], 'integer'],
-            [['name', 'email'], 'string', 'max' => 200],
-            [['phone'], 'string', 'max' => 20],
+            [['name'], 'string', 'max' => 200], 
             [['comment'], 'string', 'max' => 2000],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -51,8 +48,6 @@ class Contact extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User',
             'name' => 'Name',
-            'phone' => 'Phone',
-            'email' => 'Email',
             'comment' => 'Comment',
         ];
     }
@@ -92,5 +87,15 @@ class Contact extends \yii\db\ActiveRecord
             $list[$model->id] = $model->name;
         }
         return $list;
-    } 
+    }
+    public static function addOrFind(User $user, string $name): Contact {
+        $model = self::findOne(['user_id' => $user->id, 'name' => $name]);
+        if(!$model) {
+            $model = new Contact();
+            $model->name = $name;
+            $model->user_id = $userId;
+            $model->save();
+        }
+        return $model;
+    }
 }

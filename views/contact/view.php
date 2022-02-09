@@ -37,9 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->user->name;
                 },                
             ],
-            'name',
-            'phone',
-            'email:email',
+            'name',            
             'comment',
         ],
     ]) ?>

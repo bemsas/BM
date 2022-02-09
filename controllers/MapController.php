@@ -16,6 +16,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii;
 use app\models\User;
+use app\models\Contact;
+use app\models\Logbook;
 
 /**
  * MapController implements the CRUD actions for Map model.
@@ -185,11 +187,25 @@ class MapController extends Controller
     
     public function actionSelect($id) {
         $model = $this->findModel($id);
+        $user = Yii::$app->user->getIdentity()->user;        
+        $contacts = Contact::getListByUserId($user->id);
+        sort($contacts); //for destroy array keys
+        $cellCodes = Cell::getCodeList($model->id);
+        
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $cellIds = array_flip($cellCodes);
+            $contact = Contact::addOrFind($user, $model->contactName);
+            $cell = Cell::findOne(['id' => $cellIds[$model->question1.$model->question2]]);
+            $logbook = Logbook::addChooseCell($user, $contact, $cell, $model->question1.$model->question2);
+            $this->redirect(['cell/view', 'id' => $cell->id, 'contactId' => $contact->id]);
+        }
+        
         return $this->render('select', [
             'model' => $model,
             'answers1' => Answer::getAnswerList($model->id, 1, true),
             'answers2' => Answer::getAnswerList($model->id, 2, true),
-            'cellCodes' => Cell::getCodeList($model->id)
+            'cellCodes' => Cell::getCodeList($model->id),
+            'contacts' => $contacts,
         ]);
     }
 
