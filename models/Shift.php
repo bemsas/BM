@@ -77,4 +77,9 @@ class Shift extends \yii\db\ActiveRecord
         $shift->save();
         return $shift;
     }
+    
+    public function isDiagonal() {
+        return $this->cellStart->answer1_id != $this->cellEnd->answer1_id 
+            && $this->cellStart->answer2_id != $this->cellEnd->answer2_id;
+    }
 }

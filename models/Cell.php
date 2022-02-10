@@ -20,6 +20,7 @@ use app\models\Answer;
  * @property Answer $answer1
  * @property Answer $answer2
  * @property Shift[] $shifts 
+ * @property Shift[] $prevShifts 
  */
 class Cell extends \yii\db\ActiveRecord
 {
@@ -95,12 +96,34 @@ class Cell extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Shift::class, ['cell_start_id' => 'id']);
     }
+    
+    /**
+     * Gets query for [[Shifts]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrevShifts() {
+        return $this->hasMany(Shift::class, ['cell_end_id' => 'id']);
+    }
     /**
      * Получить все переходы по цепочке из ячейки в a1
      * @return Shift[]
      */
     public function getAllShifts(): array {
         $result = [];
+        $cellCodes = self::getCodeList($this->answer1->map_id);
+        
+        $shifts = $this->prevShifts;
+        while($shifts) {
+            $newShifts = [];
+            foreach($shifts as $shift) {
+                if($shift->isDiagonal()) {
+                    $result = array_merge([$shift], $result);
+                    $newShifts = array_merge($newShifts, $shift->cellStart->prevShifts);
+                }                
+            }
+            $shifts = $newShifts;
+        }
         $shifts = $this->shifts;
         while($shifts) {
             $newShifts = [];
