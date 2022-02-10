@@ -22,16 +22,16 @@ if(Yii::$app->user->isGuest) {
     $type = $types[Yii::$app->user->identity->user->type];
     $company = Yii::$app->user->identity->user->company;
 }
+$companyImg = '';
 if($company) {
     $brandLabel = $company->name;
-    $brandColor = $company->getColor();
+    $brandColor = $company->getColor();    
     if($company->icon) {
         $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:64px;']);
     }
 } else {
     $brandLabel = Yii::$app->name;
-    $brandColor = Company::DEFAULT_COLOR;
-    $companyImg = '';
+    $brandColor = Company::DEFAULT_COLOR;    
 }
 ?>
 <?php $this->beginPage() ?>
