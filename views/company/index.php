@@ -37,6 +37,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
+                'attribute' => 'icon',
+                'value' => function(Company $model) {
+                    if($model->icon) {
+                        return Html::img($model->icon, ['title' => 'company icon', 'style' => 'width:64px;']);
+                    } else {
+                        return 'empty';
+                    }
+                },
+                'format' => 'raw'  
+            ],
+            [
                 'header' => 'Controls',
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Company $model, $key, $index, $column) {

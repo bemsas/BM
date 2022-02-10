@@ -25,9 +25,13 @@ if(Yii::$app->user->isGuest) {
 if($company) {
     $brandLabel = $company->name;
     $brandColor = $company->getColor();
+    if($company->icon) {
+        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:64px;']);
+    }
 } else {
     $brandLabel = Yii::$app->name;
     $brandColor = Company::DEFAULT_COLOR;
+    $companyImg = '';
 }
 ?>
 <?php $this->beginPage() ?>
@@ -46,7 +50,7 @@ if($company) {
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => $brandLabel,
+        'brandLabel' => $companyImg.$brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top',

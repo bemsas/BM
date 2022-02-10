@@ -20,12 +20,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>        
         
         <?= $form->field($model, 'color')->widget(ColorInput::class, [
                 'options' => ['placeholder' => 'Select color ...'],
             ])
         ?>
+        
+        <?= $form->field($model, 'icon')->textInput(['maxlength' => 2000]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
