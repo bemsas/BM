@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use kartik\slider\Slider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cell */
@@ -9,6 +10,7 @@ use yii\helpers\Html;
 /* @var $colors array*/
 /* @var $color string */
 /* @var $shifts \app\models\Shift[] */
+/* @var $contact \app\models\Contact */
 /* @var $logbookForm string */
 
 $map = $model->answer1->map;
@@ -17,23 +19,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
 $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
-$js = "$('.shift-block').on('click', function(){
-        let num = $(this).data('num');
-        console.log(num);
-        $('.shift-block.active').removeClass('active');
-        $('.cell-button').css('opacity', 0);
-        $('.shift-block[data-num='+num+']').addClass('active');
-        $('.cell-button[data-num='+num+']').css('opacity', 1);
-        num -= 1;
-        location.hash = 'cell-content-'+num;        
-    });
-    $('.shift-block.active').click();
-    location.hash = '';
-    ";
-$this->registerJs($js);
 $shiftCells = [];
 $barColors = [];
 $cellButtons = [];
+$sliderValue = 1;
 if($shifts) {
     $shiftCells[] = $shifts[0]->cellStart;
     $cellCode = $cellCodes[$shifts[0]->cellStart->id];
@@ -42,11 +31,21 @@ if($shifts) {
     foreach($shifts as $i => $shift) {
         $shiftCells[] = $shift->cellEnd;
         $cellCode = $cellCodes[$shift->cellEnd->id];
+        if($cellCode == $code) {
+            $sliderValue = $i + 2;
+        }
         $barColors[] = $colors[$cellCode]; 
         $cellButtons[] = Html::tag('div', $cellCode, ['class' => 'cell-button', 'data-num' => $i + 2]);
     }    
 }
+
+
+$js = '$(function(){$("#w1-slider .slider-handle").text("'.$code.'");});';
+$this->registerJs($js);
 ?>
+<style>
+    #w1-slider { background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>) }
+</style>
 <h2><?=$map->name ?> - <?=$code ?></h2>
 <div class="cell-view">
     
@@ -111,11 +110,10 @@ if($shifts) {
                     $count = count($shiftCells);
                     foreach($shiftCells as $i => $shiftCell) { 
                             $cellCode = $cellCodes[$shiftCell->id];
-                            $cellColor = $colors[$cellCode]; 
-                            $active = $cellCode == $code ? 'active' : '';
+                            $cellColor = $colors[$cellCode];                             
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block <?=$active ?>" data-num="<?=$i+1 ?>"> 
+                            <div style="background: <?=$cellColor ?>" class="shift-block" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> 
                                 <?=$shiftCell->question1_compact ?>                                
                             </div>
                             <?php if($i < $count - 1) { ?>
@@ -129,17 +127,44 @@ if($shifts) {
                 <?php
                     foreach($shiftCells as $i => $shiftCell) { 
                             $cellCode = $cellCodes[$shiftCell->id];
-                            $cellColor = $colors[$cellCode];
-                            $active = $cellCode == $code ? 'active' : '';
+                            $cellColor = $colors[$cellCode];                            
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block <?=$active ?>" data-num="<?=$i+1 ?>"> <?=$shiftCell->question2_compact ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> <?=$shiftCell->question2_compact ?></div>
                         </div>
                     <?php }
                 ?>
             </div>                    
+        </div>        
+        
+        <div style="overflow: auto; width: 100%; margin-top: 20px;">
+        <?= Slider::widget([
+            'name'=>'rating_1',
+            'value'=> $sliderValue,
+            'pluginOptions'=>[
+                'handle'=>'square',
+                'tooltip'=>'always',
+                'min' => 1,
+                'max' => $map->size,
+                'step' => 1,                
+            ],
+            'pluginEvents' => [
+                "enabled" => "function(event) { console.log(1111); }",
+                "slideStop" => "function(event) {
+                    let num = event.value;
+                    console.log(event.value);
+                    $('.shift-block').css('opacity', 0.3);                    
+                    $('.shift-block[data-num='+num+']').css('opacity', 1);
+                    let code = $('.shift-block[data-num='+num+']').data('code');
+                    $('#w1-slider .slider-handle').text(code);
+                    
+                    num -= 1;
+                    location.hash = 'cell-content-'+num;        
+                    location.hash = '#w1-slider';    
+                }",
+            ],
+        ]); ?>
         </div>
-        <?= Html::tag('div', implode("\n", $cellButtons), ['id' => 'map-progress', 'style' => "background-image: linear-gradient(90deg, ".implode(', ',$barColors).");"]); ?>
         
         <h3>Full content journey</h3>
         <div class="full-content-container">
@@ -170,6 +195,6 @@ if($shifts) {
     &nbsp;
 </p>
 <?php
- if($logbookForm) {
-     echo "<h2>Add logbook</h2>\n", $logbookForm;
+ if($contact && $logbookForm) {
+     echo "<h2>Logbook entry for {$contact->name}</h2>\n", $logbookForm;
  }

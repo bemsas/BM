@@ -28,7 +28,7 @@ $url = $model->isNewRecord ? Url::to(['logbook/create']) : Url::to(['logbook/upd
 
         <?php $form = ActiveForm::begin(['action' => $url]); ?>        
 
-        <?= $form->field($model, 'content')->textArea(['maxlength' => 2000]) ?>
+        <?= $form->field($model, 'content')->textArea(['maxlength' => 2000])->label(false) ?>
         
         <?= $form->field($model, 'fromCell')->hiddenInput()->label(false); ?>
         

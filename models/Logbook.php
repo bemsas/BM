@@ -103,7 +103,7 @@ class Logbook extends \yii\db\ActiveRecord
         $model->user_id = $user->id;
         $model->contact_id = $contact->id;
         $model->cell_id = $cell->id;
-        $model->content = "Customer choose cell '$cellCode'!";
+        $model->content = "Customer landed on cell '$cellCode'!";
         $model->save();
         return $model;
     }

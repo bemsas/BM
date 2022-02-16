@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Cell;
 use app\models\Map;
 use app\models\Answer;
+use app\models\Contact;
 use app\models\CellSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -80,13 +81,12 @@ class CellController extends Controller
         ]);
     }
     
-    private function renderLogbookForm($cellId, $contactId, $userId) {
-        //$model = Logbook::findOne(['cell_id' => $cellId, 'contact_id' => $contactId, 'user_id' => $userId]);
+    private function renderLogbookForm($cellId, Contact $contact, $userId) {
         $model = null;
         if(!$model) {
             $model = new Logbook();
             $model->cell_id = $cellId;
-            $model->contact_id = $contactId;
+            $model->contact_id = $contact->id;
             $model->user_id = $userId;
             $model->fromCell = true;
         }
@@ -111,6 +111,7 @@ class CellController extends Controller
                 $colors[$code] = $cell->getColor($code);
             }
         }
+        $contact = Contact::findOne($contactId);
                 
         return $this->render('view', [
             'model' => $model,
@@ -119,8 +120,8 @@ class CellController extends Controller
             'color' => $colors[$cellCodes[$model->id]],
             'colors' => $colors,
             'shifts' => $model->getAllShifts(),
-            'contactId' => $contactId,
-            'logbookForm' => $contactId ? $this->renderLogbookForm($id, $contactId, \Yii::$app->user->id) : '',
+            'contact' => $contact,
+            'logbookForm' => $contact ? $this->renderLogbookForm($id, $contact, \Yii::$app->user->id) : '',
         ]);
     }
 

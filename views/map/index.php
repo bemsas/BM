@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            [
+                'attribute' => 'id',
+                'contentOptions' => ['style' => 'width: 70px;']
+            ],
             [
                 'attribute' => 'name',
                 'value' => function(Map $model) use ($isAdmin) {

@@ -53,16 +53,19 @@ if($company) {
         'brandLabel' => $companyImg.$brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top',
-            'style' => "background: $brandColor;",
+            'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
+            'style' => "background: $brandColor",
+        ],
+        'innerContainerOptions' => [
+            'style' => 'margin: 0'
         ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Contacts', 'url' => ['/contact/index'], 'linkOptions' => ['target' => '_blank'], 'visible' => $type !== 'guest'],
-            ['label' => 'Logbook', 'url' => ['/logbook/index'], 'linkOptions' => ['target' => '_blank'], 'visible' => $type !== 'guest'],
+            ['label' => 'Contacts', 'url' => ['/contact/index'], 'visible' => $type !== 'guest'],
+            ['label' => 'Logbook', 'url' => ['/logbook/index'], 'visible' => $type !== 'guest'],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
