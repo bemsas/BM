@@ -83,9 +83,9 @@ class User extends \yii\db\ActiveRecord
     
     public static function getTypeList(): array {
         return [
-            self::TYPE_ADMIN => 'Administrator',
-            self::TYPE_COMPANY_MANAGER => 'Company manager',
-            self::TYPE_USER => 'Regular user',
+            self::TYPE_ADMIN => 'Admin',
+            self::TYPE_COMPANY_MANAGER => 'Manager',
+            self::TYPE_USER => 'User',
         ];
     }
     

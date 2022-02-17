@@ -17,10 +17,18 @@ AppAsset::register($this);
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
     $company = null;
+    $email = '';
+    $emailFull = '';
 } else {
     $types = User::getTypeList();
     $type = $types[Yii::$app->user->identity->user->type];
     $company = Yii::$app->user->identity->user->company;
+    $email = Yii::$app->user->identity->username;    
+    $emailFull = $email;
+    if(strlen($email) > 5) {
+        $email = substr($email, 0, 5).'...';
+    }
+    
 }
 $companyImg = '';
 if($company) {
@@ -72,8 +80,8 @@ if($company) {
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ', '. $type. ')',
-                    ['class' => 'btn btn-link logout']
+                    'Logout (' . $email . ', '. $type. ')',
+                    ['class' => 'btn btn-link logout', 'title' => $emailFull]
                 )
                 . Html::endForm()
                 . '</li>'

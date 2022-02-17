@@ -193,11 +193,25 @@ class MapController extends Controller
         $cellCodes = Cell::getCodeList($model->id);
         
         if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->save(true, ['intro']);
             $cellIds = array_flip($cellCodes);
             $contact = Contact::addOrFind($user, $model->contactName);
             $cell = Cell::findOne(['id' => $cellIds[$model->question1.$model->question2]]);
             $logbook = Logbook::addChooseCell($user, $contact, $cell, $model->question1.$model->question2);
             $this->redirect(['cell/view', 'id' => $cell->id, 'contactId' => $contact->id]);
+        }
+        
+        $cells = Cell::findAllByMapId($id);
+        
+        $colors = [];
+        $defaultColors = Cell::defaultColors();
+        $cellIds = array_flip($cellCodes);
+        foreach($defaultColors as $code => $color) { //@todo need refactoring. Create method to find all map cells and indexed my code.
+            $colors[$code] = $color;
+            if(key_exists($code, $cellIds)) {
+                $cell = Cell::findOne($cellIds[$code]);
+                $colors[$code] = $cell->getColor($code);
+            }
         }
         
         return $this->render('select', [
@@ -206,6 +220,8 @@ class MapController extends Controller
             'answers2' => Answer::getAnswerList($model->id, 2, true),
             'cellCodes' => Cell::getCodeList($model->id),
             'contacts' => $contacts,
+            'colors' => $colors,
+            'isAdmin' => $this->isAdmin(),
         ]);
     }
 
