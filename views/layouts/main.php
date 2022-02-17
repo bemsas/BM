@@ -35,7 +35,7 @@ if($company) {
     $brandLabel = $company->name;
     $brandColor = $company->getColor();    
     if($company->icon) {
-        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:64px;']);
+        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:32px;']);
     }
 } else {
     $brandLabel = Yii::$app->name;
