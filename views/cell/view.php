@@ -40,11 +40,11 @@ if($shifts) {
 }
 
 
-$js = '$(function(){$("#w1-slider .slider-handle").text("'.$code.'");});';
+$js = '$(function(){$("#shift").trigger("slideStop");});';
 $this->registerJs($js);
 ?>
 <style>
-    #w1-slider { background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>) }
+    #shift-slider { background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>) }
 </style>
 <h2><?=$map->name ?> - <?=$code ?></h2>
 <div class="cell-view">
@@ -140,6 +140,7 @@ $this->registerJs($js);
         <div style="overflow: auto; width: 100%; margin-top: 20px;">
         <?= Slider::widget([
             'name'=>'rating_1',
+            'id' => 'shift',
             'value'=> $sliderValue,
             'pluginOptions'=>[
                 'handle'=>'square',
@@ -150,17 +151,21 @@ $this->registerJs($js);
             ],
             'pluginEvents' => [
                 "enabled" => "function(event) { console.log(1111); }",
-                "slideStop" => "function(event) {
+                "slideStop" => "function(event) {                    
                     let num = event.value;
-                    console.log(event.value);
-                    $('.shift-block').css('opacity', 0.3);                    
+                    if(!num) {
+                        num = $('#shift').val();
+                    }
+                    
+$('.shift-block').css('opacity', 0.3);                    
                     $('.shift-block[data-num='+num+']').css('opacity', 1);
                     let code = $('.shift-block[data-num='+num+']').data('code');
-                    $('#w1-slider .slider-handle').text(code);
+                    $('#shift-slider .slider-handle').text(code);
                     
                     num -= 1;
-                    location.hash = 'cell-content-'+num;        
-                    location.hash = '#w1-slider';    
+                    let start =  $('#cell-content-' + 0).get(0).offsetTop;
+                    let pos = $('#cell-content-' + num).get(0).offsetTop;
+                    $('.full-content-container').get(0).scrollTop = pos - start;                                                            
                 }",
             ],
         ]); ?>

@@ -266,22 +266,22 @@ a.desc:after {
     border-radius: 2px;
 }
 
-#w1-slider {
+#shift-slider {
     margin-left: 5%;
     width: 85%;
     height: 50px;    
 }
-#w1-slider .slider-track {
+#shift-slider .slider-track {
     background: none;
     border: none !important;
     box-shadow: none;    
 }
-#w1-slider .slider-selection {
+#shift-slider .slider-selection {
     background: none;
     border: none !important;
     box-shadow: none;
 }
-#w1-slider .slider-handle {
+#shift-slider .slider-handle {
     margin-top: -18px;
     height: 46px;
     width: 100px;
