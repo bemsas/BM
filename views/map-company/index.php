@@ -9,6 +9,7 @@ use app\models\MapCompany;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MapCompanySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $companies array */
 ?>
 <div class="map-company-index">    
 
@@ -28,6 +29,7 @@ use app\models\MapCompany;
                 'value' => function(MapCompany $model) {
                     return $model->company->name;
                 },
+                'filter' => $companies
             ],
             [
                 'header' => 'controls',

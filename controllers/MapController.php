@@ -7,6 +7,7 @@ use app\models\Cell;
 use app\models\MapSearch;
 use app\models\MapCompanySearch;
 use app\models\Answer;
+use app\models\Company;
 use app\models\AnswerSearch;
 use app\models\CellSearch;
 use app\models\ShiftSearch;
@@ -126,6 +127,7 @@ class MapController extends Controller
         return $this->renderPartial('/map-company/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'companies' => Company::getList(),
         ]);
     }
     
@@ -188,8 +190,11 @@ class MapController extends Controller
     public function actionSelect($id) {
         $model = $this->findModel($id);
         $user = Yii::$app->user->getIdentity()->user;        
-        $contacts = Contact::getListByUserId($user->id);
-        sort($contacts); //for destroy array keys
+        $contactsRaw = Contact::getListByUserId($user->id);
+        $contacts = [];
+        foreach($contactsRaw as $contact) {
+            $contacts[$contact] = $contact;
+        }        
         $cellCodes = Cell::getCodeList($model->id);
         
         if ($this->request->isPost && $model->load($this->request->post())) {

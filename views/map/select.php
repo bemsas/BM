@@ -32,6 +32,9 @@ $js = "$('#map-question1, #map-question2, #map-contactname').on('change', functi
             $('.cell').css('color', '#000');
             if(cell) {                
                 result = 'submit to '+ q1 + q2;
+                if(!contact) {
+                    result = 'need select contact';
+                }
                 $('#btn-submit').prop('disabled', contact ? false : true);                
                 $('.cell[data-code='+q1 + q2 +']').css('color', 'red');
             } else {

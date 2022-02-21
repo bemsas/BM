@@ -47,7 +47,7 @@ class MapCompany extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'map_id' => 'map ID',
-            'company_id' => 'company ID',
+            'company_id' => 'Company',
         ];
     }
 

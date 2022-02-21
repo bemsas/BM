@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Logbook;
+use yii\data\Sort;
 
 /**
  * LogbookSearch represents the model behind the search form of `app\models\Logbook`.
@@ -42,11 +43,15 @@ class LogbookSearch extends Logbook
     public function search($params)
     {
         $query = Logbook::find();
+        
+        $sort = new Sort();
+        $sort->defaultOrder = ['date_in' => SORT_DESC, 'id' => SORT_DESC];
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => $sort
         ]);                
 
         $this->load($params);

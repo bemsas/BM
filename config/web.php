@@ -44,7 +44,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => $db,        
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -53,6 +53,11 @@ $config = [
             ],
         ],
         */
+    ],
+    'container' => [
+        'definitions' => [
+            'yii\widgets\LinkPager' => 'yii\bootstrap4\LinkPager',
+        ],
     ],
     'params' => $params,
 ];

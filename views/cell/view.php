@@ -157,7 +157,7 @@ $this->registerJs($js);
                         num = $('#shift').val();
                     }
                     
-$('.shift-block').css('opacity', 0.3);                    
+                    $('.shift-block').css('opacity', 0.3);                    
                     $('.shift-block[data-num='+num+']').css('opacity', 1);
                     let code = $('.shift-block[data-num='+num+']').data('code');
                     $('#shift-slider .slider-handle').text(code);
