@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\slider\Slider;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cell */
@@ -198,5 +199,14 @@ $this->registerJs($js);
 </p>
 <?php
  if($contact && $logbookForm) {
-     echo "<h2>Logbook entry for {$contact->name}</h2>\n", $logbookForm;
+    Modal::begin([
+        'title' => "Logbook entry for {$contact->name}",
+        'toggleButton' => ['label' => 'logbook', 'class' => 'btn btn-info', 'style' => 'position: fixed; right: 50px; bottom: 100px;'],
+        'size' => Modal::SIZE_LARGE,
+        'centerVertical' => true,
+    ]);
+
+    echo $logbookForm;
+
+    Modal::end();     
  }

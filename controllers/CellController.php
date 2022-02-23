@@ -81,19 +81,24 @@ class CellController extends Controller
         ]);
     }
     
-    private function renderLogbookForm($cellId, Contact $contact, $userId) {
-        $model = null;
-        if(!$model) {
-            $model = new Logbook();
-            $model->cell_id = $cellId;
-            $model->contact_id = $contact->id;
-            $model->user_id = $userId;
-            $model->fromCell = true;
-        }
-        return $this->renderPartial('/logbook/form', [
+    private function renderLogbookForm($cellId, Contact $contact, $userId) {        
+        $model = new Logbook();
+        $model->cell_id = $cellId;
+        $model->contact_id = $contact->id;
+        $model->user_id = $userId;
+        $model->fromCell = true;
+        
+        $html = $this->renderPartial('/logbook/form', [
             'model' => $model,
             
         ]);
+        
+        $models = Logbook::find()->andWhere(['cell_id' => $cellId, 'contact_id' => $contact->id, 'user_id' => $userId])->orderBy('id desc')->all();
+        $views = [];
+        foreach($models as $model) {
+            $views[] = "<div>Logbook at $model->date_in:</div><div>$model->content</div>";
+        }
+        return $html.implode("\n<hr>\n", $views);
     }
 
     public function actionView($id, $contactId = null) {
