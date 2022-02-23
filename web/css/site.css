@@ -181,6 +181,7 @@ a.desc:after {
     border: #ddd 1px solid;
     border-radius: 5px;
     padding: 10px;    
+    scroll-behavior: smooth;
 }
 .cell-content {
     border: 1px solid;
@@ -265,10 +266,13 @@ a.desc:after {
     box-shadow: 0 0 10px 1px #505;
     border-radius: 2px;
 }
+#shift-slider-container {
+    overflow: auto; width: 100%; margin-top: 20px;
+}
 
 #shift-slider {
-    margin-left: 5%;
-    width: 85%;
+    margin-left: 15px;
+    width: calc(100% - 110px);
     height: 50px;    
 }
 #shift-slider .slider-track {
@@ -281,11 +285,10 @@ a.desc:after {
     border: none !important;
     box-shadow: none;
 }
-#shift-slider .slider-handle {
-    margin-top: -18px;
+#shift-slider .slider-handle {    
     height: 46px;
-    width: 100px;
-    
+    width: 100px;    
+    margin-top: -18px;
     background: #ddd;
     padding: 10px;
     text-align: center;

@@ -43,9 +43,6 @@ if($shifts) {
 $js = '$(function(){$("#shift").trigger("slideStop");});';
 $this->registerJs($js);
 ?>
-<style>
-    #shift-slider { background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>) }
-</style>
 <h2><?=$map->name ?> - <?=$code ?></h2>
 <div class="cell-view">
     
@@ -137,38 +134,38 @@ $this->registerJs($js);
             </div>                    
         </div>        
         
-        <div style="overflow: auto; width: 100%; margin-top: 20px;">
-        <?= Slider::widget([
-            'name'=>'rating_1',
-            'id' => 'shift',
-            'value'=> $sliderValue,
-            'pluginOptions'=>[
-                'handle'=>'square',
-                'tooltip'=>'always',
-                'min' => 1,
-                'max' => $map->size,
-                'step' => 1,                
-            ],
-            'pluginEvents' => [
-                "enabled" => "function(event) { console.log(1111); }",
-                "slideStop" => "function(event) {                    
-                    let num = event.value;
-                    if(!num) {
-                        num = $('#shift').val();
-                    }
-                    
-                    $('.shift-block').css('opacity', 0.3);                    
-                    $('.shift-block[data-num='+num+']').css('opacity', 1);
-                    let code = $('.shift-block[data-num='+num+']').data('code');
-                    $('#shift-slider .slider-handle').text(code);
-                    
-                    num -= 1;
-                    let start =  $('#cell-content-' + 0).get(0).offsetTop;
-                    let pos = $('#cell-content-' + num).get(0).offsetTop;
-                    $('.full-content-container').get(0).scrollTop = pos - start;                                                            
-                }",
-            ],
-        ]); ?>
+        <div id="shift-slider-container" style="background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>)">
+            <?= Slider::widget([
+                'name'=>'rating_1',
+                'id' => 'shift',
+                'value'=> $sliderValue,
+                'pluginOptions'=>[
+                    'handle'=>'square',
+                    'tooltip'=>'always',
+                    'min' => 1,
+                    'max' => $map->size,
+                    'step' => 1,                
+                ],
+                'pluginEvents' => [
+                    "enabled" => "function(event) { console.log(1111); }",
+                    "slideStop" => "function(event) {                    
+                        let num = event.value;
+                        if(!num) {
+                            num = $('#shift').val();
+                        }                    
+
+                        $('.shift-block').css('opacity', 0.3);                    
+                        $('.shift-block[data-num='+num+']').css('opacity', 1);
+                        let code = $('.shift-block[data-num='+num+']').data('code');
+                        $('#shift-slider .slider-handle').text(code);
+
+                        num -= 1;
+                        let start =  $('#cell-content-' + 0).get(0).offsetTop;
+                        let pos = $('#cell-content-' + num).get(0).offsetTop;
+                        $('.full-content-container').get(0).scrollTop = pos - start;                                                            
+                    }",
+                ],
+            ]); ?>
         </div>
         
         <h3>Full content journey</h3>

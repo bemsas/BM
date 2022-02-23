@@ -21,7 +21,8 @@ use app\models\MapCompany;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel' => null,
+        'layout' => '{items}',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],                        
             [

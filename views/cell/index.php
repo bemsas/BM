@@ -23,7 +23,8 @@ use yii\widgets\Pjax;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel' => null,
+        'layout' => '{items}',
         'columns' => [
             [
                 'attribute' => 'id',

@@ -84,7 +84,7 @@ $this->registerJs($js);
 
     </div>
     
-    <div class="map-preview">
+    <div class="map-preview col-lg-4 offset-4">
         <?php             
             $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
             $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
