@@ -84,7 +84,7 @@ $this->registerJs($js);
 
     </div>
     
-    <div class="map-preview col-lg-4 offset-4">
+    <div class="map-preview col-lg-12">
         <?php             
             $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
             $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
@@ -94,7 +94,7 @@ $this->registerJs($js);
                 foreach($columns as $column) {
                     $arrow = '';
                     $cellCode = $row.$column;                    
-                    echo Html::tag("div", $cellCode, ['class' => "col-lg-$wide cell", 'style' => 'background: '.$colors[$cellCode], 'data-code' => $cellCode]), "\n";
+                    echo Html::tag("div", $cellCode, ['class' => "cell", 'style' => 'background: '.$colors[$cellCode], 'data-code' => $cellCode]), "\n";
                 }
                 echo Html::endTag('div');
             }            

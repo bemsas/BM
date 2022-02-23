@@ -196,9 +196,17 @@ a.desc:after {
     height: 200px;
 }
 .cell {        
-    height: 80px;
-    text-align: left;        
+    width: 70px !important;
+    height: 70px;
+    padding: 0 0 0 0;
+    text-align: center;        
     color: #000;
+}
+.cell:first-child {
+    margin-left: auto;
+}
+.cell:last-child {
+    margin-right: auto;
 }
 .cell-selected {
     border: 1px solid red;

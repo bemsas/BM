@@ -55,7 +55,7 @@ $this->registerJs($js);
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="align-items: center;">
             <?php 
                 if($code == 'A1') {
                     echo Html::tag("div", "No approach shifts required for A1 profile payers", ['class' => "answer-block"]), "\n";
@@ -81,7 +81,7 @@ $this->registerJs($js);
                                     $arrow = Html::img('images/arrow.png', ['class' => "arrow $vectorClass"]);
                                 }
                             }                            
-                            echo Html::tag("div", $cellCode. $arrow, ['class' => "col-lg-$wide cell", 'style' => 'background: '.$colors[$cellCode]]), "\n";
+                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => 'background: '.$colors[$cellCode]]), "\n";
                         }
                         echo Html::endTag('div');
                     }
