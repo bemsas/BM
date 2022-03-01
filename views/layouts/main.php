@@ -16,18 +16,11 @@ AppAsset::register($this);
 
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
-    $company = null;
-    $email = '';
-    $emailFull = '';
+    $company = null;    
 } else {
     $types = User::getTypeList();
     $type = $types[Yii::$app->user->identity->user->type];
-    $company = Yii::$app->user->identity->user->company;
-    $email = Yii::$app->user->identity->username;    
-    $emailFull = $email;
-    if(strlen($email) > 5) {
-        $email = substr($email, 0, 5).'...';
-    }
+    $company = Yii::$app->user->identity->user->company;    
     
 }
 $companyImg = '';
@@ -35,7 +28,7 @@ if($company) {
     $brandLabel = $company->name;
     $brandColor = $company->getColor();    
     if($company->icon) {
-        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:32px;']);
+        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:32px; float: right; margin-left: 5px;']);        
     }
 } else {
     $brandLabel = Yii::$app->name;
@@ -58,7 +51,7 @@ if($company) {
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => $companyImg.$brandLabel,
+        //'brandLabel' => $brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
@@ -70,6 +63,7 @@ if($company) {
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
+        'encodeLabels' => false,
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Contacts', 'url' => ['/contact/index'], 'visible' => $type !== 'guest'],
@@ -80,15 +74,20 @@ if($company) {
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    'Logout (' . $email . ', '. $type. ')',
-                    ['class' => 'btn btn-link logout', 'title' => $emailFull]
+                    'Logout',
+                    ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            [
+                'label' => $brandLabel.$companyImg, 
+                'url' => false,
+                'encodeLabels' => false,
+            ],
         ],
     ]);
-    NavBar::end();
+    NavBar::end();    
     ?>
 </header>
 

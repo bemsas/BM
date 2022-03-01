@@ -129,6 +129,17 @@ class CellController extends Controller
             'logbookForm' => $contact ? $this->renderLogbookForm($id, $contact, \Yii::$app->user->id) : '',
         ]);
     }
+    
+    public function actionContent($id) {
+        $model = $this->findModel($id);
+        $cellCodes = Cell::getCodeList($model->answer1->map_id);        
+        $cells = Cell::findAllByMapId($model->answer1->map_id);                
+                
+        return $this->render('content', [
+            'model' => $model,
+            'code' => $cellCodes[$model->id],            
+        ]);
+    }
 
     /**
      * Creates a new Cell model.
@@ -164,10 +175,10 @@ class CellController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id);        
+        $codes = Cell::getCodeList($model->answer1->map_id);
         if(!$model->color) {
             $colors = Cell::defaultColors();
-            $codes = Cell::getCodeList($model->answer1->map_id);
             $model->color = $colors[$codes[$model->id]];
         }
 
@@ -180,6 +191,7 @@ class CellController extends Controller
             'map' => $model->answer1->map,
             'answers1' => Answer::getAnswerList($model->answer1->map_id, 1),
             'answers2' => Answer::getAnswerList($model->answer1->map_id, 2),
+            'code' => $codes[$model->id]
         ]);
     }
 

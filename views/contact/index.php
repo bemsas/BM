@@ -9,6 +9,7 @@ use app\models\Contact;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $users array */
 
 $this->title = 'Contacts';
 $this->params['breadcrumbs'][] = $this->title;
@@ -33,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function(Contact $model) {
                     return $model->user->name;
                 },
-                'filter' => false
+                'filter' => $users,
+                'visible' => $users ? true : false
             ],
             'name',            
             [

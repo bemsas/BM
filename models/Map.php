@@ -88,7 +88,8 @@ class Map extends \yii\db\ActiveRecord
             'question1_text' => 'Question 1',
             'question2_text' => 'Question 2',
             'size' => 'Size',
-            'intro' => 'Intro content'
+            'intro' => 'Intro content',
+            'contactName' => 'Customer name',
         ];
     }
 

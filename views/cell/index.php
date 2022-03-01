@@ -47,7 +47,31 @@ use yii\widgets\Pjax;
             ],
             'question1_compact',
             'question2_compact',
-            'links',
+            [
+                'attribute' => 'links',
+                'value' => function(Cell $model) {
+                    if(!$model->links) {
+                        return null;
+                    }
+                    $urls = explode(' ', $model->links);
+                    $links = [];
+                    foreach($urls as $j => $url) {                        
+                        $linkNum = $j + 1;
+                        $links[] = Html::a('link '.$linkNum, $url);
+                    }
+                    return implode(', ', $links);                    
+                },
+                'contentOptions' => ['style' => 'width: 70px;'],
+                'format' => 'raw'
+            ],
+            [
+                'attribute' => 'content',
+                'label' => 'Shift preview',
+                'value' => function(Cell $model) {
+                    return mb_strlen($model->content, 'UTF-8') > 103 ? mb_substr($model->content, 0, 100).' ...' : $model->content;                    
+                },
+                'format' => 'raw'
+            ],
             [
                 'class' => ActionColumn::class,
                 'header' => 'controls',

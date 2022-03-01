@@ -6,6 +6,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Logbook;
+use app\models\Cell;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\LogbookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -48,13 +49,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => false
             ],
+            [
+                'attribute' => 'cell_id',
+                'label' => 'Position',
+                'value' => function(Logbook $model) {
+                    $codes = Cell::getCodeList($model->cell->answer1->map_id);
+                    return $codes[$model->cell->id];
+                },
+                'filter' => false
+            ],
             'date_in:datetime',
             'content:ntext',
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Logbook $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                'contentOptions' => ['style' => 'width: 85px;'],
             ],
         ],
     ]); ?>

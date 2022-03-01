@@ -64,16 +64,16 @@ $this->registerJs($js);
                     $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $map->size);
                     $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $map->size, $map->size);
                     $wide = 7 - $map->size;
-                    foreach($rows as $row) {
+                    foreach($rows as $i => $row) {
                         echo Html::beginTag('div', ['class' => 'row']);
-                        foreach($columns as $column) {
+                        foreach($columns as $j => $column) {
                             $arrow = '';
                             $cellCode = $row.$column;
                             foreach($shifts as $shift) {
                                 if($cellCodes[$shift->cell_start_id] == $cellCode) {
                                     $endCell = $cellCodes[$shift->cell_end_id];
                                     if($endCell[0] == $row) {
-                                        $vectorClass = '';
+                                        $vectorClass = 'arrow-right';
                                     } elseif($endCell[1] == $column) {
                                         $vectorClass = 'arrow-top';
                                     } else {
@@ -111,11 +111,14 @@ $this->registerJs($js);
                             $cellColor = $colors[$cellCode];                             
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> 
+                            <div style="background: <?=$cellColor ?>" class="shift-block q1" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> 
                                 <?=$shiftCell->question1_compact ?>                                
                             </div>
                             <?php if($i < $count - 1) { ?>
-                                <image src="images/arrow.png" class="arrow-between">
+                                <div class="arrow-between">
+                                    Shift <?=$i + 1?>
+                                    <image src="images/arrow.png" class="arrow-between1">
+                                </div>
                             <?php } ?>
                         </div>
                     <?php }
@@ -128,13 +131,22 @@ $this->registerJs($js);
                             $cellColor = $colors[$cellCode];                            
                         ?>
                         <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> <?=$shiftCell->question2_compact ?></div>
+                            <div style="background: <?=$cellColor ?>" class="shift-block q2" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> <?=$shiftCell->question2_compact ?></div>
                         </div>
                     <?php }
                 ?>
             </div>                    
         </div>        
-        
+        <div id="shift-arrow-container">
+            <?php 
+                $count = count($shifts);
+                foreach($shifts as $i => $shift) {
+                    $num = $i + 1;
+                    $img = Html::img("images/arrow.png", ['style' => 'width:30%; top-margin: -10px;']);
+                    echo Html::tag('div', "shift $num<br>$img", ['class' => 'shift-arrow']);
+                }
+            ?>
+        </div>
         <div id="shift-slider-container" style="background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>)">
             <?= Slider::widget([
                 'name'=>'rating_1',
@@ -155,21 +167,21 @@ $this->registerJs($js);
                             num = $('#shift').val();
                         }                    
 
-                        $('.shift-block').css('opacity', 0.3);                    
-                        $('.shift-block[data-num='+num+']').css('opacity', 1);
+                        $('.shift-block').css('opacity', 1);
+                        $('.shift-block.q1:lt('+(num - 1)+')').css('opacity', 0.3);
+                        $('.shift-block.q2:lt('+(num - 1)+')').css('opacity', 0.3);
                         let code = $('.shift-block[data-num='+num+']').data('code');
                         $('#shift-slider .slider-handle').text(code);
 
                         num -= 1;
-                        let start =  $('#cell-content-' + 0).get(0).offsetTop;
-                        let pos = $('#cell-content-' + num).get(0).offsetTop;
+                        let start =  $('#shift-header-' + 0).get(0).offsetTop;
+                        let pos = $('#shift-header-' + num).get(0).offsetTop;
                         $('.full-content-container').get(0).scrollTop = pos - start;                                                            
                     }",
                 ],
-            ]); ?>
+            ]); ?>            
         </div>
         
-        <h3>Full content journey</h3>
         <div class="full-content-container">
         <?php 
         $count = count($shiftCells);
@@ -185,7 +197,10 @@ $this->registerJs($js);
                     }
                     $links = Html::tag('div', implode(', ', $links));                    
                 }
-                echo Html::tag('div',$num.') '.$shiftCell->content.$links, ['class' => 'cell-content', 'id' => 'cell-content-'.$i]);
+                $header = Html::tag('div', "Shift $num Core message summary", ['class' => 'shift-content-header', 'id' => 'shift-header-'.$i]);
+                $content = Html::tag('div', $shiftCell->content.$links, ['class' => 'shift-content']);
+                $btn = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right', 'target' => '_blank']);
+                echo Html::tag('div', $header.$content.$btn);
                 if($i < $count - 1) {
                     echo Html::tag('div', '<image src="images/arrow.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
                 }

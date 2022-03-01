@@ -183,10 +183,10 @@ a.desc:after {
     padding: 10px;    
     scroll-behavior: smooth;
 }
-.cell-content {
+.shift-content {
     border: 1px solid;
     padding: 10px;
-    margin: 25px 0;
+    margin-bottom: 25px;
     width: 100%;
     min-height: 100px;
     border-radius: 5px;
@@ -227,10 +227,14 @@ a.desc:after {
     text-transform: uppercase;
 }
 .arrow {
-    position: relative; width: 50%; height: 30%; top: 30%; z-index: 1;
+    position: relative; width: 130%; height: 80%; top: -80%; left:30%; z-index: 1;
 }
 .arrow-between {
-    position: absolute; width: 20%; height:10%; top: 95%; left: 90%; z-index: 1;
+    position: absolute; width: 50%; height:20%; top: 77%; left: 80%; z-index: 1;
+}
+.arrow-between img {
+    width:100%;
+    height:100%;
 }
 .container-arrow {
     width: 100%;
@@ -239,16 +243,21 @@ a.desc:after {
 }
 .arrow-small {
     margin-top: 1px;
-    height: 90%;
+    height: 90%;    
 }
 .arrow-bottom {
     transform: rotate(90deg);
 }
 .arrow-top {
-    transform: rotate(-90deg);
+    transform: rotate(-45deg);
+    left: -70%;
 }
 .arrow-right-top {
     transform: rotate(-45deg);
+}
+.arrow-right {
+    transform: rotate(-45deg);
+    top: 20%;
 }
 
 #map-progress {
@@ -275,7 +284,27 @@ a.desc:after {
     border-radius: 2px;
 }
 #shift-slider-container {
-    overflow: auto; width: 100%; margin-top: 20px;
+    overflow: auto; 
+    width: 100%; 
+    margin-top: 20px;
+    height: 50px;    
+}
+#shift-arrow-container {    
+    width: 100%; 
+    margin-left: 120px;
+    margin-right: 120px;
+    height: 50px;
+    display: flex;     
+    flex-direction: row;
+    justify-content: space-around;
+}
+.shift-arrow {
+    width: 100px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    position:relative;
+    top: 70px;
 }
 
 #shift-slider {

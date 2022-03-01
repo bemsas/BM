@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $cells array */
 
-$this->title = $model->isNewRecord ? 'Create Shift' : 'Update Shift';
+$this->title = $model->isNewRecord ? 'Create Shift' : "Update Shift {$cells[$model->cellStart->id]} - {$cells[$model->cellEnd->id]}";
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
 $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;

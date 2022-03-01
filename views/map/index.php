@@ -12,7 +12,7 @@ use app\models\Map;
 /* @var $sizes array */
 /* @var $isAdmin bool */
 
-$this->title = 'Maps';
+$this->title = 'Belief maps';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="map-index">

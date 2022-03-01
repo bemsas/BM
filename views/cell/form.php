@@ -3,16 +3,18 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\color\ColorInput;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cell */
 /* @var $map \app\models\Map */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $code string */
 
 /* @var $answers1 array */
 /* @var $answers2 array */
 
-$this->title = $model->isNewRecord ? 'Create Cell' : 'Update Cell';
+$this->title = $model->isNewRecord ? 'Create Cell' : "Update Cell $code";
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
 $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;
@@ -33,7 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?= $form->field($model, 'question2_compact')->textInput(['maxlength' => '150']) ?>
         
-        <?= $form->field($model, 'content')->textArea(['maxlength' => '4000']) ?>
+        <?= $form->field($model, 'content')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
         
         <?= $form->field($model, 'links')->textArea(['maxlength' => '4000'])->hint('Use space as separator between links') ?>
         

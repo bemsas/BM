@@ -121,7 +121,7 @@ class ShiftController extends Controller
         $model = $this->findModel($id);        
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
-        }
+        }        
 
         return $this->render('form', [
             'model' => $model,
