@@ -47,7 +47,7 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      */
     public static function findByUsername($username)
     {
-        return ($user = User::findOne(['email' => $username])) ? self::generate($user) : null;
+        return ($user = User::find()->andWhere("lower(email) =:email", [':email' => strtolower($username)])->one()) ? self::generate($user) : null;
     }
 
     /**
