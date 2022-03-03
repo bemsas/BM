@@ -14,16 +14,13 @@ use app\models\Map;
 
 $this->title = 'Belief maps';
 $this->params['breadcrumbs'][] = $this->title;
+if($isAdmin) {        
+    echo Html::a('Create Map', ['create'], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -60px;']);
+}
 ?>
 <div class="map-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php if($isAdmin) { ?>
-        <p>
-            <?= Html::a('Create Map', ['create'], ['class' => 'btn btn-success']) ?>
-        </p>
-    <?php } ?>
 
     <?php Pjax::begin(); ?>    
 

@@ -16,7 +16,7 @@ use yii\widgets\Pjax;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Cell', ['/cell/create', 'mapId' => $searchModel->mapId], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Cell', ['/cell/create', 'mapId' => $searchModel->mapId], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    

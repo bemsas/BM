@@ -5,4 +5,5 @@ return [
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
     'bsVersion' => '4.x',
+    'icon-framework' => \kartik\icons\Icon::FAS
 ];

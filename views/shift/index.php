@@ -17,7 +17,7 @@ use app\models\Shift;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Shift', ['/shift/create', 'mapId' => $map->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Shift', ['/shift/create', 'mapId' => $map->id], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    

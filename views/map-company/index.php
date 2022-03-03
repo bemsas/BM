@@ -14,7 +14,7 @@ use app\models\MapCompany;
 <div class="map-company-index">    
 
     <p>
-        <?= Html::a('Create Company Access', ['map-company/create', 'mapId' => $searchModel->map_id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Company Access', ['map-company/create', 'mapId' => $searchModel->map_id], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    

@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'question2_text')->textInput(['maxlength' => true]) ?>        
 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-info']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

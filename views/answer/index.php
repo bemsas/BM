@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 <div class="answer-index">    
 
     <p>
-        <?= Html::a('Create Answer', ['/answer/create', 'mapId' => $searchModel->map_id, 'question' => $searchModel->question], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Answer', ['/answer/create', 'mapId' => $searchModel->map_id, 'question' => $searchModel->question], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    

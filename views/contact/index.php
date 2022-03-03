@@ -13,14 +13,11 @@ use app\models\Contact;
 
 $this->title = 'Contacts';
 $this->params['breadcrumbs'][] = $this->title;
+echo Html::a('Create Contact', ['create'], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -60px;']);
 ?>
 <div class="contact-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Contact', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h1><?= Html::encode($this->title) ?></h1>    
 
     <?php Pjax::begin(); ?>    
 

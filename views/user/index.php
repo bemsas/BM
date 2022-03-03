@@ -15,16 +15,13 @@ use app\models\User;
 
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
+if($isAdmin) {
+    echo Html::a('Create User', ['create'], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -60px;']);
+}
 ?>
 <div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php if($isAdmin) { ?>
-    <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?php } ?>
+    <h1><?= Html::encode($this->title) ?></h1>    
 
     <?php Pjax::begin(); ?>    
 

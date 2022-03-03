@@ -1,3 +1,22 @@
+/* Обычный */
+@font-face {
+    font-family: 'GothaPro'; 
+    src: url(../fonts/GothaProReg.otf); 
+}
+
+/* Жирный */
+@font-face {
+    font-family: 'GothaPro bold'; 
+    src: url(../fonts/GothaProBol.otf); 
+
+}
+
+* {
+    font-family: Roboto !important;
+    font-family: 'GothaPro' !important;    
+    font-weight: 300;
+    font-size: 12px;
+}
 main > .container {
     padding: 70px 15px 20px;
 }
@@ -162,16 +181,23 @@ a.desc:after {
 .bg-main {
     background: #c3d500;
 }
+h1 {
+    color: #000;
+    font-weight: 500;
+    font-size: 24px;
+}
 
-.cell-view {
-    h1, h2, h3, h5 {
-        padding: 5px;        
-    }
+h5 {
+        padding: 5px;
+        /*font-family: Roboto;*/
+        font-weight: 300;
+        font-size: 11px;        
+        color: #595959;        
+
+}
+.cell-view {    
     h1 {
         text-align: right;
-    }
-    h5 {
-        margin-top: 10px;
     }
 }
 .full-content-container {
@@ -183,13 +209,20 @@ a.desc:after {
     padding: 10px;    
     scroll-behavior: smooth;
 }
+.shift-content-header {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 11px;
+}
 .shift-content {
-    border: 1px solid;
+    background-color: #F9F9F9;
+    font-size: 11px;
+    font-weight: 300;
     padding: 10px;
     margin-bottom: 25px;
     width: 100%;
     min-height: 100px;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 .answer-block {
     background: #eee;
@@ -198,9 +231,13 @@ a.desc:after {
 .cell {        
     width: 70px !important;
     height: 70px;
-    padding: 0 0 0 0;
-    text-align: center;        
+    border-radius: 8px;
+    padding: 10px 0 0 10px;
     color: #000;
+    font-size: 12.5px;
+    font-weight: 300;
+    margin-right: 5px;
+    margin-bottom: 6.5px;    
 }
 .cell:first-child {
     margin-left: auto;
@@ -212,25 +249,47 @@ a.desc:after {
     border: 1px solid red;
 }
 .shift-block {
+    width: 132px;
+    height: 132px;
+    margin-right: 5px;
     padding: 5px;
-    min-height: 160px;        
-    font-size: 9pt;
+    border: 1px solid #E4E4E4;
+    border-radius:5px;
+    
+    font-size: 12px;    
+    font-weight: 500;
+    color: #fff;
+    background: #fff url(../images/hidden.png) center center no-repeat;
+    
 }
 
 .shift-title {
-    margin-left: auto;        
+    margin-left: 40px;
     margin-right: 0;
-    height: 160px;
-    writing-mode: vertical-lr;
+    padding-top: 50px;
+    height: 120px;
+    width: 20px;
+    transform: rotate(-90deg);
+    
     text-align: center;
-    font-size: 12pt;
-    text-transform: uppercase;
+    font-size: 11px;
+    color: #595959;
+    font-weight: 300;
+    text-transform: uppercase;    
 }
 .arrow {
-    position: relative; width: 130%; height: 80%; top: -80%; left:30%; z-index: 1;
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+    top: -80%; 
+    left:30%; 
+    z-index: 1;
 }
 .arrow-between {
-    position: absolute; width: 50%; height:20%; top: 77%; left: 80%; z-index: 1;
+    position: relative;     
+    top: 50px;
+    left: 90px;
+    z-index: 1;
 }
 .arrow-between img {
     width:100%;
@@ -243,20 +302,20 @@ a.desc:after {
 }
 .arrow-small {
     margin-top: 1px;
-    height: 90%;    
+    /*height: 90%;    */
 }
 .arrow-bottom {
-    transform: rotate(90deg);
+    /*transform: rotate(90deg);*/
 }
 .arrow-top {
-    transform: rotate(-45deg);
+    /*transform: rotate(-45deg);*/
     left: -70%;
 }
 .arrow-right-top {
-    transform: rotate(-45deg);
+    /*transform: rotate(-45deg);*/
 }
 .arrow-right {
-    transform: rotate(-45deg);
+    /*transform: rotate(-45deg);*/
     top: 20%;
 }
 
@@ -288,6 +347,7 @@ a.desc:after {
     width: 100%; 
     margin-top: 20px;
     height: 50px;    
+    border-radius: 6px;
 }
 #shift-arrow-container {    
     width: 100%; 
@@ -305,6 +365,7 @@ a.desc:after {
     text-align: center;
     position:relative;
     top: 70px;
+    color: #fff;
 }
 
 #shift-slider {
@@ -323,13 +384,87 @@ a.desc:after {
     box-shadow: none;
 }
 #shift-slider .slider-handle {    
-    height: 46px;
-    width: 100px;    
-    margin-top: -18px;
-    background: #ddd;
+    height: 44px;
+    width: 44px;    
+    margin-top: -18px;    
     padding: 10px;
+    background: conic-gradient(from 45deg, #3432B5, #3432B580);
+    
     text-align: center;
-    font-size: 16pt;
-    box-shadow: 0 0 10px 1px #505;
-    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;    
+    border-radius: 4px;    
+    color: #fff;
+}
+
+#header-navbar {
+    border-radius: 14px;
+    background: #4844F8;
+}
+
+.nav-item svg {
+    font-size: 28px;
+}
+
+.breadcrumb {
+    background: none;
+    padding-bottom: 29px;
+    border-bottom: #E3E3E3 1px solid;
+    font-size: 11px;
+}
+.breadcrumb-item {
+    color: #000;    
+}
+.breadcrumb-item a {
+    color: #000;
+}
+.breadcrumb-item.active {
+    font-weight: 300;
+}
+.btn {
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700
+}
+.btn-info, .btn-info:hover, .btn-info:active {
+    background-color: #4844F8;
+    border-color: #4844F8;
+}
+
+a {
+    color: #4844F8;
+}
+
+.table-bordered, .table-bordered th, .table-bordered td {
+    border: none;
+}
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background: none;    
+}
+.table-striped tbody tr {
+    border-bottom: 1px solid #E3E3E3;
+}
+.form-control {
+    border: none;
+    background: #F9F9F9;
+}
+.modal-content {
+    border-radius: 6px;
+}
+button.close {    
+    border: 2px solid #4844F8;
+    margin-top: 1px !important;
+    margin-right: 1px !important;
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    padding: 0 !important;
+    padding-top: -2px !important;
+}
+button.close span {
+    margin-top: -2px !important;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4844F8 !important;
+    text-shadow: none;
 }

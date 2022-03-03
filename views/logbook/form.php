@@ -37,7 +37,8 @@ $url = $model->isNewRecord ? Url::to(['logbook/create']) : Url::to(['logbook/upd
         <?= $form->field($model, 'contact_id')->hiddenInput()->label(false); ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-info']) ?>
+            <?= Html::resetButton('Clear text', ['class' => 'btn btn-info', 'style' => 'float:right']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

@@ -12,14 +12,11 @@ use app\models\Company;
 
 $this->title = 'Companies';
 $this->params['breadcrumbs'][] = $this->title;
+echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -60px;']);
 ?>
 <div class="company-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Company', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h1><?= Html::encode($this->title) ?></h1>    
 
     <?php Pjax::begin(); ?>    
 

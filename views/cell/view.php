@@ -44,17 +44,8 @@ if($shifts) {
 $js = '$(function(){$("#shift").trigger("slideStop");});';
 $this->registerJs($js);
 ?>
-<h2><?=$map->name ?> - <?=$code ?></h2>
 <div class="cell-view">
-    
-    <div class="row">
-        <div class="col-lg-4">
-            <h5 style="background: <?=$color ?>" > Ideal Journey and Approach Shifts</h5>
-        </div>        
-        <div class="col-lg-8">
-            <h5 style="background: <?=$color ?>"><?= $code ?> Approach & Funding Shifts</h5>
-        </div>
-    </div>
+        
     <div class="row">
         <div class="col-lg-4" style="align-items: center;">
             <?php 
@@ -79,70 +70,73 @@ $this->registerJs($js);
                                     } else {
                                         $vectorClass = 'arrow-right-top';
                                     }
-                                    $arrow = Html::img('images/arrow.png', ['class' => "arrow $vectorClass"]);
+                                    $arrow = Html::img('images/arrow-right-top.png', ['class' => "arrow $vectorClass"]);
                                 }
                             }                            
-                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => 'background: '.$colors[$cellCode]]), "\n";
+                            $color = $colors[$cellCode];
+                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)" ]), "\n";
                         }
                         echo Html::endTag('div');
                     }
                 }
-            ?>            
+            ?>
+            <h5> Ideal Journey and Approach Shifts</h5>
         </div>
         <?php if($code == 'A1') { ?>
         <div class="col-lg-8">
             <div class="answer-block">You have successfully achieved your payer ideal approach/funding goal! No further shifts are required.</div>
         </div>
-        <?php } else { ?>
-        <div class="col-lg-1">
+        <?php } else { ?>        
+        <div class="col-lg-8">
             <div class="row">
-                <div style="background: <?=$color ?>" class="shift-title"> <?= $map->question1_text ?></div>
-            </div>
-            <div class="row">
-                <div style="background: <?=$color ?>" class="shift-title"> <?= $map->question2_text ?></div>
-            </div>            
-        </div>
-        <div class="col-lg-7">
-            <div class="row">                
+                <div class="shift-title"> <?= $map->question1_text ?></div>
                 <?php
                     $count = count($shiftCells);
                     foreach($shiftCells as $i => $shiftCell) { 
                             $cellCode = $cellCodes[$shiftCell->id];
                             $cellColor = $colors[$cellCode];                             
-                        ?>
-                        <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block q1" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> 
-                                <?=$shiftCell->question1_compact ?>                                
-                            </div>
-                            <?php if($i < $count - 1) { ?>
-                                <div class="arrow-between">
-                                    Shift <?=$i + 1?>
-                                    <image src="images/arrow.png" class="arrow-between1">
-                                </div>
-                            <?php } ?>
-                        </div>
+                        ?>                        
+                        <div 
+                            style="background: conic-gradient(from 45deg, <?=$cellColor?>, <?=$cellColor?>80)" 
+                            class="shift-block q1" 
+                            data-num="<?=$i+1 ?>" 
+                            data-code ="<?=$cellCode ?>" 
+                            data-color="<?=$cellColor?>"
+                        > 
+                            <image src="images/arrow-right.png" class="arrow-between">
+                            <?=$shiftCell->question1_compact ?>                            
+                        </div>                        
                     <?php }
                 ?>                
             </div>
-            <div class="row" style="margin-top: 5px">                
+            <div class="row" style="margin-top: 5px">
+                <div class="shift-title"> <?= $map->question2_text ?></div>
                 <?php
                     foreach($shiftCells as $i => $shiftCell) { 
                             $cellCode = $cellCodes[$shiftCell->id];
                             $cellColor = $colors[$cellCode];                            
-                        ?>
-                        <div class="col-lg-<?= $wide?>">
-                            <div style="background: <?=$cellColor ?>" class="shift-block q2" data-num="<?=$i+1 ?>" data-code ="<?=$cellCode ?>"> <?=$shiftCell->question2_compact ?></div>
+                        ?>                        
+                        <div 
+                            style="background: conic-gradient(from 45deg, <?=$cellColor?>, <?=$cellColor?>80)" 
+                            class="shift-block q2" 
+                            data-num="<?=$i+1 ?>" 
+                            data-code ="<?=$cellCode ?>" 
+                            data-color="<?=$cellColor?>"
+                        > 
+                            <image src="images/arrow-right.png" class="arrow-between">
+                            <?=$shiftCell->question2_compact ?>                            
                         </div>
                     <?php }
                 ?>
             </div>                    
+            <h5 style="padding-left: 45px"><?= $code ?> Approach & Funding Shifts</h5>
         </div>        
         <div id="shift-arrow-container">
             <?php 
                 $count = count($shifts);
                 foreach($shifts as $i => $shift) {
                     $num = $i + 1;
-                    $img = Html::img("images/arrow.png", ['style' => 'width:30%; top-margin: -10px;']);
+                    $img = Html::img("images/arrow-right.png", ['style' => 'top-margin: -10px;']);
                     echo Html::tag('div', "shift $num<br>$img", ['class' => 'shift-arrow']);
                 }
             ?>
@@ -167,11 +161,16 @@ $this->registerJs($js);
                             num = $('#shift').val();
                         }                    
 
-                        $('.shift-block').css('opacity', 1);
-                        $('.shift-block.q1:lt('+(num - 1)+')').css('opacity', 0.3);
-                        $('.shift-block.q2:lt('+(num - 1)+')').css('opacity', 0.3);
+                        $('.shift-block').each(function(index, element) {
+                            let color = $(element).data('color');
+                            $(element).css('background', 'conic-gradient(from 45deg, '+ color + ', ' + color + '80)');
+                        });
+                        $('.shift-block.q1:lt('+(num - 1)+')').css('background', '#fff url(images/hidden.png) center center no-repeat');
+                        $('.shift-block.q2:lt('+(num - 1)+')').css('background', '#fff url(images/hidden.png) center center no-repeat');
                         let code = $('.shift-block[data-num='+num+']').data('code');
+                        //let color = $('.shift-block[data-num='+num+']').data('color');
                         $('#shift-slider .slider-handle').text(code);
+                        //.css('background', 'conic-gradient(from 45deg, '+color+', '+color+'80)')
 
                         num -= 1;
                         let start =  $('#shift-header-' + 0).get(0).offsetTop;
@@ -202,12 +201,12 @@ $this->registerJs($js);
                 $btn = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right', 'target' => '_blank']);
                 echo Html::tag('div', $header.$content.$btn);
                 if($i < $count - 1) {
-                    echo Html::tag('div', '<image src="images/arrow.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
+                    echo Html::tag('div', '<image src="images/arrow-bottom.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
                 }
         }
     } ?>
         </div>
-    </div>    
+    </div>  
 </div>
 <p>
     &nbsp;

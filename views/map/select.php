@@ -54,51 +54,54 @@ $this->registerJs($js);
     <h1><?= Html::encode($this->title) ?></h1>        
     
     <div class="map-form">
+        <div class="row">
+            <div class="col-lg-6">
+                <?php $form = ActiveForm::begin(); ?> 
 
-        <?php $form = ActiveForm::begin(); ?> 
-        
-        <?php
-            if($isAdmin) {
-                echo $form->field($model, 'intro')->textArea(['maxwidth' => 2000])->label('edit only by admins');
-            } else {
-                echo Html::tag('p', $model->intro);
-            }
-        ?>
-        <?= $form->field($model, 'contactName')->widget(Select2::class, [
-            'data' => $contacts,
-            'options' => ['placeholder' => 'Insert or select  contact ...'],
-            'pluginOptions' => [
-                'tags' => true                
-            ],
-        ]); ?>
+                <?php
+                    if($isAdmin) {
+                        echo $form->field($model, 'intro')->textArea(['maxwidth' => 2000])->label('edit only by admins');
+                    } else {
+                        echo Html::tag('p', $model->intro);
+                    }
+                ?>
+                <?= $form->field($model, 'contactName')->widget(Select2::class, [
+                    'data' => $contacts,
+                    'options' => ['placeholder' => 'Insert or select  contact ...'],
+                    'pluginOptions' => [
+                        'tags' => true                
+                    ],
+                ]); ?>
 
-        <?= $form->field($model, 'question1')->dropDownList($answers1, ['prompt' => 'Select your answer'])->label($model->question1_text) ?>
+                <?= $form->field($model, 'question1')->dropDownList($answers1, ['prompt' => 'Select your answer'])->label($model->question1_text) ?>
 
-        <?= $form->field($model, 'question2')->dropDownList($answers2, ['prompt' => 'Select your answer'])->label($model->question2_text) ?>               
-        
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-success', 'id' => 'btn-submit', 'disabled' => true]) ?>
-        </div>
+                <?= $form->field($model, 'question2')->dropDownList($answers2, ['prompt' => 'Select your answer'])->label($model->question2_text) ?>               
 
-        <?php ActiveForm::end(); ?>
+                <div class="form-group">
+                    <?= Html::submitButton('Submit', ['class' => 'btn btn-info', 'id' => 'btn-submit', 'disabled' => true]) ?>
+                </div>
 
+                <?php ActiveForm::end(); ?>
+            </div>
+            <div class="map-preview col-lg-6">
+            <?php             
+                $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
+                $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
+                $wide = 7 - $model->size;
+                foreach($rows as $row) {
+                    echo Html::beginTag('div', ['class' => 'row']);
+                    foreach($columns as $column) {
+                        $arrow = '';
+                        $cellCode = $row.$column;
+                        $color = $colors[$cellCode];
+                        echo Html::tag("div", $cellCode, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-code' => $cellCode]), "\n";
+                    }
+                    echo Html::endTag('div');
+                }            
+            ?>            
+            </div>
+        </div>        
     </div>
-    
-    <div class="map-preview col-lg-12">
-        <?php             
-            $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
-            $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
-            $wide = 7 - $model->size;
-            foreach($rows as $row) {
-                echo Html::beginTag('div', ['class' => 'row']);
-                foreach($columns as $column) {
-                    $arrow = '';
-                    $cellCode = $row.$column;                    
-                    echo Html::tag("div", $cellCode, ['class' => "cell", 'style' => 'background: '.$colors[$cellCode], 'data-code' => $cellCode]), "\n";
-                }
-                echo Html::endTag('div');
-            }            
-        ?>            
-        </div>
+        
 
 </div>

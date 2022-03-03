@@ -11,8 +11,11 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use app\models\User;
 use app\models\Company;
+use kartik\icons\Icon;
 
 AppAsset::register($this);
+Icon::map($this, Icon::FAS);  
+Icon::map($this, Icon::FAR);  
 
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
@@ -52,39 +55,41 @@ if($company) {
     <?php
     NavBar::begin([
         //'brandLabel' => $brandLabel,
+        'id' => 'header-navbar',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
-            'style' => "background: $brandColor",
+            //'style' => "background: $brandColor",
         ],
         'innerContainerOptions' => [
-            'style' => 'margin: 0'
+           'style' => 'margin: 0'
         ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'encodeLabels' => false,
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Contacts', 'url' => ['/contact/index'], 'visible' => $type !== 'guest'],
-            ['label' => 'Logbook', 'url' => ['/logbook/index'], 'visible' => $type !== 'guest'],
+            [
+                'label' => $companyImg.$brandLabel, 
+                'url' => false,
+                'encodeLabels' => false,
+                'options' => ['style' => "background: $brandColor"],
+            ],
+            ['label' => Icon::show('home'), 'url' => ['/site/index']],            
+            ['label' => Icon::show('users'), 'url' => ['/contact/index'], 'visible' => $type !== 'guest'],
+            ['label' => Icon::show('book'), 'url' => ['/logbook/index'], 'visible' => $type !== 'guest'],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login']]
             ) : (
-                '<li>'
+                '<li style="float:right">'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    'Logout',
+                    Icon::show('sign-out-alt', ['style' => 'font-size: 28px; float:right']),
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            ),
-            [
-                'label' => $brandLabel.$companyImg, 
-                'url' => false,
-                'encodeLabels' => false,
-            ],
+            ),            
         ],
     ]);
     NavBar::end();    
