@@ -264,12 +264,12 @@ h5 {
 }
 
 .shift-title {
-    margin-left: 40px;
+    margin-left: 20px;
     margin-right: 0;
-    padding-top: 50px;
-    height: 120px;
-    width: 20px;
-    transform: rotate(-90deg);
+    width: 40px;    
+    max-height: 132px;
+    writing-mode: vertical-lr;    
+    /*transform: rotate(-90deg);    */
     
     text-align: center;
     font-size: 11px;
@@ -386,7 +386,7 @@ h5 {
 #shift-slider .slider-handle {    
     height: 44px;
     width: 44px;    
-    margin-top: -18px;    
+    margin-top: 2px;    
     padding: 10px;
     background: conic-gradient(from 45deg, #3432B5, #3432B580);
     
