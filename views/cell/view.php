@@ -137,7 +137,7 @@ $this->registerJs($js);
                 foreach($shifts as $i => $shift) {
                     $num = $i + 1;
                     $img = Html::img("images/arrow-right.png", ['style' => 'top-margin: -10px;']);
-                    echo Html::tag('div', "shift $num<br>$img", ['class' => 'shift-arrow']);
+                    echo Html::tag('div', "Shift $num<br>$img", ['class' => 'shift-arrow']);
                 }
             ?>
         </div>
@@ -199,7 +199,7 @@ $this->registerJs($js);
                 $header = Html::tag('div', "Shift $num Core message summary", ['class' => 'shift-content-header', 'id' => 'shift-header-'.$i]);
                 $content = Html::tag('div', $shiftCell->content.$links, ['class' => 'shift-content']);
                 $btn = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right', 'target' => '_blank']);
-                echo Html::tag('div', $header.$content.$btn);
+                echo Html::tag('div', $header.$content.$btn, ['style' => 'overflow:auto']);
                 if($i < $count - 1) {
                     echo Html::tag('div', '<image src="images/arrow-bottom.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
                 }
@@ -215,7 +215,7 @@ $this->registerJs($js);
  if($contact && $logbookForm) {
     Modal::begin([
         'title' => "Logbook entry for {$contact->name}",
-        'toggleButton' => ['label' => 'logbook', 'class' => 'btn btn-info', 'style' => 'position: fixed; right: 50px; bottom: 100px;'],
+        'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: fixed; left: 50px; bottom: 100px;  box-shadow: 0 5px 0 #7B77FB;'],
         'size' => Modal::SIZE_LARGE,
         'centerVertical' => true,
     ]);

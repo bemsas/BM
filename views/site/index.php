@@ -17,7 +17,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-6">
                 <h2>Client vision</h2>
-                <?= Html::a('Maps', ['map/index']) ?><br>
+                <?= Html::a('Belief maps', ['map/index']) ?><br>
                 <?= Html::a('Contacts', ['contact/index', 'all' => 1]) ?><br>
                 <?= Html::a('Logbook', ['logbook/index', 'all' => 1]) ?><br>
                 <?php if($isManager) {
@@ -29,7 +29,7 @@ use yii\helpers\Html;
                 <div class="col-lg-6">
                     <h2>Administration</h2>
 
-                    <?= Html::a('Maps', ['map/index']) ?><br>
+                    <?= Html::a('Belief maps', ['map/index']) ?><br>
                     <?= Html::a('Companies', ['company/index']) ?><br>
                     <?= Html::a('Users', ['user/index']) ?><br>
                     <?= Html::a('All contacts', ['contact/index', 'all' => 1]) ?><br>

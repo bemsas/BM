@@ -30,14 +30,15 @@ $companyImg = '';
 if($company) {    
     $brandColor = $company->getColor();    
     $textColor = $company->color_text;
-    $brandLabel = Html::tag('span', $company->name, ['style' => "color: $textColor"]);
+    $brandLabel = Html::tag('span', $company->name, ['style' => "color: $textColor; font-size: 22px;"]);
     if($company->icon) {
-        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:32px; float: right; margin-left: 5px;']);        
+        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'height:45px; float: right; margin-left: auto;']);        
     }
 } else {
     $brandColor = Company::DEFAULT_COLOR;    
     $textColor = '#fff';
-    $brandLabel = Html::tag('span', Yii::$app->name, ['style' => "color: $textColor"]);
+    $brandLabel = Html::tag('span', Yii::$app->name, ['style' => "color: $textColor; font-size: 22px;"]);
+    $companyImg = Html::img('images/banner.png', ['alt' => 'company icon', 'style' => 'height:45px; float: right; margin-left: auto;']);        
 }
 ?>
 <?php $this->beginPage() ?>
@@ -54,46 +55,47 @@ if($company) {
 <?php $this->beginBody() ?>
 
 <header>
-    <?php
+    <?php    
     NavBar::begin([
-        //'brandLabel' => $brandLabel,
+        'brandLabel' => $brandLabel,
         'id' => 'header-navbar',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
-            'style' => "background: $brandColor",
+            'style' => "background: $brandColor; width: 100%",
         ],
         'innerContainerOptions' => [
-           'style' => 'margin: 0'
+           'style' => 'max-width: 100% !important'
         ],
-    ]);
+    ]);    
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'encodeLabels' => false,
         'items' => [
-            [
+            /*[
                 'label' => $companyImg.$brandLabel, 
                 'url' => false,
                 'encodeLabels' => false,
                 'options' => ['style' => "background: $brandColor"],
-            ],
-            ['label' => Icon::show('home'), 'url' => ['/site/index'], 'linkOptions' => ['style' => "color: $textColor"]],            
-            ['label' => Icon::show('users'), 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
-            ['label' => Icon::show('book'), 'url' => ['/logbook/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ],*/
+            ['label' => Icon::show('home').' Menu', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],            
+            ['label' => Icon::show('users').' Contacts', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => Icon::show('book').' Logbook', 'url' => ['/logbook/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
-                ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'linkOptions' => ['style' => "color: $textColor"]]
+                ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (
                 '<li style="float:right">'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    Icon::show('sign-out-alt', ['style' => "font-size: 28px; float:right; color: $textColor"]),
-                    ['class' => 'btn btn-link logout']
+                    Icon::show('sign-out-alt', ['style' => "font-size: 28px; color: $textColor"]).Html::tag('span', 'Logout', ['style' => "color: $textColor"]),
+                    ['class' => 'btn btn-link logout', ['style' => "color: $textColor"]]
                 )
                 . Html::endForm()
                 . '</li>'
             ),            
         ],
     ]);
+    echo $companyImg;
     NavBar::end();    
     ?>
 </header>
@@ -110,8 +112,8 @@ if($company) {
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <!--<p class="float-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="float-right"><?= Yii::powered() ?></p>!-->
     </div>
 </footer>
 
