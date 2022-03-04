@@ -27,15 +27,17 @@ if(Yii::$app->user->isGuest) {
     
 }
 $companyImg = '';
-if($company) {
-    $brandLabel = $company->name;
+if($company) {    
     $brandColor = $company->getColor();    
+    $textColor = $company->color_text;
+    $brandLabel = Html::tag('span', $company->name, ['style' => "color: $textColor"]);
     if($company->icon) {
         $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'width:32px; float: right; margin-left: 5px;']);        
     }
 } else {
-    $brandLabel = Yii::$app->name;
     $brandColor = Company::DEFAULT_COLOR;    
+    $textColor = '#fff';
+    $brandLabel = Html::tag('span', Yii::$app->name, ['style' => "color: $textColor"]);
 }
 ?>
 <?php $this->beginPage() ?>
@@ -59,7 +61,7 @@ if($company) {
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
-            //'style' => "background: $brandColor",
+            'style' => "background: $brandColor",
         ],
         'innerContainerOptions' => [
            'style' => 'margin: 0'
@@ -75,16 +77,16 @@ if($company) {
                 'encodeLabels' => false,
                 'options' => ['style' => "background: $brandColor"],
             ],
-            ['label' => Icon::show('home'), 'url' => ['/site/index']],            
-            ['label' => Icon::show('users'), 'url' => ['/contact/index'], 'visible' => $type !== 'guest'],
-            ['label' => Icon::show('book'), 'url' => ['/logbook/index'], 'visible' => $type !== 'guest'],
+            ['label' => Icon::show('home'), 'url' => ['/site/index'], 'linkOptions' => ['style' => "color: $textColor"]],            
+            ['label' => Icon::show('users'), 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => Icon::show('book'), 'url' => ['/logbook/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
-                ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login']]
+                ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (
                 '<li style="float:right">'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    Icon::show('sign-out-alt', ['style' => 'font-size: 28px; float:right']),
+                    Icon::show('sign-out-alt', ['style' => "font-size: 28px; float:right; color: $textColor"]),
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

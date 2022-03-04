@@ -29,8 +29,8 @@ echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' =
             [
                 'attribute' => 'name',
                 'contentOptions' => function(Company $model) {
-                    $color = $model->getColor();
-                    return ['style' => "background: $color"];
+                    $color = $model->getColor();                    
+                    return ['style' => "background: $color; color: {$model->color_text}"];
                 },
             ],
             [

@@ -10,6 +10,7 @@ use Yii;
  * @property int $id ID
  * @property string $name Name
  * @property string $color color
+ * @property string $color_text text color
  * @property string $icon icon url
  *
  * @property User[] $users
@@ -33,7 +34,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 200],
-            [['color'], 'string', 'max' => 20],
+            [['color', 'color_text'], 'string', 'max' => 20],
             [['icon'], 'string', 'max' => 2000],
         ];
     }
@@ -47,6 +48,7 @@ class Company extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'color' => 'Banner color',
+            'color_text' => 'Text banner color',
             'icon' => 'Icon URL'
         ];
     }

@@ -27,6 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ])
         ?>
         
+        <?= $form->field($model, 'color_text')->widget(ColorInput::class, [
+                'options' => ['placeholder' => 'Select text color ...'],
+            ])
+        ?>
+        
         <?= $form->field($model, 'icon')->textInput(['maxlength' => 2000]) ?>
 
         <div class="form-group">
