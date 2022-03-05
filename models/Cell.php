@@ -16,6 +16,8 @@ use app\models\Answer;
  * @property string $question2_compact compact content for question 2
  * @property string $content full content
  * @property string $links links
+ * @property string $link_full_deck link to full deck
+ * @property string $link_pdf link to summary pdf
  *
  * @property Answer $answer1
  * @property Answer $answer2
@@ -47,6 +49,7 @@ class Cell extends \yii\db\ActiveRecord
             [['color'], 'string', 'max' => 20],
             [['question1_compact', 'question2_compact'], 'string', 'max' => 200],
             [['content', 'links'], 'string', 'max' => 4000],
+            [['link_full_deck', 'link_pdf'], 'string', 'max' => 500],
         ];
     }
 
@@ -63,7 +66,9 @@ class Cell extends \yii\db\ActiveRecord
             'question1_compact' => 'Question 1 compact text',
             'question2_compact' => 'Question 2 compact text',
             'content' => 'Content',
-            'links' => 'links'
+            'links' => 'links',
+            'link_full_deck' => 'Full deck link',
+            'link_pdf' => 'Summary PDF link'
         ];
     }
 

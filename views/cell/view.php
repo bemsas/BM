@@ -43,7 +43,18 @@ if($shifts) {
 
 $js = '$(function(){$("#shift").trigger("slideStop");});';
 $this->registerJs($js);
+
+$shiftBlockHeight = $map->size * 76.5 / 2 -5;
+$shiftBlockWidth = 132 * 5 / $map->size;
 ?>
+<style>
+    .shift-title, .shift-block {
+        height: <?=$shiftBlockHeight?>px;
+    }
+    .shift-block {
+        width: <?=$shiftBlockWidth?>px;
+    }
+</style>
 <div class="cell-view">
         
     <div class="row">
@@ -79,8 +90,7 @@ $this->registerJs($js);
                         echo Html::endTag('div');
                     }
                 }
-            ?>
-            <h5> Ideal Journey and Approach Shifts</h5>
+            ?>            
         </div>
         <?php if($code == 'A1') { ?>
         <div class="col-lg-8">
@@ -89,7 +99,7 @@ $this->registerJs($js);
         <?php } else { ?>        
         <div class="col-lg-8">
             <div class="row">
-                <div class="shift-title"> <?= $map->question1_text ?></div>
+                <div class="shift-title"> Belief</div>
                 <?php
                     $count = count($shiftCells);
                     foreach($shiftCells as $i => $shiftCell) { 
@@ -110,7 +120,7 @@ $this->registerJs($js);
                 ?>                
             </div>
             <div class="row" style="margin-top: 5px">
-                <div class="shift-title"> <?= $map->question2_text ?></div>
+                <div class="shift-title"> Funding</div>
                 <?php
                     foreach($shiftCells as $i => $shiftCell) { 
                             $cellCode = $cellCodes[$shiftCell->id];
@@ -128,8 +138,7 @@ $this->registerJs($js);
                         </div>
                     <?php }
                 ?>
-            </div>                    
-            <h5 style="padding-left: 45px"><?= $code ?> Approach & Funding Shifts</h5>
+            </div>            
         </div>        
         <div id="shift-arrow-container">
             <?php 
@@ -198,8 +207,14 @@ $this->registerJs($js);
                 }
                 $header = Html::tag('div', "Shift $num Core message summary", ['class' => 'shift-content-header', 'id' => 'shift-header-'.$i]);
                 $content = Html::tag('div', $shiftCell->content.$links, ['class' => 'shift-content']);
-                $btn = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right', 'target' => '_blank']);
-                echo Html::tag('div', $header.$content.$btn, ['style' => 'overflow:auto']);
+                
+                $btn1 = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
+                $dis2 = $shiftCell->link_full_deck ? '' : 'disabled';
+                $dis3 = $shiftCell->link_pdf ? '' : 'disabled';
+                $btn2 = Html::a("Shift $num Full Deck", $shiftCell->link_full_deck, ['class' => "btn btn-info $dis2", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
+                $btn3 = Html::a("Shift $num Message Summary PDF", $shiftCell->link_pdf, ['class' => "btn btn-info $dis3", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank',]);
+                
+                echo Html::tag('div', "$header\n$content\n$btn3\n$btn2\n$btn1", ['style' => 'overflow:auto']);
                 if($i < $count - 1) {
                     echo Html::tag('div', '<image src="images/arrow-bottom.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
                 }

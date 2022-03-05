@@ -62,7 +62,7 @@ if($company) {
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
-            'style' => "background: $brandColor; width: 100%",
+            'style' => "background: $brandColor; width: 98%; margin: auto;",
         ],
         'innerContainerOptions' => [
            'style' => 'max-width: 100% !important'

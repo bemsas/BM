@@ -42,6 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?= $form->field($model, 'links')->textArea(['maxlength' => '4000'])->hint('Use space as separator between links') ?>
         
+        <?= $form->field($model, 'link_full_deck')->textArea(['maxlength' => '500']) ?>
+        
+        <?= $form->field($model, 'link_pdf')->textArea(['maxlength' => '500']) ?>
+        
         <?= $form->field($model, 'color')->widget(ColorInput::class, [
                 'options' => ['placeholder' => 'Select color ...'],
             ])
