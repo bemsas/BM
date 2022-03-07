@@ -25,9 +25,10 @@ echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' =
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'name',
+            'name:text:Company Name',
             [
-                'attribute' => 'name',
+                'attribute' => 'name',                
+                'label' => 'Brand colours',
                 'contentOptions' => function(Company $model) {
                     $color = $model->getColor();                    
                     return ['style' => "background: $color; color: {$model->color_text}"];
@@ -35,6 +36,7 @@ echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' =
             ],
             [
                 'attribute' => 'icon',
+                'label' => 'Logo',
                 'value' => function(Company $model) {
                     if($model->icon) {
                         return Html::img($model->icon, ['title' => 'company icon', 'style' => 'width:64px;']);

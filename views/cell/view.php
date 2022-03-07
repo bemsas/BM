@@ -230,7 +230,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
  if($contact && $logbookForm) {
     Modal::begin([
         'title' => "Logbook entry for {$contact->name}",
-        'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: fixed; left: 50px; bottom: 100px;  box-shadow: 0 5px 0 #7B77FB;'],
+        'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: absolute; right: 50px; top: 80px;  box-shadow: 0 5px 0 #7B77FB;'],
         'size' => Modal::SIZE_LARGE,
         'centerVertical' => true,
     ]);
