@@ -279,17 +279,23 @@ h5 {
 }
 .arrow {
     position: relative; 
-    width: 100%; 
-    height: 100%; 
+    width: 100px !important;
+    height: 100px !important; 
     top: -80%; 
-    left:30%; 
+    left: 50%;
     z-index: 1;
+    color: #000;
+    text-align: center;
+    font-size: 18px;
 }
 .arrow-between {
     position: relative;     
-    top: 50%;
-    left: 80%;
+    top: 60%;
+    left: 60%;
     z-index: 1;
+    font-size: 18px;
+    color: #000;
+    text-align: center;    
 }
 .arrow-between img {
     width:100%;
@@ -302,20 +308,21 @@ h5 {
 }
 .arrow-small {
     margin-top: 1px;
-    /*height: 90%;    */
+    font-size: 18px;
 }
 .arrow-bottom {
-    /*transform: rotate(90deg);*/
+    transform: rotate(90deg);
+    color: #3432B5;
 }
 .arrow-top {
-    /*transform: rotate(-45deg);*/
+    transform: rotate(-45deg);
     left: -70%;
 }
 .arrow-right-top {
-    /*transform: rotate(-45deg);*/
+    transform: rotate(-45deg);
 }
 .arrow-right {
-    /*transform: rotate(-45deg);*/
+    transform: rotate(-45deg);
     top: 20%;
 }
 
@@ -368,8 +375,8 @@ h5 {
 }
 
 #shift-slider {
-    margin-left: 15px;
-    width: calc(100% - 110px);
+    margin-left: 12px;
+    width: calc(100% - 48px);
     height: 50px;    
 }
 #shift-slider .slider-track {

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\slider\Slider;
 use yii\bootstrap4\Modal;
+use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cell */
@@ -71,7 +72,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                         foreach($columns as $j => $column) {
                             $arrow = '';
                             $cellCode = $row.$column;
-                            foreach($shifts as $shift) {
+                            foreach($shifts as $i => $shift) {
                                 if($cellCodes[$shift->cell_start_id] == $cellCode) {
                                     $endCell = $cellCodes[$shift->cell_end_id];
                                     if($endCell[0] == $row) {
@@ -81,7 +82,8 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                                     } else {
                                         $vectorClass = 'arrow-right-top';
                                     }
-                                    $arrow = Html::img('images/arrow-right-top.png', ['class' => "arrow $vectorClass"]);
+                                    $num = $i + 1;
+                                    $arrow = Html::tag('div', "Shift $num  ".Icon::show('arrow-right'), ['class' => "arrow $vectorClass"]);
                                 }
                             }                            
                             $color = $colors[$cellCode];
@@ -112,9 +114,14 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                             data-num="<?=$i+1 ?>" 
                             data-code ="<?=$cellCode ?>" 
                             data-color="<?=$cellColor?>"
-                        > 
-                            <image src="images/arrow-right.png" class="arrow-between">
+                        >   
                             <?=$shiftCell->question1_compact ?>                            
+                            <?php if($i < $count - 1) { ?>
+                            <div class="arrow-between">
+                                Shift <?=$i+1 ?><br>
+                                <?= Icon::show('arrow-right') ?>
+                            </div>                            
+                            <?php } ?>                            
                         </div>                        
                     <?php }
                 ?>                
@@ -132,8 +139,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                             data-num="<?=$i+1 ?>" 
                             data-code ="<?=$cellCode ?>" 
                             data-color="<?=$cellColor?>"
-                        > 
-                            <image src="images/arrow-right.png" class="arrow-between">
+                        >                             
                             <?=$shiftCell->question2_compact ?>                            
                         </div>
                     <?php }
@@ -145,7 +151,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                 $count = count($shifts);
                 foreach($shifts as $i => $shift) {
                     $num = $i + 1;
-                    $img = Html::img("images/arrow-right.png", ['style' => 'top-margin: -10px;']);
+                    $img = Icon::show('arrow-right');
                     echo Html::tag('div', "Shift $num<br>$img", ['class' => 'shift-arrow']);
                 }
             ?>
@@ -216,7 +222,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                 
                 echo Html::tag('div', "$header\n$content\n$btn3\n$btn2\n$btn1", ['style' => 'overflow:auto']);
                 if($i < $count - 1) {
-                    echo Html::tag('div', '<image src="images/arrow-bottom.png" class="arrow-small arrow-bottom">', ['class' => 'container-arrow']);
+                    echo Html::tag('div', Icon::show('arrow-right', ['class' => 'arrow-small arrow-bottom']), ['class' => 'container-arrow']);
                 }
         }
     } ?>
