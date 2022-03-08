@@ -83,7 +83,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                                         $vectorClass = 'arrow-right-top';
                                     }
                                     $num = $i + 1;
-                                    $arrow = Html::tag('div', "Shift $num  ".Icon::show('arrow-right'), ['class' => "arrow $vectorClass"]);
+                                    $arrow = Html::tag('div', Icon::show('arrow-right')."<span>Shift $num</span>", ['class' => "arrow $vectorClass"]);
                                 }
                             }                            
                             $color = $colors[$cellCode];
@@ -118,8 +118,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                             <?=$shiftCell->question1_compact ?>                            
                             <?php if($i < $count - 1) { ?>
                             <div class="arrow-between">
-                                Shift <?=$i+1 ?><br>
-                                <?= Icon::show('arrow-right') ?>
+                                Shift <?=$i+1 ?> <?= Icon::show('arrow-right') ?>
                             </div>                            
                             <?php } ?>                            
                         </div>                        

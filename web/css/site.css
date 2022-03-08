@@ -281,22 +281,35 @@ h5 {
     position: relative; 
     width: 100px !important;
     height: 100px !important; 
-    top: -80%; 
-    left: 50%;
+    top: -150%; 
+    left: 20%;
     z-index: 1;
     color: #000;
     text-align: center;
     font-size: 18px;
 }
+.arrow span {
+    position: relative;
+    z-index: 3;
+    bottom: 65px;
+    left: 0px;
+}
+.arrow svg {
+    position: relative;
+    font-size: 100px;
+    color: #fff;
+    z-index: 1;
+}
 .arrow-between {
     position: relative;     
-    top: 60%;
-    left: 60%;
+    top: 50%;
+    left: 100%;
     z-index: 1;
     font-size: 18px;
-    color: #000;
-    text-align: center;    
+    color: #000;    
+    writing-mode: vertical-lr;
 }
+
 .arrow-between img {
     width:100%;
     height:100%;
