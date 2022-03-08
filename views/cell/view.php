@@ -47,6 +47,7 @@ $this->registerJs($js);
 
 $shiftBlockHeight = $map->size * 76.5 / 2 -5;
 $shiftBlockWidth = 132 * 5 / $map->size;
+$arrowBetweenTop = 50 * $map->size / 5;
 ?>
 <style>
     .shift-title, .shift-block {
@@ -54,6 +55,9 @@ $shiftBlockWidth = 132 * 5 / $map->size;
     }
     .shift-block {
         width: <?=$shiftBlockWidth?>px;
+    }
+    .arrow-between {
+        top: <?=$arrowBetweenTop?>%;
     }
 </style>
 <div class="cell-view">
@@ -120,7 +124,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
                             <div class="arrow-between">
                                 Shift <?=$i+1 ?> <?= Icon::show('arrow-right') ?>
                             </div>                            
-                            <?php } ?>                            
+                            <?php } ?>
                         </div>                        
                     <?php }
                 ?>                
@@ -235,7 +239,7 @@ $shiftBlockWidth = 132 * 5 / $map->size;
  if($contact && $logbookForm) {
     Modal::begin([
         'title' => "Logbook entry for {$contact->name}",
-        'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: absolute; right: 50px; top: 80px;  box-shadow: 0 5px 0 #7B77FB;'],
+        'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: fixed; right: 50px; top: 80px;  box-shadow: 0 5px 0 #7B77FB;'],
         'size' => Modal::SIZE_LARGE,
         'centerVertical' => true,
     ]);

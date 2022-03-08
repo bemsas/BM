@@ -336,7 +336,8 @@ h5 {
 }
 .arrow-right {
     transform: rotate(-45deg);
-    top: 20%;
+    top: -20%;
+    left: 20%;
 }
 
 #map-progress {
