@@ -60,9 +60,9 @@ $axisWidth = 75 * $map->size + 25;
     .arrow-between {
         top: <?=$arrowBetweenTop?>%;
     }
-      parent.vertical {     
+    parent {     
           width: <?= $axisWidth?>px
-      }
+    }
 </style>
 <?php
     if($contact && $logbookForm) {
@@ -114,14 +114,16 @@ $axisWidth = 75 * $map->size + 25;
                     }
                     ?>       
                     <parent class="vertical">
+                        <span class="legend">&nbsp;Payer&nbsp;belief&nbsp;</span>
                         <div class="line">
                             <div class="bullet"></div>
-                        </div><span class="legend">&nbsp;Y</span>
+                        </div>
                     </parent>
                     <parent>
+                        <span class="legend">&nbsp;Payer&nbsp;funding&nbsp;</span>
                         <div class="line">
                             <div class="bullet"></div>
-                        </div><span class="legend">&nbsp;X</span>
+                        </div>                                                
                     </parent>                    
                 <?php }
             ?>            
