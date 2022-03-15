@@ -108,7 +108,7 @@ $axisWidth = 75 * $map->size + 25;
                                 }
                             }                            
                             $color = $colors[$cellCode];
-                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)" ]), "\n";
+                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-cell' => $cellCode ]), "\n";
                         }
                         echo Html::endTag('div');                        
                     }
@@ -116,12 +116,12 @@ $axisWidth = 75 * $map->size + 25;
                     <parent class="vertical">
                         <div class="line">
                             <div class="bullet"></div>
-                        </div>
+                        </div><span class="legend">&nbsp;Y</span>
                     </parent>
                     <parent>
                         <div class="line">
                             <div class="bullet"></div>
-                        </div>
+                        </div><span class="legend">&nbsp;X</span>
                     </parent>                    
                 <?php }
             ?>            
@@ -215,6 +215,8 @@ $axisWidth = 75 * $map->size + 25;
                         $('.shift-block.q2:lt('+(num - 1)+')').css('background', '#fff url(images/hidden.png) center center no-repeat');
                         let code = $('.shift-block[data-num='+num+']').data('code');
                         //let color = $('.shift-block[data-num='+num+']').data('color');
+                        $('.cell.selected').removeClass('selected');
+                        $('.cell[data-cell='+code+']').addClass('selected');
                         $('#shift-slider .slider-handle').text(code);
                         //.css('background', 'conic-gradient(from 45deg, '+color+', '+color+'80)')
 

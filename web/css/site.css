@@ -240,6 +240,9 @@ h5 {
     margin-right: 5px;
     margin-bottom: 6.5px;    
 }
+.cell.selected {
+    border: solid 3px #7B77FB;
+}
 .cell:first-child {
     margin-left: auto;
 }
@@ -297,7 +300,7 @@ h5 {
 .arrow svg {
     position: relative;
     font-size: 100px;
-    color: #fff;
+    color: #ffffff80;
     z-index: 1;
 }
 .arrow-between {
@@ -524,4 +527,8 @@ parent.vertical {
     margin-left: -4px;
     transform: rotate(-90deg);
     transform-origin: left bottom;    
+}
+parent .legend {
+    font-size: 16px;
+    font-weight: bold;
 }
