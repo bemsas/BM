@@ -9,14 +9,14 @@ use yii\helpers\Html;
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Belief map toolkit!</h1>        
+        <h1 class="display-4">Payer Negotiation Toolkit</h1>        
     </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-6">
-                <h2>Client vision</h2>
+            <div class="col-lg-8">
+                <h2>User</h2>
                 <?= Html::a('Belief maps', ['map/index']) ?><br>
                 <?= Html::a('Contacts', ['contact/index', 'all' => 1]) ?><br>
                 <?= Html::a('Logbook', ['logbook/index', 'all' => 1]) ?><br>
@@ -26,7 +26,7 @@ use yii\helpers\Html;
                 ?>
             </div>
             <?php if($isAdmin) { ?>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <h2>Administration</h2>
 
                     <?= Html::a('Belief maps', ['map/index']) ?><br>

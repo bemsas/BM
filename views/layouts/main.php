@@ -17,6 +17,8 @@ AppAsset::register($this);
 Icon::map($this, Icon::FAS);  
 Icon::map($this, Icon::FAR);  
 
+$this->title = 'Payer Negotiation Toolkit';
+
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
     $company = null;    

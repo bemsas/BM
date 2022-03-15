@@ -46,8 +46,9 @@ $js = '$(function(){$("#shift").trigger("slideStop");});';
 $this->registerJs($js);
 
 $shiftBlockHeight = $map->size * 76.5 / 2 -5;
-$shiftBlockWidth = 132 * 5 / $map->size;
+$shiftBlockWidth = 115 * 5 / $map->size;
 $arrowBetweenTop = 50 * $map->size / 5;
+$axisWidth = 75 * $map->size + 25;
 ?>
 <style>
     .shift-title, .shift-block {
@@ -59,15 +60,31 @@ $arrowBetweenTop = 50 * $map->size / 5;
     .arrow-between {
         top: <?=$arrowBetweenTop?>%;
     }
+      parent.vertical {     
+          width: <?= $axisWidth?>px
+      }
 </style>
-<div class="cell-view">
-        
+<?php
+    if($contact && $logbookForm) {
+       Modal::begin([
+           'title' => "Logbook entry for {$contact->name}",
+           'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: relative; top: -50px; left:90%;  box-shadow: 0 5px 0 #7B77FB;'],
+           'size' => Modal::SIZE_LARGE,
+           'centerVertical' => true,
+       ]);                
+
+       echo $logbookForm;
+
+       Modal::end();     
+    }
+?>
+<div class="cell-view">    
     <div class="row">
         <div class="col-lg-4" style="align-items: center;">
             <?php 
                 if($code == 'A1') {
                     echo Html::tag("div", "No approach shifts required for A1 profile payers", ['class' => "answer-block"]), "\n";
-                } else {
+                } else {                    
                     $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $map->size);
                     $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $map->size, $map->size);
                     $wide = 7 - $map->size;
@@ -93,9 +110,20 @@ $arrowBetweenTop = 50 * $map->size / 5;
                             $color = $colors[$cellCode];
                             echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)" ]), "\n";
                         }
-                        echo Html::endTag('div');
+                        echo Html::endTag('div');                        
                     }
-                }
+                    ?>       
+                    <parent class="vertical">
+                        <div class="line">
+                            <div class="bullet"></div>
+                        </div>
+                    </parent>
+                    <parent>
+                        <div class="line">
+                            <div class="bullet"></div>
+                        </div>
+                    </parent>                    
+                <?php }
             ?>            
         </div>
         <?php if($code == 'A1') { ?>
@@ -235,16 +263,3 @@ $arrowBetweenTop = 50 * $map->size / 5;
 <p>
     &nbsp;
 </p>
-<?php
- if($contact && $logbookForm) {
-    Modal::begin([
-        'title' => "Logbook entry for {$contact->name}",
-        'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: fixed; right: 50px; top: 80px;  box-shadow: 0 5px 0 #7B77FB;'],
-        'size' => Modal::SIZE_LARGE,
-        'centerVertical' => true,
-    ]);
-
-    echo $logbookForm;
-
-    Modal::end();     
- }

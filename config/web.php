@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Belief MAP',
+    'name' => 'Payer Negotiation Toolkit',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'timezone' => 'Europe/Paris',
