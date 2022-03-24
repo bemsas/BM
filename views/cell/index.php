@@ -16,7 +16,7 @@ use yii\widgets\Pjax;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Cell', ['/cell/create', 'mapId' => $searchModel->mapId], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Create Cell', ['/cell/create', 'mapId' => $searchModel->mapId], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -70px;']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    
@@ -74,6 +74,7 @@ use yii\widgets\Pjax;
             ],
             [
                 'class' => ActionColumn::class,
+                'contentOptions' => ['class' => 'action-column'],
                 'header' => 'controls',
                 'controller' => 'cell',
                 'template' => '{update} {delete}'

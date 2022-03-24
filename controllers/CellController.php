@@ -45,13 +45,13 @@ class CellController extends Controller
                             'roles' => ['@'],
                             'matchCallback' => function()
                             {
-                                return $this->isAdmin();                                
+                                return $this->isAdmin();
                             }
                         ],
                         [
                             'actions' => ['index', 'view'],
                             'allow' => true,
-                            'roles' => ['@'],                            
+                            'roles' => ['@'],
                         ],
                     ],
                 ],
@@ -80,19 +80,19 @@ class CellController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
-    private function renderLogbookForm($cellId, Contact $contact, $userId) {        
+
+    private function renderLogbookForm($cellId, Contact $contact, $userId) {
         $model = new Logbook();
         $model->cell_id = $cellId;
         $model->contact_id = $contact->id;
         $model->user_id = $userId;
         $model->fromCell = true;
-        
-        $html = $this->renderPartial('/logbook/form', [
+
+        $html = $this->renderPartial('/logbook/_form', [
             'model' => $model,
-            
+
         ]);
-        
+
         $models = Logbook::find()->andWhere(['cell_id' => $cellId, 'contact_id' => $contact->id, 'user_id' => $userId])->orderBy('id desc')->all();
         $views = [];
         foreach($models as $model) {
@@ -103,9 +103,9 @@ class CellController extends Controller
 
     public function actionView($id, $contactId = null) {
         $model = $this->findModel($id);
-        $cellCodes = Cell::getCodeList($model->answer1->map_id);        
+        $cellCodes = Cell::getCodeList($model->answer1->map_id);
         $cells = Cell::findAllByMapId($model->answer1->map_id);
-        
+
         $colors = [];
         $defaultColors = Cell::defaultColors();
         $cellIds = array_flip($cellCodes);
@@ -117,7 +117,7 @@ class CellController extends Controller
             }
         }
         $contact = Contact::findOne($contactId);
-                
+
         return $this->render('view', [
             'model' => $model,
             'code' => $cellCodes[$model->id],
@@ -129,15 +129,15 @@ class CellController extends Controller
             'logbookForm' => $contact ? $this->renderLogbookForm($id, $contact, \Yii::$app->user->id) : '',
         ]);
     }
-    
+
     public function actionContent($id) {
         $model = $this->findModel($id);
-        $cellCodes = Cell::getCodeList($model->answer1->map_id);        
-        $cells = Cell::findAllByMapId($model->answer1->map_id);                
-                
+        $cellCodes = Cell::getCodeList($model->answer1->map_id);
+        $cells = Cell::findAllByMapId($model->answer1->map_id);
+
         return $this->render('content', [
             'model' => $model,
-            'code' => $cellCodes[$model->id],            
+            'code' => $cellCodes[$model->id],
         ]);
     }
 
@@ -152,7 +152,7 @@ class CellController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/map/view', 'id' => $model->answer1->map_id]);
+                return $this->redirect(['/map/view', 'id' => $model->answer1->map_id, 'tab' => 'cells']);
             }
         } else {
             $model->loadDefaultValues();
@@ -175,7 +175,7 @@ class CellController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);        
+        $model = $this->findModel($id);
         $codes = Cell::getCodeList($model->answer1->map_id);
         if(!$model->color) {
             $colors = Cell::defaultColors();
@@ -183,7 +183,7 @@ class CellController extends Controller
         }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['/map/view', 'id' => $model->answer1->map_id]);
+            return $this->redirect(['/map/view', 'id' => $model->answer1->map_id, 'tab' => 'cells']);
         }
 
         return $this->render('form', [
@@ -204,9 +204,10 @@ class CellController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/map/view', 'id' => $model->answer1->map_id, 'tab' => 'cells']);
     }
 
     /**

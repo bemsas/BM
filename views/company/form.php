@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use kartik\color\ColorInput;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Company */
@@ -11,10 +13,20 @@ use kartik\color\ColorInput;
 $this->title = $model->isNewRecord ? 'Create Company' : 'Update Company';
 $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="company-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+Modal::begin([
+    'title' => $this->title,
+    'id' => 'modal-container',
+    'size' => Modal::SIZE_LARGE,
+    'centerVertical' => true,
+]);
+$this->registerJsVar('returnUrl', Url::to(['index']));
+$js = "$(function(){ $('#modal-container').modal('show'); });
+    $('#modal-container').on('hide.bs.modal', function(e){location.href = returnUrl});
+    ";
+$this->registerJs($js);
+?>
+<div class="company-create">    
 
     <div class="company-form">
 
@@ -44,3 +56,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+<?php Modal::end();  ?>

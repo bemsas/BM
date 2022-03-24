@@ -97,7 +97,7 @@ class MapCompanyController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['map/view', 'id' => $model->map_id]);
+                return $this->redirect(['map/view', 'id' => $model->map_id, 'tab' => 'access']);
             }
         } else {
             $model->loadDefaultValues();
@@ -121,7 +121,7 @@ class MapCompanyController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['map/view', 'id' => $model->map_id]);
+            return $this->redirect(['map/view', 'id' => $model->map_id, 'tab' => 'access']);
         }
 
         return $this->render('form', [
@@ -139,9 +139,10 @@ class MapCompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['map/view', 'id' => $model->map_id, 'tab' => 'access']);
     }
 
     /**

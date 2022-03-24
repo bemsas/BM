@@ -1,9 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use kartik\color\ColorInput;
 use dosamigos\ckeditor\CKEditor;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cell */
@@ -18,10 +20,20 @@ $this->title = $model->isNewRecord ? 'Create Cell' : "Update Cell $code";
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
 $this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="cell-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+Modal::begin([
+    'title' => $this->title,
+    'id' => 'modal-container',
+    'size' => Modal::SIZE_LARGE,
+    'centerVertical' => true,
+]);
+$this->registerJsVar('returnUrl', Url::to(['map/view', 'id' => $map->id, 'tab' => 'cells']));
+$js = "$(function(){ $('#modal-container').modal('show'); });
+    $('#modal-container').on('hide.bs.modal', function(e){location.href = returnUrl});
+    ";
+$this->registerJs($js);
+?>
+<div class="cell-create">    
 
     <div class="cell-form">
 
@@ -60,3 +72,4 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+<?php Modal::end();  ?>

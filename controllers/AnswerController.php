@@ -84,7 +84,7 @@ class AnswerController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['map/view', 'id' => $model->map_id]);
+                return $this->redirect(['map/view', 'id' => $model->map_id, 'tab' => 'question'.$model->question]);
             }
         } else {
             $model->loadDefaultValues();
@@ -107,7 +107,7 @@ class AnswerController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['map/view', 'id' => $model->map_id]);
+            return $this->redirect(['map/view', 'id' => $model->map_id, 'tab' => 'question'.$model->question]);
         }
 
         return $this->render('form', [
@@ -127,7 +127,7 @@ class AnswerController extends Controller
         $model = $this->findModel($id);
         $model->delete();
 
-        return $this->redirect(['map/view', 'id' => $model->map_id]);        
+        return $this->redirect(['map/view', 'id' => $model->map_id, 'tab' => 'question'.$model->question]);
     }
 
     /**

@@ -14,7 +14,7 @@ use app\models\MapCompany;
 <div class="map-company-index">    
 
     <p>
-        <?= Html::a('Create Company Access', ['map-company/create', 'mapId' => $searchModel->map_id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Create Company Access', ['map-company/create', 'mapId' => $searchModel->map_id], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -70px;']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    
@@ -34,6 +34,7 @@ use app\models\MapCompany;
             ],
             [
                 'header' => 'controls',
+                'contentOptions' => ['class' => 'action-column'],
                 'class' => ActionColumn::class,
                 'template' => '{update} {delete}',
                 'controller' => 'map-company',                

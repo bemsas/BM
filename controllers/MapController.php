@@ -97,7 +97,7 @@ class MapController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $tab = 'access')
     {
         if(!$this->isAdmin()) {
             $this->redirect(['select', 'id' => $id]);
@@ -109,7 +109,8 @@ class MapController extends Controller
             'answer1Index' => $this->renderAnswerIndex($model, 1),
             'answer2Index' => $this->renderAnswerIndex($model, 2),
             'cellIndex' => $this->renderCellIndex($model),
-            'shiftIndex' => $this->renderShiftIndex($model),            
+            'shiftIndex' => $this->renderShiftIndex($model),
+            'tab' => $tab
         ]);
     }    
     

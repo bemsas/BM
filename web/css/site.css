@@ -102,6 +102,11 @@ a.desc:after {
     outline: none;
 }
 
+.navbar-nav .nav-link.active {
+    background: #3D3AD2;
+    border-radius: 6px;
+}
+
 
 .bg-A1 {
     background: #EFEECC;
@@ -455,6 +460,16 @@ h5 {
     border-color: #4844F8;
 }
 
+.btn-primary, .btn-primary:hover, .btn-primary:active {
+    background-color: #3532B8;
+    border-color: #3532B8;
+}
+
+.btn-danger, .btn-danger:hover, .btn-danger:active {
+    background-color: #D1C9C9;
+    border-color: #D1C9C9;
+}
+
 a {
     color: #4844F8;
 }
@@ -476,20 +491,20 @@ a {
     border-radius: 6px;
 }
 button.close {    
-    border: 2px solid #4844F8;
+    border: 2px solid #3532B8;
     margin-top: 1px !important;
     margin-right: 1px !important;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 15px;
     padding: 0 !important;
     padding-top: -2px !important;
 }
 button.close span {
     margin-top: -2px !important;
-    font-size: 16px;
+    font-size: 25px;
     font-weight: bold;
-    color: #4844F8 !important;
+    color: #3532B8 !important;
     text-shadow: none;
 }
 
@@ -533,4 +548,50 @@ parent .legend {
     padding: 5px;
     font-size: 16px;
     font-weight: bold;
+}
+.nav-tabs {
+    border-bottom: none;
+}
+.nav-tabs .nav-link {
+    font-size: 24px;
+    border-bottom: 1px dashed #4844F8;
+    margin-left: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+.nav-tabs .nav-link.active {    
+    color: #000;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+.tab-content {
+    padding-top: 25px;
+}
+
+.action-column svg {
+    margin-left: 10px;
+    font-size: 18px !important;
+}
+
+.menu-block {
+    width: 335px;
+    padding: 26px;
+    margin-right: 100px;
+    min-height: 175px;
+    background: #4844F8;
+    border-radius: 10px;
+    color: #fff;
+}
+.menu-block.admin {
+    background: #3532B8;
+}
+.menu-block h2 {
+    font-size: 24px;
+    font-weight: 500;
+}
+.menu-block a {
+    color: #fff;
 }

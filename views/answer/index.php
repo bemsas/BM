@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 <div class="answer-index">    
 
     <p>
-        <?= Html::a('Create Answer', ['/answer/create', 'mapId' => $searchModel->map_id, 'question' => $searchModel->question], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Create Answer', ['/answer/create', 'mapId' => $searchModel->map_id, 'question' => $searchModel->question], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -70px;']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    
@@ -26,6 +26,7 @@ use yii\widgets\Pjax;
             'content',            
             [
                 'class' => ActionColumn::class,
+                'contentOptions' => ['class' => 'action-column'],
                 'controller' => 'answer',
                 'header' => 'Controls',
                 'template' => '{update} {delete}',

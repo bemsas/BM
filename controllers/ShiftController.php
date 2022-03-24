@@ -96,7 +96,7 @@ class ShiftController extends Controller
         $model = new Shift();
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
+                return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id, 'tab' => 'shifts']);
             }
         } else {
             $model->loadDefaultValues();
@@ -118,9 +118,9 @@ class ShiftController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);        
+        $model = $this->findModel($id);
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id]);
+            return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id, 'tab' => 'shifts']);
         }        
 
         return $this->render('form', [
@@ -139,9 +139,10 @@ class ShiftController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/map/view', 'id' => $model->cellStart->answer1->map_id, 'tab' => 'shifts']);
     }
 
     /**

@@ -29,10 +29,11 @@ echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' =
             [
                 'attribute' => 'name',                
                 'label' => 'Brand colours',
-                'contentOptions' => function(Company $model) {
-                    $color = $model->getColor();                    
-                    return ['style' => "background: $color; color: {$model->color_text}"];
+                'value' => function(Company $model) {
+                    $color = $model->getColor();
+                    return Html::tag('span', $model->name, ['style' => "padding: 5px 20px; border-radius: 11px;background: $color; color: {$model->color_text}"]);
                 },
+                'format' => 'raw',
             ],
             [
                 'attribute' => 'icon',
@@ -49,6 +50,7 @@ echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' =
             [
                 'header' => 'Controls',
                 'class' => ActionColumn::class,
+                'contentOptions' => ['class' => 'action-column'],
                 'urlCreator' => function ($action, Company $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  },

@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, Logbook $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  },
-                'contentOptions' => ['style' => 'width: 85px;'],
+                'contentOptions' => ['style' => 'width: 110px;', 'class' => 'action-column'],
             ],
         ],
     ]); ?>

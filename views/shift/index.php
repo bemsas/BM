@@ -17,7 +17,7 @@ use app\models\Shift;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Shift', ['/shift/create', 'mapId' => $map->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Create Shift', ['/shift/create', 'mapId' => $map->id], ['class' => 'btn btn-info', 'style' => 'float: right; margin-top: -70px;']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    
@@ -44,6 +44,7 @@ use app\models\Shift;
             ],
             [
                 'class' => ActionColumn::class,
+                'contentOptions' => ['class' => 'action-column'],
                 'header' => 'controls',
                 'template' => '{update} {delete}',
                 'controller' => 'shift'

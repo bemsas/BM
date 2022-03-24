@@ -36,10 +36,13 @@ echo Html::a('Create Contact', ['create'], ['class' => 'btn btn-info', 'style' =
             ],
             'name',            
             [
+                'header' => 'Controls',
                 'class' => ActionColumn::class,
+                'contentOptions' => ['class' => 'action-column'],
                 'urlCreator' => function ($action, Contact $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'template' => '{update} {delete}',
             ],
         ],
     ]); ?>

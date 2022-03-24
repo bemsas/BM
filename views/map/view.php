@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap4\Tabs;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Map */
@@ -9,18 +10,17 @@ use yii\helpers\Html;
 /* @var $answer2Index string */
 /* @var $cellIndex string */
 /* @var $shiftIndex string */
+/* @var $tab string */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="map-view">
+<div class="map-view">    
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Select', ['select', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+    <p style="text-align: right; margin-top: -50px;">
+        <?= Html::a('Select', ['select', 'id' => $model->id], ['class' => 'btn btn-info', ]) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -33,17 +33,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<h2>Company Access</h2>
-<?= $companyIndex ?>
-
-<h2><?= Html::encode($model->question1_text) ?></h2>
-<?= $answer1Index ?>
-
-<h2><?= Html::encode($model->question2_text) ?></h2>
-<?= $answer2Index ?>
-
-<h2>Cells</h2>
-<?= $cellIndex ?>
-
-<h2>Shifts</h2>
-<?= $shiftIndex ?>
+<?php
+    echo Tabs::widget([
+        'items' => [
+            [
+                'label' => 'Access',
+                'content' => $companyIndex,
+                'active' => $tab == 'access',
+            ],
+            [
+                'label' => $model->question1_text,
+                'content' => $answer1Index,
+                'active' => $tab == 'question1',
+            ],
+            [
+                'label' => $model->question2_text,
+                'content' => $answer2Index,
+                'active' => $tab == 'question2',
+            ],
+            [
+                'label' => 'Cells',
+                'content' => $cellIndex,
+                'active' => $tab == 'cells',
+            ],
+            [
+                'label' => 'Shifts',
+                'content' => $shiftIndex,
+                'active' => $tab == 'shifts',
+            ],
+        ],
+    ]);
+?>

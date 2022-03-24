@@ -59,6 +59,8 @@ if($isAdmin) {
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  },
+                'template' => '{update} {delete}',
+                'contentOptions' => ['class' => 'action-column'],
                 'visible' => $isAdmin
             ],
         ],

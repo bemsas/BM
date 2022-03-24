@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contact */
@@ -10,10 +12,20 @@ use yii\widgets\ActiveForm;
 $this->title = $model->isNewRecord ? 'Create Contact' : 'Update Contact';
 $this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="contact-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>    
+Modal::begin([
+    'title' => $this->title,
+    'id' => 'modal-container',
+    'size' => Modal::SIZE_LARGE,
+    'centerVertical' => true,
+]);
+$this->registerJsVar('returnUrl', Url::to(['index']));
+$js = "$(function(){ $('#modal-container').modal('show'); });
+    $('#modal-container').on('hide.bs.modal', function(e){location.href = returnUrl});
+    ";
+$this->registerJs($js);
+?>
+<div class="contact-create">    
 
     <div class="contact-form">
 
@@ -33,3 +45,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+<?php Modal::end();  ?>
