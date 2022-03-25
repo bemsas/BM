@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Map */
@@ -48,7 +49,13 @@ $js = "$('#map-question1, #map-question2, #map-contactname').on('change', functi
         $('#btn-submit').text(result);
     }).change();";
 $this->registerJs($js);
+$axisWidth = 75 * $model->size + 25;
 ?>
+<style>
+    parent {
+          width: <?= $axisWidth?>px
+    }
+</style>
 <div class="map-view">
 
     <h1><?= Html::encode($this->title) ?></h1>        
@@ -83,7 +90,7 @@ $this->registerJs($js);
 
                 <?php ActiveForm::end(); ?>
             </div>
-            <div class="map-preview col-lg-6">
+            <div class="map-preview col-lg-6" style="padding-left: 30px;">
             <?php             
                 $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
                 $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
@@ -93,12 +100,27 @@ $this->registerJs($js);
                     foreach($columns as $column) {
                         $arrow = '';
                         $cellCode = $row.$column;
+                        if(in_array($cellCode, ['B2','C3','D4', 'E5'])) {
+                            $arrow = Html::tag('div', Icon::show('arrow-right'), ['class' => "arrow-select arrow-right-top"]);
+                        }
                         $color = $colors[$cellCode];
-                        echo Html::tag("div", $cellCode, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-code' => $cellCode]), "\n";
+                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-code' => $cellCode]), "\n";
                     }
                     echo Html::endTag('div');
-                }            
-            ?>            
+                }        
+            ?>
+                <parent class="vertical">
+                    <span class="legend">&nbsp;Payer&nbsp;belief&nbsp;</span>
+                    <div class="line">
+                        <div class="bullet"></div>
+                    </div>
+                </parent>
+                <parent>
+                    <span class="legend">&nbsp;Payer&nbsp;funding&nbsp;</span>
+                    <div class="line">
+                        <div class="bullet"></div>
+                    </div>
+                </parent>
             </div>
         </div>        
     </div>
