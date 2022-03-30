@@ -10,6 +10,10 @@ use yii\bootstrap4\Html;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<h1 class="login-welcome-header">Welcome to Insocius Stakeholder Mapping Tool</h1>
+<p class="login-welcome-text">
+    Enter your log-in details below to access your stakeholder maps and customer logbook
+</p>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 

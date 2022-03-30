@@ -77,9 +77,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $company = Yii::$app->user->identity->user->company;
+
         return $this->render('index', [
             'isAdmin' => $this->isAdmin(),
             'isManager' => $this->isManager(),
+            'company' => $company
         ]);
     }
 

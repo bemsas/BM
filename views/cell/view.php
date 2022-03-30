@@ -47,6 +47,7 @@ $this->registerJs($js);
 
 $shiftBlockHeight = $map->size * 76.5 / 2 -5;
 $shiftBlockWidth = 115 * 5 / $map->size;
+$arrowBetweenLeft = 83 * (1 + (5 - $map->size)* 0.04);
 $arrowBetweenTop = 50 * $map->size / 5;
 $axisWidth = 75 * $map->size + 25;
 ?>
@@ -58,6 +59,7 @@ $axisWidth = 75 * $map->size + 25;
         width: <?=$shiftBlockWidth?>px;
     }
     .arrow-between {
+        left: <?=$arrowBetweenLeft?>%;
         top: <?=$arrowBetweenTop?>%;
     }
     parent {     
@@ -66,7 +68,7 @@ $axisWidth = 75 * $map->size + 25;
 </style>
 <?php
     if($contact && $logbookForm) {
-       Modal::begin([
+       /*Modal::begin([
            'title' => "Logbook entry for {$contact->name}",
            'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: relative; top: -50px; left:90%;  box-shadow: 0 5px 0 #7B77FB;'],
            'size' => Modal::SIZE_LARGE,
@@ -75,7 +77,7 @@ $axisWidth = 75 * $map->size + 25;
 
        echo $logbookForm;
 
-       Modal::end();     
+       Modal::end();     */
     }
 ?>
 <div class="cell-view">    
@@ -104,7 +106,7 @@ $axisWidth = 75 * $map->size + 25;
                                         $vectorClass = 'arrow-right-top';
                                     }
                                     $num = $i + 1;
-                                    $arrow = Html::tag('div', Icon::show('arrow-right')."<span>Shift $num</span>", ['class' => "arrow $vectorClass"]);
+                                    $arrow = Html::tag('div', Icon::show('arrow-right'), ['class' => "arrow-select $vectorClass"]);
                                 }
                             }                            
                             $color = $colors[$cellCode];
@@ -120,7 +122,7 @@ $axisWidth = 75 * $map->size + 25;
                         </div>
                     </parent>
                     <parent>
-                        <span class="legend">&nbsp;Payer&nbsp;funding&nbsp;</span>
+                        <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
                         <div class="line">
                             <div class="bullet"></div>
                         </div>                                                
@@ -150,10 +152,12 @@ $axisWidth = 75 * $map->size + 25;
                             data-color="<?=$cellColor?>"
                         >   
                             <?=$shiftCell->question1_compact ?>                            
-                            <?php if($i < $count - 1) { ?>
+                            <?php if($i < $count - 1) {                                
+                                ?>
                             <div class="arrow-between">
-                                Shift <?=$i+1 ?> <?= Icon::show('arrow-right') ?>
-                            </div>                            
+                                <?= Icon::show('arrow-right') ?><br>Shift <?=$i+1 ?>
+                            </div>
+
                             <?php } ?>
                         </div>                        
                     <?php }
@@ -252,10 +256,10 @@ $axisWidth = 75 * $map->size + 25;
                 $btn1 = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
                 $dis2 = $shiftCell->link_full_deck ? '' : 'disabled';
                 $dis3 = $shiftCell->link_pdf ? '' : 'disabled';
-                $btn2 = Html::a("Shift $num Full Deck", $shiftCell->link_full_deck, ['class' => "btn btn-info $dis2", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
-                $btn3 = Html::a("Shift $num Message Summary PDF", $shiftCell->link_pdf, ['class' => "btn btn-info $dis3", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank',]);
+                $btn2 = Html::a("Shift $num Presentation", $shiftCell->link_full_deck, ['class' => "btn btn-info $dis2", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
+                $btn3 = Html::a("Shift $num Message Summary", $shiftCell->link_pdf, ['class' => "btn btn-info $dis3", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank',]);
                 
-                echo Html::tag('div', "$header\n$content\n$btn3\n$btn2\n$btn1", ['style' => 'overflow:auto']);
+                echo Html::tag('div', "$header\n$content\n$btn3\n$btn2", ['style' => 'overflow:auto']);
                 if($i < $count - 1) {
                     echo Html::tag('div', Icon::show('arrow-right', ['class' => 'arrow-small arrow-bottom']), ['class' => 'container-arrow']);
                 }

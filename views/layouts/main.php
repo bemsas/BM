@@ -17,7 +17,7 @@ AppAsset::register($this);
 Icon::map($this, Icon::FAS);  
 Icon::map($this, Icon::FAR);  
 
-$this->title = 'Payer Negotiation Toolkit';
+$this->title = Yii::$app->name;
 
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
@@ -25,7 +25,7 @@ if(Yii::$app->user->isGuest) {
 } else {
     $types = User::getTypeList();
     $type = $types[Yii::$app->user->identity->user->type];
-    $company = Yii::$app->user->identity->user->company;    
+    $company = Yii::$app->user->identity->user->company;
     
 }
 $companyImg = '';
@@ -104,9 +104,10 @@ if($company) {
 
 <main role="main" class="flex-shrink-0">
     <div class="container">
-        <?= Breadcrumbs::widget([
+        <div style="height: 60px;">&nbsp;</div>
+        <!--<?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        ]) ?>!-->
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>

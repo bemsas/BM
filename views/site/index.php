@@ -3,16 +3,23 @@
 /* @var $this yii\web\View */
 /* @var $isAdmin bool */
 /* @var $isManager bool */
+/* @var $company \app\models\Company */
 
 use yii\helpers\Html;
 use kartik\icons\Icon;
+use Yii;
 //cabinet-filing
 //
 ?>
+<style>
+    .menu-block {
+        background: <?=$company->color ?> !important;
+    }
+</style>
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Payer Negotiation Toolkit</h1>
+        <h1 class="display-4"><?= Yii::$app->name ?></h1>
         <hr>
     </div>
 
@@ -21,7 +28,7 @@ use kartik\icons\Icon;
         <div class="row">
             <div class="col-lg-4 menu-block">
 
-                <h2>User cabinet <?=Icon::show('briefcase', ['style' => 'float:right;']) ?></h2>
+                <h2>&nbsp; <?=Icon::show('briefcase', ['style' => 'float:right;']) ?></h2>
                 <?= Html::a('Belief maps', ['map/index']) ?><br>
                 <?= Html::a('Contacts', ['contact/index', 'all' => 1]) ?><br>
                 <?= Html::a('Logbook', ['logbook/index', 'all' => 1]) ?><br>
@@ -32,7 +39,7 @@ use kartik\icons\Icon;
             </div>
             <?php if($isAdmin) { ?>
                 <div class="col-lg-4 menu-block admin">
-                    <h2>Administration <?=Icon::show('wrench', ['style' => 'float:right;']) ?></h2>
+                    <h2>&nbsp; <?=Icon::show('wrench', ['style' => 'float:right;']) ?></h2>
 
                     <?= Html::a('Belief maps', ['map/index']) ?><br>
                     <?= Html::a('Companies', ['company/index']) ?><br>

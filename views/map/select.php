@@ -116,7 +116,7 @@ $axisWidth = 75 * $model->size + 25;
                     </div>
                 </parent>
                 <parent>
-                    <span class="legend">&nbsp;Payer&nbsp;funding&nbsp;</span>
+                    <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
                     <div class="line">
                         <div class="bullet"></div>
                     </div>

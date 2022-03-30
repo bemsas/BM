@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Payer Negotiation Toolkit',
+    'name' => 'Stakeholder Mapping App',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'timezone' => 'Europe/Paris',
