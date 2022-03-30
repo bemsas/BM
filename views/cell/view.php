@@ -164,7 +164,7 @@ $axisWidth = 75 * $map->size + 25;
                 ?>                
             </div>
             <div class="row" style="margin-top: 5px">
-                <div class="shift-title"> Funding</div>
+                <div class="shift-title"> Practice</div>
                 <?php
                     foreach($shiftCells as $i => $shiftCell) { 
                             $cellCode = $cellCodes[$shiftCell->id];
