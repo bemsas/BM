@@ -30,15 +30,17 @@ if($isAdmin) {
         'layout' => '{items}',
         'columns' => [
             [
-                'attribute' => 'id',
-                'contentOptions' => ['style' => 'width: 70px;']
+                'attribute' => 'id',                
+                'contentOptions' => ['style' => 'width: 70px;'],
+                'visible' => $isAdmin,
             ],
             [
                 'attribute' => 'name',
+                'label' => $isAdmin ? 'Name' : '',
                 'value' => function(Map $model) use ($isAdmin) {
                     return Html::a($model->name, [$isAdmin ? 'view' : 'select', 'id' => $model->id], ['data-pjax' => 0]);
                 },
-                'format' => 'raw'
+                'format' => 'raw',                
             ],
             [
                 'attribute' => 'size',
@@ -46,9 +48,16 @@ if($isAdmin) {
                     return $sizes[$model->size] ?: $model->size; 
                 },
                 'filter' => $sizes,
+                'visible' => $isAdmin,
             ],
-            'question1_text',
-            'question2_text',            
+            [
+                'attribute' => 'question1_text',
+                'visible' => $isAdmin,
+            ],
+            [
+                'attribute' => 'question2_text',
+                'visible' => $isAdmin,
+            ],            
         ],
     ]); ?>
 
