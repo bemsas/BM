@@ -81,8 +81,8 @@ if($company) {
                 'options' => ['style' => "background: $brandColor"],
             ],*/
             ['label' => Icon::show('home').' Menu', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],            
-            ['label' => Icon::show('users').' Contacts', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
-            ['label' => Icon::show('book').' Logbook', 'url' => ['/logbook/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => Icon::show('users').' Contacts', 'url' => ['/contact/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => Icon::show('book').' Logbook', 'url' => ['/logbook/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
                 ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (
