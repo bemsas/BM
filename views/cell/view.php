@@ -58,9 +58,8 @@ $axisWidth = 75 * $map->size + 25;
     .shift-block {
         width: <?=$shiftBlockWidth?>px;
     }
-    .arrow-between {
-        left: <?=$arrowBetweenLeft?>%;
-        top: <?=$arrowBetweenTop?>%;
+    .arrow-between {        
+        top: <?=$shiftBlockHeight - 30?>px;
     }
     parent {     
           width: <?= $axisWidth?>px
@@ -151,17 +150,20 @@ $axisWidth = 75 * $map->size + 25;
                             data-code ="<?=$cellCode ?>" 
                             data-color="<?=$cellColor?>"
                         >   
-                            <?=$shiftCell->question1_compact ?>                            
-                            <?php if($i < $count - 1) {                                
-                                ?>
-                            <div class="arrow-between">
-                                <?= Icon::show('arrow-right') ?><br>Shift <?=$i+1 ?>
-                            </div>
-
-                            <?php } ?>
+                            <?=$shiftCell->question1_compact ?>                                                        
                         </div>                        
                     <?php }
                 ?>                
+            </div>
+            <div class="row">
+                <?php for($i = 0; $i< $count - 1; $i++) {
+                    $num = $i + 1;
+                    $left = 30 + ($shiftBlockWidth * $num) + 20 * $i;
+                    ?>
+                    <div class="arrow-between" style="left:<?= $left?>px">
+                        <?= Icon::show('arrow-right') ?><br>Shift <?=$i+1 ?>
+                    </div>
+                <?php } ?>
             </div>
             <div class="row" style="margin-top: 5px">
                 <div class="shift-title"> Practice</div>
