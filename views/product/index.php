@@ -9,6 +9,7 @@ use app\models\Product;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $maps array */
 
 $this->title = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
@@ -32,7 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'description:ntext',
-            'map_id',
+            [
+                'attribute' => 'map_id',
+                'value' => function(Product $model) {
+                    return $model->map->name;
+                },
+                'filter' => $maps,
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
