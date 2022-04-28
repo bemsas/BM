@@ -18,7 +18,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'type', 'company_id'], 'integer'],
-            [['email', 'name', 'password_hash'], 'safe'],
+            [['email', 'name', 'password_hash', 'last_login'], 'safe'],
         ];
     }
 
@@ -61,6 +61,7 @@ class UserSearch extends User
             'id' => $this->id,
             'type' => $this->type,
             'company_id' => $this->company_id,
+            'last_login' => $this->last_login,
         ]);
 
         $query->andFilterWhere(['ilike', 'email', $this->email])

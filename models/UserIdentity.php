@@ -10,7 +10,10 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
     public $password;
     public $authKey;
     public $accessToken;
-    
+    /**
+     *
+     * @var User
+     */
     public $user;
     
     private static function generate(User $user): UserIdentity {

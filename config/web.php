@@ -24,6 +24,11 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\UserIdentity',
             'enableAutoLogin' => true,
+            'on afterLogin' => function($event) {
+                $user = Yii::$app->user->identity->user;
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->save();
+            }
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

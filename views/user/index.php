@@ -53,6 +53,7 @@ if($isAdmin) {
                 'filter' => $companies,
                 'visible' => $isAdmin,
             ],
+            'last_login:datetime',
             [
                 'header' => 'Controls',
                 'class' => ActionColumn::class,

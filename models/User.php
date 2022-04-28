@@ -13,6 +13,7 @@ use Yii;
  * @property string $password_hash Password hash
  * @property int $type Access type
  * @property int $company_id company ID
+ * @property string $last_login
  *
  * @property Company $company
  */
@@ -40,6 +41,7 @@ class User extends \yii\db\ActiveRecord
             [['email', 'name', 'password_hash', 'company_id'], 'required'],
             [['type', 'company_id'], 'default', 'value' => null],
             [['type', 'company_id'], 'integer'],
+            [['last_login'], 'safe'],
             [['type'], 'in', 'range' => array_keys($types)],
             [['email', 'name', 'password_hash', 'password'], 'string', 'max' => 200],
             [['email'], 'unique'],
@@ -68,6 +70,7 @@ class User extends \yii\db\ActiveRecord
             'password' => 'Password',
             'type' => 'Access type',
             'company_id' => 'Company',
+            'last_login' => 'Last login',
         ];
     }
 

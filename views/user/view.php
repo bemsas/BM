@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->company->name;
                 },                
             ],
+            'last_login:datetime'
         ],
     ]) ?>
 
