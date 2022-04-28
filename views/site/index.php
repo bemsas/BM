@@ -41,6 +41,7 @@ use Yii;
                 <div class="col-lg-4 menu-block admin">
                     <h2>&nbsp; <?=Icon::show('wrench', ['style' => 'float:right;']) ?></h2>
 
+                    <?= Html::a('Products', ['product/index']) ?><br>
                     <?= Html::a('Belief maps', ['map/index']) ?><br>
                     <?= Html::a('Companies', ['company/index']) ?><br>
                     <?= Html::a('Users', ['user/index']) ?><br>

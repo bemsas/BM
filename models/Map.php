@@ -130,4 +130,13 @@ class Map extends \yii\db\ActiveRecord
             5 => '5x5',
         ];
     }
+
+    public static function getList(): array {
+        $models = Map::find()->orderBy('name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    }
 }
