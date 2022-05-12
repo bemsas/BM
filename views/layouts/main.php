@@ -80,9 +80,11 @@ if($company) {
                 'encodeLabels' => false,
                 'options' => ['style' => "background: $brandColor"],
             ],*/
-            ['label' => Icon::show('home').' Menu', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],            
+            ['label' => Icon::show('home').' Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             ['label' => Icon::show('users').' Contacts', 'url' => ['/contact/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
             ['label' => Icon::show('book').' Logbook', 'url' => ['/logbook/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
+            //['label' => 'Introduction and Guidance', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            //['label' => 'Help', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
                 ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (
@@ -104,10 +106,10 @@ if($company) {
 
 <main role="main" class="flex-shrink-0">
     <div class="container">
-        <div style="height: 60px;">&nbsp;</div>
-        <!--<?= Breadcrumbs::widget([
+        <!--<div style="height: 60px;">&nbsp;</div>!-->
+        <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>!-->
+        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>

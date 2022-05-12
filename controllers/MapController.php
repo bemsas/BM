@@ -53,7 +53,7 @@ class MapController extends Controller
                             }
                         ],
                         [
-                            'actions' => ['index', 'select', 'view'],
+                            'actions' => ['index', 'select', 'view', 'report'],
                             'allow' => true,
                             'roles' => ['@'],                            
                         ],
@@ -112,7 +112,21 @@ class MapController extends Controller
             'shiftIndex' => $this->renderShiftIndex($model),
             'tab' => $tab
         ]);
-    }    
+    }
+
+    /**
+     * Displays a single Map model.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionReport($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('report', [
+            'model' => $model,            
+        ]);
+    }
     
     /**
      * Lists all Answer models.

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'description:ntext',
+            'description:raw',
             [
                 'attribute' => 'map_id',
                 'value' => function(Product $model) {
@@ -40,8 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => $maps,
             ],
+            'add_link',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

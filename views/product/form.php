@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Modal;
 use yii\helpers\Url;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -33,11 +34,16 @@ $this->registerJs($js);
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>
 
-        <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'description')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
 
         <?= $form->field($model, 'map_id')->dropDownList($maps) ?>
+
+        <?= $form->field($model, 'add_link')->textInput(['maxlength' => 200]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

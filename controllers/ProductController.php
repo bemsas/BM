@@ -3,17 +3,28 @@
 namespace app\controllers;
 
 use app\models\Product;
+use app\models\User;
 use app\models\Map;
 use app\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
+use yii\filters\AccessControl;
 
 /**
  * ProductController implements the CRUD actions for Product model.
  */
 class ProductController extends Controller
 {
+    private function isAdmin(): bool {
+        if(Yii::$app->user->isGuest) {
+            return false;
+        }
+        $user = Yii::$app->user->identity->user;
+        /* @var $user User*/
+        return $user->type == User::TYPE_ADMIN;
+    }
     /**
      * @inheritDoc
      */
@@ -22,6 +33,24 @@ class ProductController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function()
+                            {
+                                return $this->isAdmin();
+                            }
+                        ],
+                        [
+                            'actions' => ['list', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ]
+                ],
                 'verbs' => [
                     'class' => VerbFilter::class,
                     'actions' => [
@@ -48,6 +77,26 @@ class ProductController extends Controller
             'maps' => Map::getList(),
         ]);
     }
+
+    /**
+     * Lists all Product models.
+     *
+     * @return string
+     */
+    public function actionList()
+    {
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->pagination = false;
+
+        return $this->render('list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'userName' => Yii::$app->user->identity->user->name,
+            'lastLogin' => Yii::$app->user->identity->user->last_login,
+        ]);
+    }
+
 
     /**
      * Displays a single Product model.

@@ -20,6 +20,7 @@ use Yii;
  * @property Answer[] $answers1 question 1 answers
  * @property Answer[] $answers2 question 2 answers
  * @property MapCompany[] $mapCompanies
+ * @property Product $product
  */
 class Map extends \yii\db\ActiveRecord
 {
@@ -89,8 +90,18 @@ class Map extends \yii\db\ActiveRecord
             'question2_text' => 'Question 2',
             'size' => 'Size',
             'intro' => 'Intro content',
-            'contactName' => 'Customer name',
+            'contactName' => 'CUSTOMER NAME',
         ];
+    }
+
+    /**
+     * Gets query for [[Product]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProduct()
+    {
+        return $this->hasOne(Product::class, ['map_id' => 'id']);
     }
 
     /**

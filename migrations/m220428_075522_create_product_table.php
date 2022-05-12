@@ -17,6 +17,7 @@ class m220428_075522_create_product_table extends Migration
             'name' => $this->string(200)->notNull()->comment('product name'),
             'description' => $this->text()->null()->comment('product description'),
             'map_id' => $this->integer()->notNull()->comment('map id'),
+            'add_link'=> $this->string(200)->null()->comment('link to additional resource'),
         ]);
 
         $this->addForeignKey('fk_product_map_id', '{{%product}}', 'map_id', 'map', 'id', 'cascade', 'cascade');

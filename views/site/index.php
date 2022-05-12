@@ -29,6 +29,7 @@ use Yii;
             <div class="col-lg-4 menu-block">
 
                 <h2>&nbsp; <?=Icon::show('briefcase', ['style' => 'float:right;']) ?></h2>
+                <?= Html::a('Products', ['product/list']) ?><br>
                 <?= Html::a('Belief maps', ['map/index']) ?><br>
                 <?= Html::a('Contacts', ['contact/index', 'all' => 1]) ?><br>
                 <?= Html::a('Logbook', ['logbook/index', 'all' => 1]) ?><br>

@@ -11,6 +11,7 @@ use Yii;
  * @property string $name product name
  * @property string|null $description product description
  * @property int $map_id map id
+ * @property string $add_link link to additional resourses
  *
  * @property Map $map
  */
@@ -34,7 +35,7 @@ class Product extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['map_id'], 'default', 'value' => null],
             [['map_id'], 'integer'],
-            [['name'], 'string', 'max' => 200],
+            [['name', 'add_link'], 'string', 'max' => 200],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::class, 'targetAttribute' => ['map_id' => 'id']],
         ];
     }
@@ -49,6 +50,7 @@ class Product extends \yii\db\ActiveRecord
             'name' => 'product name',
             'description' => 'product description',
             'map_id' => 'map id',
+            'add_link' => 'link to addition resources'
         ];
     }
 

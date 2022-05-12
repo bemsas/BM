@@ -76,7 +76,10 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
+    {        
+        if(!$this->isAdmin()) {
+            $this->redirect(['product/list']);
+        }
         $company = Yii::$app->user->identity->user->company;
 
         return $this->render('index', [
