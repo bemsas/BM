@@ -756,6 +756,8 @@ parent .legend {
     border-radius: 20px;
     border: 1px solid #DCDCDC;
     padding: 10px;
+    height: 500px;
+    overflow: auto;
 }
 
 .map-report .grid-view thead tr {
@@ -778,7 +780,7 @@ parent .legend {
 .report-data-container {
     height: 615px;
     padding: 15px;
-    overflow: auto;
+    /*overflow: auto; **/
     box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
 }
