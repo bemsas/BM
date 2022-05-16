@@ -8,6 +8,8 @@ use app\models\MapSearch;
 use app\models\MapCompanySearch;
 use app\models\Answer;
 use app\models\Company;
+use app\models\Logbook;
+use app\models\LogbookSearch;
 use app\models\AnswerSearch;
 use app\models\CellSearch;
 use app\models\ShiftSearch;
@@ -18,7 +20,6 @@ use yii\filters\AccessControl;
 use Yii;
 use app\models\User;
 use app\models\Contact;
-use app\models\Logbook;
 
 /**
  * MapController implements the CRUD actions for Map model.
@@ -123,8 +124,30 @@ class MapController extends Controller
     public function actionReport($id)
     {
         $model = $this->findModel($id);
+        $cellCodes = Cell::getCodeList($model->id);
+
+        $colors = [];
+        $defaultColors = Cell::defaultColors();
+        $cellIds = array_flip($cellCodes);
+        foreach($defaultColors as $code => $color) { //@todo need refactoring. Create method to find all map cells and indexed my code.
+            $colors[$code] = $color;
+            if(key_exists($code, $cellIds)) {
+                $cell = Cell::findOne($cellIds[$code]);
+                $colors[$code] = $cell->getColor($code);
+            }
+        }
+        $searchModel = new LogbookSearch();
+        $searchModel->cellIds = $cellIds;
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->pagination = false;
+        
         return $this->render('report', [
-            'model' => $model,            
+            'model' => $model,
+            'colors' => $colors,
+            'cellCodes' => Cell::getCodeList($model->id),
+            'cellIds' => $cellIds,
+            'cellCounts' => Logbook::getCountsByCellIds($cellIds),
+            'dataProvider' => $dataProvider,
         ]);
     }
     

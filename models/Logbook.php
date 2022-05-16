@@ -107,4 +107,37 @@ class Logbook extends \yii\db\ActiveRecord
         $model->save();
         return $model;
     }
+
+    public static function getCountsByCellIds($cellIds): array {
+        $rows = self::find()
+            ->andWhere(['cell_id' => $cellIds])
+            ->groupBy(new \yii\db\Expression("date_trunc('day', date_in), contact_id"))
+            ->select(new \yii\db\Expression("date_trunc('day', date_in)::date AS date_in, contact_id, max(cell_id) AS cell_id"))->asArray(true)->orderBy('date_in')->all();
+
+        $contactPositions = [];
+        $oldDate = null;
+        $lastPosition = [];
+        foreach($rows as $row) {
+            if($oldDate != $row['date_in']) {                
+                $oldDate = $row['date_in'];
+                if($lastPosition) {
+                    $contactPositions[$oldDate] = $lastPosition;
+                }
+            }
+            $lastPosition[$row['contact_id']] = $row['cell_id'];
+        }
+        $contactPositions[$oldDate] = $lastPosition;
+        $contactPositions[date('Y-m-d')] = $lastPosition; //add current date
+
+        $cells = [];
+        foreach($contactPositions as $date => $position) {
+            foreach($position as $contact_id => $cell_id) {
+                if(!isset($cells[$cell_id][$date])) {
+                    $cells[$cell_id][$date] = 0;
+                }
+                $cells[$cell_id][$date]++;
+            }            
+        }
+        return $cells;
+    }
 }

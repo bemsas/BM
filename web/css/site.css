@@ -232,7 +232,7 @@ h5 {
 .cell {        
     width: 70px !important;
     height: 70px;
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 10px 0 0 10px;
     color: #000;
     font-size: 12.5px;
@@ -324,6 +324,27 @@ h5 {
     color: #ddd;
     z-index: 1;
 }
+.logbook-count {
+    position: relative;
+    background: #fff;
+    width: 40px !important;
+    height: 40px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.35);
+    border-radius: 25px;
+    top: -60%;
+    left: 35%;
+    z-index: 1;
+    color: #000;
+    text-align: center;    
+    padding-top:10px;
+}
+
+.hidden {
+    display: none;
+}
+
+
 .arrow-between {
     position: absolute;
     background: #fff;
@@ -547,7 +568,7 @@ button.close span {
 }
 
 .line {
-    --color: #000;
+    --color: #BEBEBE;
     --size: 12px;
     position: relative;
     width: 100%;
@@ -561,11 +582,11 @@ button.close span {
     width: var(--size);
     height: var(--size);
     position: absolute;
-    right: 0;
+    right: -2%;
     top: 50%;
     border-right: 1px solid var(--color);
     border-top: 1px solid var(--color);
-    transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);   
 }
 
 parent {
@@ -586,6 +607,7 @@ parent .legend {
     padding: 5px;
     font-size: 16px;
     font-weight: bold;
+    color: #BEBEBE;    
 }
 .nav-tabs {
     border-bottom: none;
@@ -671,11 +693,11 @@ parent .legend {
 .product-list-info {
     padding: 50px;
 }
-.product-list-info p {    
+.product-list-info div {
     width: 45%;
     float: left;
     color: #292929;
-    font-size: 13px;
+    /*font-size: 13px;*/
 }
 .product-list-info p {
     margin-right: 50px;
@@ -727,4 +749,36 @@ parent .legend {
 }
 .product-view-links a.disable {
     background: #A2BDC1;
+}
+
+
+.map-report .grid-view {
+    border-radius: 20px;
+    border: 1px solid #DCDCDC;
+    padding: 10px;
+}
+
+.map-report .grid-view thead tr {
+    border-bottom: none;
+    background: #A2BDC1;
+    border-radius: 20px;
+}
+.map-report .grid-view thead a {
+    color: #fff;
+}
+.map-report .grid-view tr {
+    border-bottom: none;
+}
+
+.map-report .grid-view tr {
+    background: #F5F5F5;
+    border-radius: 20px;
+}
+
+.report-data-container {
+    height: 615px;
+    padding: 15px;
+    overflow: auto;
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
 }

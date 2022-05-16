@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id ID
  * @property string $name Name
+ * @property string $hello_left
+ * @property string $hello_right
  * @property string $color color
  * @property string $color_text text color
  * @property string $icon icon url
@@ -34,6 +36,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 200],
+            [['hello_left', 'hello_right'], 'string'],
             [['color', 'color_text'], 'string', 'max' => 20],
             [['icon'], 'string', 'max' => 2000],
         ];
@@ -49,7 +52,9 @@ class Company extends \yii\db\ActiveRecord
             'name' => 'Name',
             'color' => 'Banner color',
             'color_text' => 'Text banner color',
-            'icon' => 'Icon URL'
+            'icon' => 'Icon URL',
+            'hello_left' => 'Left Hello-screen Content',
+            'hello_right' => 'Right Hello-screen Content'
         ];
     }
 

@@ -41,6 +41,11 @@ $this->registerJs($js);
             'preset' => 'full'
         ]) ?>
 
+        <?= $form->field($model, 'full')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
+
         <?= $form->field($model, 'map_id')->dropDownList($maps) ?>
 
         <?= $form->field($model, 'add_link')->textInput(['maxlength' => 200]) ?>

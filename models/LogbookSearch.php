@@ -13,6 +13,7 @@ use yii\data\Sort;
 class LogbookSearch extends Logbook
 {
     public $company_id;
+    public $cellIds;
     /**
      * {@inheritdoc}
      */
@@ -20,7 +21,7 @@ class LogbookSearch extends Logbook
     {
         return [
             [['id', 'user_id', 'contact_id', 'company_id', 'cell_id'], 'integer'],
-            [['date_in', 'content'], 'safe'],
+            [['date_in', 'content', 'cellIds'], 'safe'],
         ];
     }    
 
@@ -65,6 +66,9 @@ class LogbookSearch extends Logbook
         if($this->company_id) {
             $query->joinWith('user u');
             $query->andWhere(['u.company_id' => $this->company_id]);
+        }
+        if($this->cellIds) {
+            $query->andWhere(['cell_id' => $this->cellIds]);
         }
 
         // grid filtering conditions

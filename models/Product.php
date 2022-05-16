@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name product name
  * @property string|null $description product description
+ * @property string|null $full 
  * @property int $map_id map id
  * @property string $add_link link to additional resourses
  *
@@ -32,7 +33,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'map_id'], 'required'],
-            [['description'], 'string'],
+            [['description', 'full'], 'string'],
             [['map_id'], 'default', 'value' => null],
             [['map_id'], 'integer'],
             [['name', 'add_link'], 'string', 'max' => 200],
@@ -49,6 +50,7 @@ class Product extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'product name',
             'description' => 'product description',
+            'full' => 'Full description',
             'map_id' => 'map id',
             'add_link' => 'link to addition resources'
         ];

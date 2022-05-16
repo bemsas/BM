@@ -89,11 +89,14 @@ class ProductController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
         $dataProvider->pagination = false;
 
+        $company = Yii::$app->user->identity->user->company;
+
         return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'userName' => Yii::$app->user->identity->user->name,
             'lastLogin' => Yii::$app->user->identity->user->last_login,
+            'company' => $company
         ]);
     }
 

@@ -5,6 +5,7 @@ use kartik\color\ColorInput;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Modal;
 use yii\helpers\Url;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Company */
@@ -45,6 +46,16 @@ $this->registerJs($js);
         ?>
         
         <?= $form->field($model, 'icon')->textInput(['maxlength' => 2000]) ?>
+
+        <?= $form->field($model, 'hello_left')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
+
+        <?= $form->field($model, 'hello_right')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-info']) ?>
