@@ -176,7 +176,8 @@ class Cell extends \yii\db\ActiveRecord
     }
     
     public static function defaultColors(): array {
-        return [
+        //$oldColors from Excel template
+        $oldColors = [
             'A1' => '#EFEECC',
             'A2' => '#E7E5AA',
             'A3' => '#DEDB7D',
@@ -203,6 +204,12 @@ class Cell extends \yii\db\ActiveRecord
             'E4' => '#8F8C99',
             'E5' => '#64616C',
         ];
+        $colors = [];
+        //set standart color from new figma template
+        foreach($oldColors as $code => $color)  {
+            $colors[$code] = "#C3D503";
+        }
+        return $colors;
     }
     
     public function getColor(string $code): string {

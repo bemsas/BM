@@ -30,14 +30,14 @@ $js = "$('#map-question1, #map-question2, #map-contactname').on('change', functi
         let result = '';
         if(q1 && q2) {
             cell = cellCodes[q1+q2] ? cellCodes[q1+q2] : null;
-            $('.cell').css('color', '#000');
+            $('.cell').removeClass('selected');
             if(cell) {                
                 result = 'submit to '+ q1 + q2;
                 if(!contact) {
                     result = 'need select contact';
                 }
                 $('#btn-submit').prop('disabled', contact ? false : true);                
-                $('.cell[data-code='+q1 + q2 +']').css('color', 'red');
+                $('.cell[data-code='+q1 + q2 +']').addClass('selected');
             } else {
                 result = 'N/A';
                 $('#btn-submit').prop('disabled', true);
@@ -46,6 +46,7 @@ $js = "$('#map-question1, #map-question2, #map-contactname').on('change', functi
             result = 'need answers';
             $('#btn-submit').prop('disabled', true);
         }
+        result = 'SUBMIT'; //from figma design
         $('#btn-submit').text(result);
     }).change();";
 $this->registerJs($js);
@@ -58,7 +59,7 @@ $axisWidth = 75 * $model->size + 25;
 </style>
 <div class="map-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>        
+    <h1>Customer Belief<br>Mapping Tool</h1>
     
     <div class="map-form">
         <div class="row">
@@ -90,7 +91,8 @@ $axisWidth = 75 * $model->size + 25;
 
                 <?php ActiveForm::end(); ?>
             </div>
-            <div class="map-preview col-lg-6" style="padding-left: 30px;">
+            <div class="map-preview col-lg-4 offset-lg-2">
+            <h2>customer<br>map</h2>
             <?php             
                 $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
                 $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
@@ -100,11 +102,12 @@ $axisWidth = 75 * $model->size + 25;
                     foreach($columns as $column) {
                         $arrow = '';
                         $cellCode = $row.$column;
-                        if(in_array($cellCode, ['B2','C3','D4', 'E5'])) {
+                        //disable arrows 17.05
+                        /*if(in_array($cellCode, ['B2','C3','D4', 'E5'])) {
                             $arrow = Html::tag('div', Icon::show('arrow-right'), ['class' => "arrow-select arrow-right-top"]);
-                        }
+                        }*/
                         $color = $colors[$cellCode];
-                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-code' => $cellCode]), "\n";
+                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: $color", 'data-code' => $cellCode]), "\n";
                     }
                     echo Html::endTag('div');
                 }        

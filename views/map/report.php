@@ -67,7 +67,7 @@ $this->registerJs($js);
                         }
                         $arrow = implode("\n", $arrows);
                         $color = $colors[$cellCode];
-                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-code' => $cellCode]), "\n";
+                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: $color", 'data-code' => $cellCode]), "\n";
                     }
                     echo Html::endTag('div');
                 }

@@ -109,7 +109,7 @@ $axisWidth = 75 * $map->size + 25;
                                 }
                             }                            
                             $color = $colors[$cellCode];
-                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: conic-gradient(from 45deg, $color, {$color}80)", 'data-cell' => $cellCode ]), "\n";
+                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: $color", 'data-cell' => $cellCode ]), "\n";
                         }
                         echo Html::endTag('div');                        
                     }

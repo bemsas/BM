@@ -186,6 +186,16 @@ h1 {
     font-weight: 500;
     font-size: 24px;
 }
+h2 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    text-transform: uppercase;
+
+    color: #0E2F4A;
+}
 
 h5 {
     padding: 5px;
@@ -230,18 +240,21 @@ h5 {
     height: 200px;
 }
 .cell {        
-    width: 70px !important;
-    height: 70px;
+    width: 54px !important;
+    height: 54px;
+    margin-right: 13px;
+    margin-bottom: 13px;    
     border-radius: 20px;
-    padding: 10px 0 0 10px;
-    color: #000;
-    font-size: 12.5px;
-    font-weight: 300;
-    margin-right: 5px;
-    margin-bottom: 6.5px;    
+    padding: 17px;
+    
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
 }
 .cell.selected {
-    border: solid 3px #7B77FB;
+    background: #A1BDC1 !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
 }
 .cell:first-child {
     margin-left: auto;
@@ -507,10 +520,20 @@ h5 {
   content: "-";
 }
 
+label {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #A8A8A8;
+}
+
 .btn {
     border-radius: 25px;
     font-size: 12px;
-    font-weight: 700
+    font-weight: 700;
+    width: 152px;
 }
 
 .btn-info, .btn-info:hover, .btn-info:active, .btn-info:disabled {
@@ -545,6 +568,12 @@ a {
     background: #F9F9F9;
     border-radius: 25px;
     border: 1px solid #E6E6E6;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    color: #0E2F4A;
 }
 .modal-content {
     border-radius: 6px;
@@ -593,13 +622,13 @@ parent {
     width: calc(100%+30px);
     margin-left: -15px;
     margin-right: -15px;
-    margin-top: -10px;
+    margin-top: 0px;
     height: 20px;
     display: flex;
     align-items: center;
 }      
 parent.vertical {
-    margin-left: -14px;
+    margin-left: -41px;
     transform: rotate(-90deg);
     transform-origin: left bottom;    
 }
@@ -699,7 +728,13 @@ parent .legend {
     color: #292929;
     /*font-size: 13px;*/
 }
-.product-list-info p {
+.product-list-info div {
+    width: 45%;
+    float: left;
+    color: #292929;
+    /*font-size: 13px;*/
+}
+.product-list-info p:first-child {
     margin-right: 50px;
 }
 
