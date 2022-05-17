@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
-<div class="product-list-info">
-    <h1>How it works</h1>
-    <div><?=$company->hello_left?></div>
-    <div><?=$company->hello_right?></div>
+<h1 style="margin-top: 55px">How it works</h1>
+<div class="row">
+    <div class="col-lg-6"><?=$company->hello_left?></div>
+    <div class="col-lg-6"><?=$company->hello_right?></div>
 </div>

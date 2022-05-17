@@ -719,25 +719,6 @@ parent .legend {
     background: #A2BDC1;
 }
 
-.product-list-info {
-    padding: 50px;
-}
-.product-list-info div {
-    width: 45%;
-    float: left;
-    color: #292929;
-    /*font-size: 13px;*/
-}
-.product-list-info div {
-    width: 45%;
-    float: left;
-    color: #292929;
-    /*font-size: 13px;*/
-}
-.product-list-info p:first-child {
-    margin-right: 50px;
-}
-
 .user-hello {
     border-radius: 20px;
     background: #A2BDC1;
