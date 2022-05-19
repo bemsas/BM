@@ -42,46 +42,37 @@ if($shifts) {
 }
 
 
-$js = '$(function(){$("#shift").trigger("slideStop");});';
+$js = '$(function(){$(".cell-button").on("click", function(){
+        $(".selected").removeClass("selected");
+        $(".previos").removeClass("previos");
+        let num = $(this).data("num");
+        $(".full-content-container").addClass("hidden");
+        $(".full-content-container[data-num="+num+"]").removeClass("hidden");
+        let code=$(this).data("code");
+        $(this).addClass("selected");
+        $(".cell[data-cell="+code+"]").addClass("selected");
+        $(".shift-block.q1:lt("+(num - 1)+")").addClass("previos");
+        $(".shift-block.q2:lt("+(num - 1)+")").addClass("previos");
+        $(".shift-block[data-code="+code+"]").addClass("selected");
+    }); $(".cell-button[data-code='.$code.']").click();});';
 $this->registerJs($js);
 
-$shiftBlockHeight = $map->size * 76.5 / 2 -5;
-$shiftBlockWidth = 115 * 5 / $map->size;
-$arrowBetweenLeft = 83 * (1 + (5 - $map->size)* 0.04);
-$arrowBetweenTop = 50 * $map->size / 5;
-$axisWidth = 75 * $map->size + 25;
+$shiftBlockWidth = 185 * 4 / $map->size;
+$axisWidth = 65 * $map->size;
 ?>
 <style>
-    .shift-title, .shift-block {
-        height: <?=$shiftBlockHeight?>px;
-    }
     .shift-block {
         width: <?=$shiftBlockWidth?>px;
-    }
-    .arrow-between {        
-        top: <?=$shiftBlockHeight - 30?>px;
     }
     parent {     
           width: <?= $axisWidth?>px
     }
+
 </style>
-<?php
-    if($contact && $logbookForm) {
-       /*Modal::begin([
-           'title' => "Logbook entry for {$contact->name}",
-           'toggleButton' => ['label' => 'Logbook', 'class' => 'btn btn-info', 'style' => 'position: relative; top: -50px; left:90%;  box-shadow: 0 5px 0 #7B77FB;'],
-           'size' => Modal::SIZE_LARGE,
-           'centerVertical' => true,
-       ]);                
-
-       echo $logbookForm;
-
-       Modal::end();     */
-    }
-?>
 <div class="cell-view">    
     <div class="row">
-        <div class="col-lg-4" style="align-items: center;">
+        <div class="col-lg-3" style="align-items: center;">
+            <h4>Customer<br>position map</h4>
             <?php 
                 if($code == 'A1') {
                     echo Html::tag("div", "No approach shifts required for A1 profile payers", ['class' => "answer-block"]), "\n";
@@ -94,8 +85,10 @@ $axisWidth = 75 * $map->size + 25;
                         foreach($columns as $j => $column) {
                             $arrow = '';
                             $cellCode = $row.$column;
+                            $cellClass = "cell";
                             foreach($shifts as $i => $shift) {
                                 if($cellCodes[$shift->cell_start_id] == $cellCode) {
+                                    $cellClass = "cell cell-with-arrow";
                                     $endCell = $cellCodes[$shift->cell_end_id];
                                     if($endCell[0] == $row) {
                                         $vectorClass = 'arrow-right';
@@ -105,11 +98,17 @@ $axisWidth = 75 * $map->size + 25;
                                         $vectorClass = 'arrow-right-top';
                                     }
                                     $num = $i + 1;
-                                    $arrow = Html::tag('div', Icon::show('arrow-right'), ['class' => "arrow-select $vectorClass"]);
+                                    $arrow = Html::tag('div', Icon::show('arrow-right')."<br>".$num, ['class' => "arrow-select $vectorClass"]);
+                                }
+                                if($cellCodes[$shift->cell_end_id] == $cellCode) {
+                                    $cellClass = "cell cell-with-arrow";
                                 }
                             }                            
                             $color = $colors[$cellCode];
-                            echo Html::tag("div", $cellCode. $arrow, ['class' => "cell", 'style' => "background: $color", 'data-cell' => $cellCode ]), "\n";
+                            if($cellClass == 'cell') {
+                                $cellCode = '';
+                            }
+                            echo Html::tag("div", $cellCode. $arrow, ['class' => $cellClass, 'style' => "background: $color", 'data-cell' => $cellCode ]), "\n";
                         }
                         echo Html::endTag('div');                        
                     }
@@ -130,42 +129,55 @@ $axisWidth = 75 * $map->size + 25;
             ?>            
         </div>
         <?php if($code == 'A1') { ?>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div class="answer-block">You have successfully achieved your payer ideal approach/funding goal! No further shifts are required.</div>
         </div>
         <?php } else { ?>        
-        <div class="col-lg-8">
-            <div class="row">
-                <div class="shift-title"> Belief</div>
+        <div class="col-lg-9">
+            <div class="row shift-block-container">
+                <div class="shift-title"> Belief</div>                
                 <?php
                     $count = count($shiftCells);
-                    foreach($shiftCells as $i => $shiftCell) { 
+                    foreach($shiftCells as $i => $shiftCell) {
                             $cellCode = $cellCodes[$shiftCell->id];
-                            $cellColor = $colors[$cellCode];                             
-                        ?>                        
-                        <div 
-                            style="background: conic-gradient(from 45deg, <?=$cellColor?>, <?=$cellColor?>80)" 
-                            class="shift-block q1" 
-                            data-num="<?=$i+1 ?>" 
-                            data-code ="<?=$cellCode ?>" 
+                            $cellColor = $colors[$cellCode];
+                        ?>
+                        <div
+                            class="shift-block q1"
+                            data-num="<?=$i+1 ?>"
+                            data-code ="<?=$cellCode ?>"
                             data-color="<?=$cellColor?>"
-                        >   
-                            <?=$shiftCell->question1_compact ?>                                                        
-                        </div>                        
+                        >
+                            <?=$shiftCell->question1_compact ?>
+                        </div>
                     <?php }
                 ?>                
             </div>
-            <div class="row">
-                <?php for($i = 0; $i< $count - 1; $i++) {
-                    $num = $i + 1;
-                    $left = 30 + ($shiftBlockWidth * $num) + 20 * $i;
-                    ?>
-                    <div class="arrow-between" style="left:<?= $left?>px">
-                        <?= Icon::show('arrow-right') ?><br>Shift <?=$i+1 ?>
-                    </div>
-                <?php } ?>
+            <div class="row ">
+                <?php
+                    $count = count($shiftCells);
+                    foreach($shiftCells as $i => $shiftCell) {
+                            $cellCode = $cellCodes[$shiftCell->id];
+                            $cellColor = $colors[$cellCode];
+                        ?>
+                        <div
+                            class="cell-button"
+                            data-num="<?=$i+1 ?>"
+                            data-code ="<?=$cellCode ?>"
+                        >
+                            <?=$cellCode?>
+                        </div>
+                    <?php
+                        if($i < $count - 1) {
+                            ?>
+                            <div class="arrow-between">
+                                <?= Icon::show('arrow-right') ?><br>Shift <?=$i+1 ?>
+                            </div>
+                        <?php }
+                    }
+                ?>                
             </div>
-            <div class="row" style="margin-top: 5px">
+            <div class="row shift-block-container" style="margin-top: 5px">
                 <div class="shift-title"> Practice</div>
                 <?php
                     foreach($shiftCells as $i => $shiftCell) { 
@@ -173,7 +185,6 @@ $axisWidth = 75 * $map->size + 25;
                             $cellColor = $colors[$cellCode];                            
                         ?>                        
                         <div 
-                            style="background: conic-gradient(from 45deg, <?=$cellColor?>, <?=$cellColor?>80)" 
                             class="shift-block q2" 
                             data-num="<?=$i+1 ?>" 
                             data-code ="<?=$cellCode ?>" 
@@ -185,64 +196,13 @@ $axisWidth = 75 * $map->size + 25;
                 ?>
             </div>            
         </div>        
-        <div id="shift-arrow-container">
-            <?php 
-                $count = count($shifts);
-                foreach($shifts as $i => $shift) {
-                    $num = $i + 1;
-                    $img = Icon::show('arrow-right');
-                    echo Html::tag('div', "Shift $num<br>$img", ['class' => 'shift-arrow']);
-                }
-            ?>
-        </div>
-        <div id="shift-slider-container" style="background-image: linear-gradient(90deg, <?= implode(', ',$barColors) ?>)">
-            <?= Slider::widget([
-                'name'=>'rating_1',
-                'id' => 'shift',
-                'value'=> $sliderValue,
-                'pluginOptions'=>[
-                    'handle'=>'square',
-                    'tooltip'=>'always',
-                    'min' => 1,
-                    'max' => $map->size,
-                    'step' => 1,                
-                ],
-                'pluginEvents' => [
-                    "enabled" => "function(event) { console.log(1111); }",
-                    "slideStop" => "function(event) {                    
-                        let num = event.value;
-                        if(!num) {
-                            num = $('#shift').val();
-                        }                    
-
-                        $('.shift-block').each(function(index, element) {
-                            let color = $(element).data('color');
-                            $(element).css('background', 'conic-gradient(from 45deg, '+ color + ', ' + color + '80)');
-                        });
-                        $('.shift-block.q1:lt('+(num - 1)+')').css('background', '#fff url(images/hidden.png) center center no-repeat');
-                        $('.shift-block.q2:lt('+(num - 1)+')').css('background', '#fff url(images/hidden.png) center center no-repeat');
-                        let code = $('.shift-block[data-num='+num+']').data('code');
-                        //let color = $('.shift-block[data-num='+num+']').data('color');
-                        $('.cell.selected').removeClass('selected');
-                        $('.cell[data-cell='+code+']').addClass('selected');
-                        $('#shift-slider .slider-handle').text(code);
-                        //.css('background', 'conic-gradient(from 45deg, '+color+', '+color+'80)')
-
-                        num -= 1;
-                        let start =  $('#shift-header-' + 0).get(0).offsetTop;
-                        let pos = $('#shift-header-' + num).get(0).offsetTop;
-                        $('.full-content-container').get(0).scrollTop = pos - start;                                                            
-                    }",
-                ],
-            ]); ?>            
-        </div>
-        
-        <div class="full-content-container">
+                
         <?php 
-        $count = count($shiftCells);
         foreach($shiftCells as $i => $shiftCell) {
                 $num = $i +1;
                 $links = '';
+                $dis2 = $shiftCell->link_full_deck ? '' : 'disabled';
+                $dis3 = $shiftCell->link_pdf ? '' : 'disabled';
                 if($shiftCell->links) {
                     $urls = explode(' ', $shiftCell->links);
                     $links = [];
@@ -252,22 +212,20 @@ $axisWidth = 75 * $map->size + 25;
                     }
                     $links = Html::tag('div', implode(', ', $links));                    
                 }
-                $header = Html::tag('div', "Shift $num Core message summary", ['class' => 'shift-content-header', 'id' => 'shift-header-'.$i]);
-                $content = Html::tag('div', $shiftCell->content.$links, ['class' => 'shift-content']);
-                
-                $btn1 = Html::a("Full shift $num messaging", ['content', 'id' => $shiftCell->id], ['class' => 'btn btn-info', 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
-                $dis2 = $shiftCell->link_full_deck ? '' : 'disabled';
-                $dis3 = $shiftCell->link_pdf ? '' : 'disabled';
-                $btn2 = Html::a("Shift $num Presentation", $shiftCell->link_full_deck, ['class' => "btn btn-info $dis2", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank']);
-                $btn3 = Html::a("Shift $num Message Summary", $shiftCell->link_pdf, ['class' => "btn btn-info $dis3", 'style' => 'float:right; margin-right: 5px;', 'target' => '_blank',]);
-                
-                echo Html::tag('div', "$header\n$content\n$btn3\n$btn2", ['style' => 'overflow:auto']);
-                if($i < $count - 1) {
-                    echo Html::tag('div', Icon::show('arrow-right', ['class' => 'arrow-small arrow-bottom']), ['class' => 'container-arrow']);
-                }
-        }
-    } ?>
-        </div>
+                ?>                
+                <div class="full-content-container hidden" data-num="<?=$num?>">
+                    <div class="shift-content">
+                        <?=$shiftCell->content.$links?>
+                    </div>
+                    <h3>Shift <?=$num ?> Messaging :</h3>
+                    <h4>Learn more :</h4>
+                    <div style="text-align: center;">
+                        <?= Html::a("Presentation", $shiftCell->link_full_deck, ['class' => "btn content-btn-1 $dis2", 'target' => '_blank']) ?>
+                        <?= Html::a("Message Summary", $shiftCell->link_pdf, ['class' => "btn content-btn-2 $dis3", 'target' => '_blank',]); ?>
+                    </div>
+                </div>                
+        <?php }
+    } ?>        
     </div>  
 </div>
 <p>
