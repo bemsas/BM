@@ -25,7 +25,13 @@ echo Html::a('Create Company', ['create'], ['class' => 'btn btn-info', 'style' =
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'name:text:Company Name',
+            [
+                'attribute' => 'name',
+                'value' => function(Company $model) {
+                    return Html::a($model->name, ['company-product/index', 'companyId' => $model->id], ['data-pjax' => 0]);
+                },
+                'format' => 'raw',                
+            ],
             [
                 'attribute' => 'name',                
                 'label' => 'Brand colours',

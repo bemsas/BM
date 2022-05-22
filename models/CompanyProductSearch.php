@@ -4,22 +4,20 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Product;
+use app\models\CompanyProduct;
 
 /**
- * ProductSearch represents the model behind the search form of `app\models\Product`.
+ * CompanyProductSearch represents the model behind the search form of `app\models\CompanyProduct`.
  */
-class ProductSearch extends Product
+class CompanyProductSearch extends CompanyProduct
 {
-    public $companyId;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'map_id', 'companyId'], 'integer'],
-            [['name', 'description', 'add_link'], 'safe'],
+            [['id', 'company_id', 'product_id'], 'integer'],
         ];
     }
 
@@ -41,7 +39,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = CompanyProduct::find();
 
         // add conditions that should always apply here
 
@@ -57,20 +55,12 @@ class ProductSearch extends Product
             return $dataProvider;
         }
 
-        if($this->companyId) {
-            $query->joinWith('companyProducts cp', false);
-            $query->andWhere(['cp.company_id' => $this->companyId]);
-        }
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'map_id' => $this->map_id,
+            'company_id' => $this->company_id,
+            'product_id' => $this->product_id,
         ]);
-
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description])
-            ->andFilterWhere(['ilike', 'add_link', $this->add_link]);
 
         return $dataProvider;
     }

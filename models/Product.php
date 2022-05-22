@@ -15,6 +15,7 @@ use Yii;
  * @property string $add_link link to additional resourses
  *
  * @property Map $map
+ * @property CompanyMap[] $companyMaps
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -64,5 +65,19 @@ class Product extends \yii\db\ActiveRecord
     public function getMap()
     {
         return $this->hasOne(Map::class, ['id' => 'map_id']);
+    }
+
+    public function getCompanyProducts()
+    {
+        return $this->hasMany(CompanyProduct::class, ['company_id' => 'id']);
+    }
+
+    public static function getList() {
+        $models = self::find()->orderBy('name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
     }
 }

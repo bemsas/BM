@@ -69,6 +69,10 @@ class ProductController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
+        $isAdmin = $this->isAdmin();
+        if(!$isAdmin) {
+            $searchModel->companyId = \Yii::$app->user->identity->user->company_id;
+        }
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
