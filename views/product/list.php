@@ -7,6 +7,8 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use kartik\icons\Icon;
 use app\models\Product;
+use app\models\Cell;
+use app\models\Logbook;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -33,7 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'summary' => false,
         'itemOptions' => ['class' => 'item'],
         'itemView' => function (Product $model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]).Html::tag('div', $model->description);
+            $content = Html::a(Html::encode($model->name), ['view', 'id' => $model->id]).Html::tag('div', $model->description);
+            $cellCodes = Cell::getCodeList($model->map_id);
+            $cellIds = array_flip($cellCodes);
+            $logbook = Logbook::findLastByCellIds($cellIds);
+            if($logbook) {
+                $content .= Html::tag('div', Icon::show('clock').'&nbsp;&nbsp;'.Yii::$app->formatter->asDateTime($logbook->date_in, 'dd MMM | h:m'), ['class' => 'date']);
+            }
+            return $content;
         },
     ]) ?>
 

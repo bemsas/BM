@@ -672,12 +672,30 @@ a {
     border-radius: 25px;
     border: 1px solid #E6E6E6;
 
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    color: #0E2F4A;
+}
+.select2-container {
+    background: #F9F9F9;
+    border-radius: 25px !important;
+    border: 1px solid #E6E6E6;
+
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
     color: #0E2F4A;
 }
+.selection {
+    border-radius: 25px !important;
+}
+.select2-selection {
+    border-radius: 25px !important;    
+}
+
+
 .modal-content {
     border-radius: 6px;
 }
@@ -811,15 +829,37 @@ parent .legend {
 
 .product-list .item {
     width: 217px;
-    height: 161px;
+    height: 165px;
     float: left;
     border-radius: 20px;
     background: #C3D503;
     padding: 20px;
+    padding-bottom: 10px;
     margin-right: 20px;
 }
+
+.product-list .item .date {
+    width: 140px;
+    height: 28px;
+    margin: auto;
+    margin-bottom: 8px;
+    background: #B3C308;
+    border-radius: 20px;
+
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    padding: 2px;
+    font-size: 11px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
 .product-list .item:hover {
     background: #A2BDC1;
+}
+.product-list .item:hover .date {
+    background: #8FADB1;
 }
 
 .user-hello {
@@ -854,7 +894,7 @@ parent .legend {
 }
 
 .product-view-links a {
-    width: 217px;
+    width: 227px;
     height: 161px;
     float: left;
     border-radius: 20px;
