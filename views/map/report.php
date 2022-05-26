@@ -1,14 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Modal;
-use yii\helpers\Url;
-use kartik\icons\Icon;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Logbook;
 use app\models\Cell;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Map */
@@ -98,7 +95,7 @@ $this->registerJs($js);
             </div>
             <div class="col-lg-8 report-data-container">
                 <div style="margin-bottom: 20px;">
-                    <?= Html::dropDownList('date', reset($dates), $dates, ['class' => 'form-control', 'id' => 'select-date']); ?>
+                    <?= Select2::widget(['name' => 'date', 'value' => reset($dates), 'data' => $dates, 'options' => ['class' => 'form-control', 'id' => 'select-date']]); ?>
                 </div>
                 <div class="scroll-area">
                     <?php Pjax::begin(); ?>

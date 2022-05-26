@@ -83,9 +83,15 @@ $axisWidth = 75 * $model->size + 25;
                     ],
                 ]); ?>
 
-                <?= $form->field($model, 'question1')->dropDownList($answers1, ['prompt' => 'Select your answer'])->label('CURRENT BELIEF') ?>
+                <?= $form->field($model, 'question1')->widget(Select2::class, [
+                    'data' => $answers1,
+                    'options' => ['placeholder' => 'Select your answer'],
+                ])->label('CURRENT BELIEF') ?>
 
-                <?= $form->field($model, 'question2')->dropDownList($answers2, ['prompt' => 'Select your answer'])->label('CURRENT PRACTICE') ?>
+                <?= $form->field($model, 'question2')->widget(Select2::class, [
+                    'data' => $answers2,
+                    'options' => ['placeholder' => 'Select your answer'],
+                ])->label('CURRENT PRACTICE') ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('Submit', ['class' => 'btn btn-info', 'id' => 'btn-submit', 'disabled' => true]) ?>
