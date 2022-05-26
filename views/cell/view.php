@@ -73,60 +73,62 @@ $axisWidth = 65 * $map->size;
     <div class="row">
         <div class="col-lg-3" style="align-items: center;">
             <h4>Customer<br>position map</h4>
-            <?php 
-                if($code == 'A1') {
-                    echo Html::tag("div", "No approach shifts required for A1 profile payers", ['class' => "answer-block"]), "\n";
-                } else {                    
-                    $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $map->size);
-                    $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $map->size, $map->size);
-                    $wide = 7 - $map->size;
-                    foreach($rows as $i => $row) {
-                        echo Html::beginTag('div', ['class' => 'row']);
-                        foreach($columns as $j => $column) {
-                            $arrow = '';
-                            $cellCode = $row.$column;
-                            $cellClass = "cell";
-                            foreach($shifts as $i => $shift) {
-                                if($cellCodes[$shift->cell_start_id] == $cellCode) {
-                                    $cellClass = "cell cell-with-arrow";
-                                    $endCell = $cellCodes[$shift->cell_end_id];
-                                    if($endCell[0] == $row) {
-                                        $vectorClass = 'arrow-right';
-                                    } elseif($endCell[1] == $column) {
-                                        $vectorClass = 'arrow-top';
-                                    } else {
-                                        $vectorClass = 'arrow-right-top';
+            <div class="map-preview__inner">
+                <?php 
+                    if($code == 'A1') {
+                        echo Html::tag("div", "No approach shifts required for A1 profile payers", ['class' => "answer-block"]), "\n";
+                    } else {                    
+                        $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $map->size);
+                        $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $map->size, $map->size);
+                        $wide = 7 - $map->size;
+                        foreach($rows as $i => $row) {
+                            echo Html::beginTag('div', ['class' => 'row']);
+                            foreach($columns as $j => $column) {
+                                $arrow = '';
+                                $cellCode = $row.$column;
+                                $cellClass = "cell";
+                                foreach($shifts as $i => $shift) {
+                                    if($cellCodes[$shift->cell_start_id] == $cellCode) {
+                                        $cellClass = "cell cell-with-arrow";
+                                        $endCell = $cellCodes[$shift->cell_end_id];
+                                        if($endCell[0] == $row) {
+                                            $vectorClass = 'arrow-right';
+                                        } elseif($endCell[1] == $column) {
+                                            $vectorClass = 'arrow-top';
+                                        } else {
+                                            $vectorClass = 'arrow-right-top';
+                                        }
+                                        $num = $i + 1;
+                                        $arrow = Html::tag('div', Icon::show('arrow-right')."<br>".$num, ['class' => "arrow-select $vectorClass"]);
                                     }
-                                    $num = $i + 1;
-                                    $arrow = Html::tag('div', Icon::show('arrow-right')."<br>".$num, ['class' => "arrow-select $vectorClass"]);
+                                    if($cellCodes[$shift->cell_end_id] == $cellCode) {
+                                        $cellClass = "cell cell-with-arrow";
+                                    }
+                                }                            
+                                $color = $colors[$cellCode];
+                                if($cellClass == 'cell') {
+                                    $cellCode = '';
                                 }
-                                if($cellCodes[$shift->cell_end_id] == $cellCode) {
-                                    $cellClass = "cell cell-with-arrow";
-                                }
-                            }                            
-                            $color = $colors[$cellCode];
-                            if($cellClass == 'cell') {
-                                $cellCode = '';
+                                echo Html::tag("div", $cellCode. $arrow, ['class' => $cellClass, 'style' => "background: $color", 'data-cell' => $cellCode ]), "\n";
                             }
-                            echo Html::tag("div", $cellCode. $arrow, ['class' => $cellClass, 'style' => "background: $color", 'data-cell' => $cellCode ]), "\n";
+                            echo Html::endTag('div');                        
                         }
-                        echo Html::endTag('div');                        
-                    }
-                    ?>       
-                    <parent class="vertical">
-                        <span class="legend">&nbsp;Payer&nbsp;belief&nbsp;</span>
-                        <div class="line">
-                            <div class="bullet"></div>
-                        </div>
-                    </parent>
-                    <parent>
-                        <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
-                        <div class="line">
-                            <div class="bullet"></div>
-                        </div>                                                
-                    </parent>                    
-                <?php }
-            ?>            
+                        ?>       
+                        <parent class="vertical">
+                            <span class="legend">&nbsp;Payer&nbsp;belief&nbsp;</span>
+                            <div class="line">
+                                <div class="bullet"></div>
+                            </div>
+                        </parent>
+                        <parent class="horizontal">
+                            <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
+                            <div class="line">
+                                <div class="bullet"></div>
+                            </div>                                                
+                        </parent>                    
+                    <?php }
+                ?>       
+            </div>    
         </div>
         <?php if($code == 'A1') { ?>
         <div class="col-lg-9">

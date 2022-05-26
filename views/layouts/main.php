@@ -56,15 +56,15 @@ if($company) {
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header>
+<header class="page-header">
     <?php    
     NavBar::begin([
         'brandLabel' => $brandLabel,
         'id' => 'header-navbar',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-main fixed-top left',
-            'style' => "background: $brandColor; width: 98%; margin: auto;",
+            'class' => 'navbar navbar-expand-md navbar-dark bg-main',
+            'style' => "background: $brandColor !important;",
         ],
         'innerContainerOptions' => [
            'style' => 'max-width: 100% !important'
@@ -80,22 +80,36 @@ if($company) {
                 'encodeLabels' => false,
                 'options' => ['style' => "background: $brandColor"],
             ],*/
-            ['label' => Icon::show('home').' Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
-            ['label' => Icon::show('users').' Contacts', 'url' => ['/contact/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
-            ['label' => Icon::show('book').' Logbook', 'url' => ['/logbook/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
+
+            // ['label' => Icon::show('home').' Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            // ['label' => Icon::show('users').' Contacts', 'url' => ['/contact/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
+            // ['label' => Icon::show('book').' Logbook', 'url' => ['/logbook/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
+
+
+            ['label' => 'Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => 'Contacts', 'url' => ['/contact/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => 'Logbook', 'url' => ['/logbook/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
             //['label' => 'Introduction and Guidance', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             //['label' => 'Help', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
                 ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (
-                '<li style="float:right">'
+                '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
-                    Icon::show('sign-out-alt', ['style' => "font-size: 28px; color: $textColor"]).Html::tag('span', 'Logout', ['style' => "color: $textColor"]),
-                    ['class' => 'btn btn-link logout', ['style' => "color: $textColor"]]
+                    Html::tag('span', 'Logout', ['style' => "color: $textColor"]),
+                    ['class' => 'logout-btn']
                 )
                 . Html::endForm()
                 . '</li>'
+                // <li style="float:right">'
+                // . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                // . Html::submitButton(
+                //     Icon::show('sign-out-alt', ['style' => "font-size: 28px; color: $textColor"]).Html::tag('span', 'Logout', ['style' => "color: $textColor"]),
+                //     ['class' => 'btn btn-link logout', ['style' => "color: $textColor"]]
+                // )
+                // . Html::endForm()
+                // . '</li>'
             ),            
         ],
     ]);

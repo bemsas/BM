@@ -22,7 +22,8 @@
         "kartik-v/yii2-slider": "*",
         "kartik-v/yii2-widget-select2": "dev-master",
         "2amigos/yii2-ckeditor-widget": "^2.2",
-        "kartik-v/yii2-icons": "@dev"
+        "kartik-v/yii2-icons": "@dev",
+        "ext-gd": "*"
 
     },
     "require-dev": {

@@ -48,22 +48,24 @@ $js = "$('#map-question1, #map-question2, #map-contactname').on('change', functi
         }
         result = 'SUBMIT'; //from figma design
         $('#btn-submit').text(result);
-    }).change();";
+    }).change();"
+    ;
 $this->registerJs($js);
 $axisWidth = 75 * $model->size + 25;
 ?>
-<style>
+<!-- <style>
     parent {
           width: <?= $axisWidth?>px
     }
-</style>
+</style> -->
 <div class="map-view">
-
-    <h1>Customer Belief<br>Mapping Tool</h1>
+    <div class="map-view__header">
+        <h1>Customer Belief<br>Mapping Tool</h1>
+    </div>
     
     <div class="map-form">
-        <div class="row">
-            <div class="col-lg-6">
+        <div class="map-form__grid">
+            <div class="map-form__main">
                 <?php $form = ActiveForm::begin(); ?> 
 
                 <?php
@@ -91,39 +93,41 @@ $axisWidth = 75 * $model->size + 25;
 
                 <?php ActiveForm::end(); ?>
             </div>
-            <div class="map-preview col-lg-4 offset-lg-2">
+            <div class="map-preview map-form__aside">
             <h2>customer<br>map</h2>
-            <?php             
-                $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
-                $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
-                $wide = 7 - $model->size;
-                foreach($rows as $row) {
-                    echo Html::beginTag('div', ['class' => 'row']);
-                    foreach($columns as $column) {
-                        $arrow = '';
-                        $cellCode = $row.$column;
-                        //disable arrows 17.05
-                        /*if(in_array($cellCode, ['B2','C3','D4', 'E5'])) {
-                            $arrow = Html::tag('div', Icon::show('arrow-right'), ['class' => "arrow-select arrow-right-top"]);
-                        }*/
-                        $color = $colors[$cellCode];
-                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: $color", 'data-code' => $cellCode]), "\n";
-                    }
-                    echo Html::endTag('div');
-                }        
-            ?>
-                <parent class="vertical">
-                    <span class="legend">&nbsp;Payer&nbsp;belief&nbsp;</span>
-                    <div class="line">
-                        <div class="bullet"></div>
-                    </div>
-                </parent>
-                <parent>
-                    <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
-                    <div class="line">
-                        <div class="bullet"></div>
-                    </div>
-                </parent>
+            <div class="map-preview__inner">
+                <?php             
+                    $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
+                    $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
+                    $wide = 7 - $model->size;
+                    foreach($rows as $row) {
+                        echo Html::beginTag('div', ['class' => 'row']);
+                        foreach($columns as $column) {
+                            $arrow = '';
+                            $cellCode = $row.$column;
+                            //disable arrows 17.05
+                            /*if(in_array($cellCode, ['B2','C3','D4', 'E5'])) {
+                                $arrow = Html::tag('div', Icon::show('arrow-right'), ['class' => "arrow-select arrow-right-top"]);
+                            }*/
+                            $color = $colors[$cellCode];
+                            echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: $color", 'data-code' => $cellCode]), "\n";
+                        }
+                        echo Html::endTag('div');
+                    }        
+                ?>
+                    <parent class="vertical">
+                        <span class="legend">&nbsp;Payer&nbsp;belief&nbsp;</span>
+                        <div class="line">
+                            <div class="bullet"></div>
+                        </div>
+                    </parent>
+                    <parent class="horizontal">
+                        <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
+                        <div class="line">
+                            <div class="bullet"></div>
+                        </div>
+                    </parent>
+                </div>
             </div>
         </div>        
     </div>

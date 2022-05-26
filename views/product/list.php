@@ -26,12 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php Pjax::begin(); ?>    
-
+    <?php Pjax::begin(); ?> 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'summary' => false,
-        'itemOptions' => ['class' => 'item'],
+        'itemOptions' => ['class' => 'product-card'],
         'itemView' => function (Product $model, $key, $index, $widget) {
             return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]).Html::tag('div', $model->description);
         },
@@ -40,8 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
-<h1 style="margin-top: 55px">How it works</h1>
-<div class="row">
-    <div class="col-lg-6"><?=$company->hello_left?></div>
-    <div class="col-lg-6"><?=$company->hello_right?></div>
+<div class="works">
+    <h1>How it works</h1>
+    <div class="row">
+        <div class="col-lg-6"><?=$company->hello_left?></div>
+        <div class="col-lg-6"><?=$company->hello_right?></div>
+    </div>
 </div>
