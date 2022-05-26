@@ -1564,12 +1564,30 @@ a {
     border-radius: 25px;
     border: 1px solid #E6E6E6;
 
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    color: #0E2F4A;
+}
+.select2-container {
+    background: #F9F9F9;
+    border-radius: 25px !important;
+    border: 1px solid #E6E6E6;
+
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
     color: #0E2F4A;
 }
+.selection {
+    border-radius: 25px !important;
+}
+.select2-selection {
+    border-radius: 25px !important;    
+}
+
+
 .modal-content {
     border-radius: 6px;
 }
@@ -1710,7 +1728,7 @@ parent .legend {
 }
 
 .product-view-links a {
-    width: 217px;
+    width: 227px;
     height: 161px;
     float: left;
     border-radius: 20px;
