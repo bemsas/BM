@@ -36,7 +36,7 @@ $js = "$(function(){
             $('.logbook-count').addClass('hidden');
             $('.logbook-count.date-'+date).removeClass('hidden');
         }).change();
-    })";
+    }); $('.scroll-area').scrollbar();";
 $this->registerJs($js);
 ?>
 <div class="map-report">
@@ -44,47 +44,49 @@ $this->registerJs($js);
     <div class="map-form">
         <div class="row">
             <div class="map-preview col-lg-4" style="padding-right: 30px;">
-                <h3>customer<br>map</h3>
-            <?php
-                $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
-                $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
-                $wide = 7 - $model->size;
-                foreach($rows as $row) {
-                    echo Html::beginTag('div', ['class' => 'row']);
-                    foreach($columns as $column) {
-                        $arrows = [];
-                        $cellCode = $row.$column;
-                        $cellId = isset($cellIds[$cellCode]) ? $cellIds[$cellCode] : null;
-                        if(key_exists($cellId, $cellCounts)) {
-                            foreach($cellCounts[$cellId] as $date => $count) {
-                                if($count > 99) {
-                                    $count = "99+";
-                                }
-                                $arrows[] = Html::tag('div', $count, ['class' => "logbook-count hidden date-$date"]);
+                <h3 class="map-preview__title">customer<br>map</h3>
+                <div class="map-preview__inner">
+                <?php
+                    $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
+                    $columns = array_slice(['5', '4', '3', '2', '1'], 5 - $model->size, $model->size);
+                    $wide = 7 - $model->size;
+                    foreach($rows as $row) {
+                        echo Html::beginTag('div', ['class' => 'row']);
+                        foreach($columns as $column) {
+                            $arrows = [];
+                            $cellCode = $row.$column;
+                            $cellId = isset($cellIds[$cellCode]) ? $cellIds[$cellCode] : null;
+                            if(key_exists($cellId, $cellCounts)) {
+                                foreach($cellCounts[$cellId] as $date => $count) {
+                                    if($count > 99) {
+                                        $count = "99+";
+                                    }
+                                    $arrows[] = Html::tag('div', $count, ['class' => "logbook-count hidden date-$date"]);
 
+                                }
+                                //$arrow = Html::tag('div', $count, ['class' => "logbook-count"]);
                             }
-                            //$arrow = Html::tag('div', $count, ['class' => "logbook-count"]);
+                            $arrow = implode("\n", $arrows);
+                            $color = $colors[$cellCode];
+                            echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: $color", 'data-code' => $cellCode]), "\n";
                         }
-                        $arrow = implode("\n", $arrows);
-                        $color = $colors[$cellCode];
-                        echo Html::tag("div", $cellCode.$arrow, ['class' => "cell", 'style' => "background: $color", 'data-code' => $cellCode]), "\n";
+                        echo Html::endTag('div');
                     }
-                    echo Html::endTag('div');
-                }
-            ?>
-                <parent class="vertical">
-                    <div class="legend">&nbsp;Payer&nbsp;belief&nbsp;</div>
-                    <div class="line">
-                        <div class="bullet"></div>
-                    </div>
-                </parent>
-                <parent>
-                    <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
-                    <div class="line">
-                        <div class="bullet"></div>
-                    </div>
-                </parent>
-                <div>
+                    ?>
+                    <parent class="vertical">
+                        <div class="legend">&nbsp;Payer&nbsp;belief&nbsp;</div>
+                        <div class="line">
+                            <div class="bullet"></div>
+                        </div>
+                    </parent>
+                    <parent class="horizontal">
+                        <span class="legend">&nbsp;Payer&nbsp;Practice&nbsp;</span>
+                        <div class="line">
+                            <div class="bullet"></div>
+                        </div>
+                    </parent>
+                </div>
+                <div class="map-form__instruction">
                     <h2>Instructions</h2>
                     <p>
                         Patients with the disease had a decreased adjusted HRQoL score of 4.7, reflecting a poorer. European guidelines recommend screening for patients with the disease<br><br>
@@ -98,32 +100,34 @@ $this->registerJs($js);
                 <div style="margin-bottom: 20px;">
                     <?= Html::dropDownList('date', reset($dates), $dates, ['class' => 'form-control', 'id' => 'select-date']); ?>
                 </div>
-                <?php Pjax::begin(); ?>
+                <div class="scroll-area">
+                    <?php Pjax::begin(); ?>
 
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => null,
-                    'summary' => null,
-                    'columns' => [
-                        [
-                            'attribute' => 'contact_id',
-                            'value' => function(Logbook $model) {
-                                return $model->contact->name;
-                            },
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => null,
+                        'summary' => null,
+                        'columns' => [
+                            [
+                                'attribute' => 'contact_id',
+                                'value' => function(Logbook $model) {
+                                    return $model->contact->name;
+                                },
+                            ],
+                            [
+                                'attribute' => 'cell_id',
+                                'label' => 'Position',
+                                'value' => function(Logbook $model) {
+                                    $codes = Cell::getCodeList($model->cell->answer1->map_id);
+                                    return $codes[$model->cell->id];
+                                },
+                            ],
+                            'date_in:datetime',
                         ],
-                        [
-                            'attribute' => 'cell_id',
-                            'label' => 'Position',
-                            'value' => function(Logbook $model) {
-                                $codes = Cell::getCodeList($model->cell->answer1->map_id);
-                                return $codes[$model->cell->id];
-                            },
-                        ],
-                        'date_in:datetime',
-                    ],
-                ]); ?>
+                    ]); ?>
 
-                <?php Pjax::end(); ?>
+                    <?php Pjax::end(); ?>
+                </div>
             </div>
         </div>
     </div>

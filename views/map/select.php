@@ -94,7 +94,7 @@ $axisWidth = 75 * $model->size + 25;
                 <?php ActiveForm::end(); ?>
             </div>
             <div class="map-preview map-form__aside">
-            <h2>customer<br>map</h2>
+            <h2 class="map-preview__title">customer<br>map</h2>
             <div class="map-preview__inner">
                 <?php             
                     $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
