@@ -15,8 +15,9 @@ use kartik\icons\Icon;
 /* @var $colors array */
 /* @var $isAdmin bool */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['index']];
+$this->title = 'Customer Belief Mapping Tool';
+$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['product/list']];
+$this->params['breadcrumbs'][] = ['label' => $model->product->name, 'url' => ['product/view', 'id' => $model->product->id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 

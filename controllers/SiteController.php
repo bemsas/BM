@@ -90,6 +90,34 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionHelp()
+    {
+        $company = Yii::$app->user->identity->user->company;
+
+        return $this->render('help', [
+            'company' => $company
+        ]);
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionIntroduction()
+    {
+        $company = Yii::$app->user->identity->user->company;
+
+        return $this->render('introduction', [
+            'company' => $company
+        ]);
+    }
+
+    /**
      * Login action.
      *
      * @return Response|string

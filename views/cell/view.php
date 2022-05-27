@@ -17,8 +17,8 @@ use kartik\icons\Icon;
 
 $map = $model->answer1->map;
 $this->title = $code;
-$this->params['breadcrumbs'][] = ['label' => 'Maps', 'url' => ['map/index']];
-$this->params['breadcrumbs'][] = ['label' => $map->name, 'url' => ['map/view', 'id' => $map->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['product/list']];
+$this->params['breadcrumbs'][] = ['label' => $map->product->name, 'url' => ['product/view', 'id' => $map->product->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
 $shiftCells = [];

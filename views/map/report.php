@@ -18,7 +18,6 @@ use kartik\select2\Select2;
 $this->title = "Scatter plot";
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['product/list']];
 $this->params['breadcrumbs'][] = ['label' => $model->product->name, 'url' => ['product/view', 'id' => $model->product->id]];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['map/select', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
 $datesRaw = array_keys(reset($cellCounts));
