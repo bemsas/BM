@@ -108,6 +108,9 @@ class Logbook extends \yii\db\ActiveRecord
         return $model;
     }
 
+    public static function findLastByCellIds($cellIds): ?Logbook {
+        return self::find()->andWhere(['cell_id' => $cellIds])->orderBy('date_in desc')->one();
+    }
     public static function getCountsByCellIds($cellIds): array {
         $rows = self::find()
             ->andWhere(['cell_id' => $cellIds])
