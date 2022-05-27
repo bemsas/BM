@@ -89,8 +89,8 @@ if($company) {
             ['label' => 'Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             ['label' => 'Contacts', 'url' => ['/contact/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
             ['label' => 'Logbook', 'url' => ['/logbook/index'], 'visible' => false /*$type !== 'guest'*/, 'linkOptions' => ['style' => "color: $textColor"]],
-            //['label' => 'Introduction and Guidance', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
-            //['label' => 'Help', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => 'Introduction and Guidance', 'url' => ['/contact/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => 'Help', 'url' => ['/logbook/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
                 ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (
