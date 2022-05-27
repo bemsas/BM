@@ -34,13 +34,13 @@ if($company) {
     $textColor = $company->color_text;
     $brandLabel = Html::tag('span', $company->name, ['style' => "color: $textColor; font-size: 22px;"]);
     if($company->icon) {
-        $companyImg = Html::img($company->icon, ['alt' => 'company icon', 'style' => 'height:45px; float: right; margin-left: auto;']);        
+        $companyImg = Html::img($company->icon, ['class' => 'user-img', 'alt' => 'company icon']);        
     }
 } else {
     $brandColor = Company::DEFAULT_COLOR;    
     $textColor = '#fff';
     $brandLabel = Html::tag('span', Yii::$app->name, ['style' => "color: $textColor; font-size: 22px;"]);
-    $companyImg = Html::img('images/banner.png', ['alt' => 'company icon', 'style' => 'height:45px; float: right; margin-left: auto;']);        
+    $companyImg = Html::img('images/banner.png', ['class' => 'user-img', 'alt' => 'company icon']);        
 }
 ?>
 <?php $this->beginPage() ?>
