@@ -1042,6 +1042,73 @@ parent .legend {
     background-image: url("data:image/svg+xml,%3Csvg width='34' height='35' viewBox='0 0 34 35' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='-0.000243972' y1='16' x2='18.9998' y2='16' stroke='%23C3D503' stroke-width='4'/%3E%3Cpath d='M27.4614 16.4707L17.786 22.2271L17.6385 10.9698L27.4614 16.4707Z' fill='%23C0D104'/%3E%3C/svg%3E%0A");
 }
 
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#login-form .form-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important; 
+    margin-bottom: 0 !important;
+}
+
+#login-form .col-form-label{
+    margin-right: 0 !important;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 31px;
+    text-transform: uppercase;
+    color: #A8A8A8;
+}
+
+#login-form .field-loginform-rememberme{
+    width: 100% !important;
+    display: flex;
+    align-items: flex-start;
+    
+    padding-left: 15px;
+}
+#login-form .field-loginform-rememberme .col-lg-3{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+
+#login-form .form-control{
+    padding: 11px 20px !important;
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+}
+
+#login-form .custom-control{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#login-form .custom-control-label::before{
+    top: 2px !important;
+}
+
+#login-form .custom-control-label::after{
+    top: 2px !important;
+}
+
+#login-form .form-group > .offset-lg-1, #login-form .form-group > .col-lg-11{
+    margin-left: 0 !important;
+}
+
+#login-form .col-lg-3{
+    flex: 0 0 35% !important;
+    max-width: 35% !important;
+}
+
+
 .footer {
     background-color: #f5f5f5;
     font-size: .9em;
@@ -2312,6 +2379,23 @@ parent .legend {
         top: 5px;
         right: 130px;
     }
+
+    #login-form .col-lg-3{
+        max-width: 70% !important;
+        flex: 0 0 70% !important;
+    }
+
+    .login-welcome-text{
+        width: 100%;
+    }
+    
+    .navbar-brand > span{
+        font-size: 18px !important;
+    }
+
+    .login-welcome-header{
+        font-size: 22px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -2384,6 +2468,11 @@ parent .legend {
 
     .user-img{
         display: none;
+    }
+
+    #login-form .col-lg-3{
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
     }
 
 @media (max-width: 640px){
