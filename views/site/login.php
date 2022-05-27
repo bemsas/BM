@@ -8,7 +8,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1 class="login-welcome-header">Welcome to Insocius Stakeholder Mapping Tool</h1>
 <p class="login-welcome-text">
