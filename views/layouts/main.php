@@ -113,7 +113,7 @@ if($company) {
             ),            
         ],
     ]);
-    echo $companyImg;
+    //echo $companyImg;
     NavBar::end();    
     ?>
 </header>
