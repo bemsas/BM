@@ -124,6 +124,8 @@ class MapController extends Controller
     public function actionReport($id)
     {
         $model = $this->findModel($id);
+        \Yii::$app->user->identity->product = $model->product;
+        
         $cellCodes = Cell::getCodeList($model->id);
 
         $colors = [];
@@ -227,7 +229,8 @@ class MapController extends Controller
     
     public function actionSelect($id) {
         $model = $this->findModel($id);
-        $user = Yii::$app->user->getIdentity()->user;        
+        $user = Yii::$app->user->getIdentity()->user;
+        \Yii::$app->user->identity->product = $model->product;
         $contactsRaw = Contact::getListByUserId($user->id);
         $contacts = [];
         foreach($contactsRaw as $contact) {

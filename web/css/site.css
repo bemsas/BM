@@ -750,6 +750,10 @@ parent .legend {
     border-radius: 20px;
 }
 
+.shift-title.second {
+    background: #A2BDC1;
+}
+
 .shift-title::before{
     content: '';
     position: absolute;

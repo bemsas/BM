@@ -105,23 +105,7 @@ class SiteController extends Controller
             'content' => $page->content,
         ]);
     }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIntroduction()
-    {
-        $company = Yii::$app->user->identity->user->company;
-        $page = Page::findOne(['name' => 'introduction']);
-
-        return $this->render('introduction', [
-            'company' => $company,
-            'content' => $page->content,
-        ]);
-    }
-
+    
     /**
      * Login action.
      *

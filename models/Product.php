@@ -10,9 +10,10 @@ use Yii;
  * @property int $id
  * @property string $name product name
  * @property string|null $description product description
- * @property string|null $full 
- * @property int $map_id map id
- * @property string $add_link link to additional resourses
+ * @property string|null $full
+ * @property string|null $introduction
+ * @property string|null $resources
+ * @property int $map_id map id 
  *
  * @property Map $map
  * @property CompanyMap[] $companyMaps
@@ -34,10 +35,10 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'map_id'], 'required'],
-            [['description', 'full'], 'string'],
+            [['description', 'full', 'introduction', 'resources'], 'string'],
             [['map_id'], 'default', 'value' => null],
             [['map_id'], 'integer'],
-            [['name', 'add_link'], 'string', 'max' => 200],
+            [['name'], 'string', 'max' => 200],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::class, 'targetAttribute' => ['map_id' => 'id']],
         ];
     }
@@ -53,7 +54,9 @@ class Product extends \yii\db\ActiveRecord
             'description' => 'product description',
             'full' => 'Full description',
             'map_id' => 'map id',
-            'add_link' => 'link to addition resources'
+            'add_link' => 'link to addition resources',
+            'introduction' => 'Introduction and Guidance content',
+            'resources' => 'Additional Resources content',
         ];
     }
 

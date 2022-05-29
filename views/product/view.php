@@ -29,16 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Customer Position<br>Map and Logbook', ['map/report', 'id' => $model->map_id], ['class' => 'view-card']) ?>
             </div>
             <div class="product-view-links__col">
-            <?php
-                if($model->add_link) {
-                    $url = $model->add_link;
-                    $class = 'view-card';
-                } else {
-                    $url = null;
-                    $class = 'view-card disable';
-                }
-                echo Html::a('Additional<br>Resources', $url, ['class' => $class]);
-            ?>
+            <?= Html::a('Additional<br>Resources', ['resources', 'id' => $model->id], ['class' => 'view-card']) ?>
             </div>
         </div>
     </div>

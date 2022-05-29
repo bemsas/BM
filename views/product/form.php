@@ -15,7 +15,7 @@ $this->title = $model->isNewRecord ? 'Create Product' : "Update $model->name";
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-Modal::begin([
+/*Modal::begin([
     'title' => $this->title,
     'id' => 'modal-container',
     'size' => Modal::SIZE_LARGE,
@@ -26,7 +26,7 @@ $this->registerJsVar('returnUrl', Url::to(['index']));
 $js = "$(function(){ $('#modal-container').modal('show'); });
     $('#modal-container').on('hide.bs.modal', function(e){location.href = returnUrl});
     ";
-$this->registerJs($js);
+$this->registerJs($js);*/
 ?>
 <div class="product-create">    
 
@@ -48,7 +48,15 @@ $this->registerJs($js);
 
         <?= $form->field($model, 'map_id')->dropDownList($maps) ?>
 
-        <?= $form->field($model, 'add_link')->textInput(['maxlength' => 200]) ?>
+        <?= $form->field($model, 'introduction')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
+
+        <?= $form->field($model, 'resources')->widget(CKeditor::class, [
+            'options' => ['rows' => 8],
+            'preset' => 'full'
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -60,4 +68,4 @@ $this->registerJs($js);
 
 
 </div>
-<?php Modal::end();  ?>
+<?php //Modal::end();  ?>

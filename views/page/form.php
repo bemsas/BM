@@ -14,12 +14,6 @@ $this->title = $model->isNewRecord ? 'Create Page' : 'Update Page';
 $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-Modal::begin([
-    'title' => $this->title,
-    'id' => 'modal-container',
-    'size' => Modal::SIZE_LARGE,
-    'centerVertical' => true,
-]);
 $this->registerJsVar('returnUrl', Url::to(['index']));
 $js = "$(function(){ $('#modal-container').modal('show'); });
     $('#modal-container').on('hide.bs.modal', function(e){location.href = returnUrl});
@@ -51,5 +45,3 @@ $this->registerJs($js);
 
 
 </div>
-
-<?php Modal::end();  ?>

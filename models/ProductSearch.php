@@ -19,7 +19,7 @@ class ProductSearch extends Product
     {
         return [
             [['id', 'map_id', 'companyId'], 'integer'],
-            [['name', 'description', 'add_link'], 'safe'],
+            [['name', 'description', 'introduction', 'resources'], 'safe'],
         ];
     }
 
@@ -70,7 +70,8 @@ class ProductSearch extends Product
 
         $query->andFilterWhere(['ilike', 'name', $this->name])
             ->andFilterWhere(['ilike', 'description', $this->description])
-            ->andFilterWhere(['ilike', 'add_link', $this->add_link]);
+            ->andFilterWhere(['ilike', 'resources', $this->resources])
+            ->andFilterWhere(['ilike', 'introduction', $this->introduction]);
 
         return $dataProvider;
     }

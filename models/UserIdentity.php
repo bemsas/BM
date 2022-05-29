@@ -15,6 +15,11 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      * @var User
      */
     public $user;
+    /**
+     * 
+     * @var Product
+     */
+    public $product;
     
     private static function generate(User $user): UserIdentity {
         $identity = new self();

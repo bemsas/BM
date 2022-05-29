@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => $maps,
             ],
-            'add_link',
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {

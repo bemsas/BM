@@ -103,6 +103,8 @@ class CellController extends Controller
 
     public function actionView($id, $contactId = null) {
         $model = $this->findModel($id);
+        \Yii::$app->user->identity->product = $model->answer1->map->product;
+
         $cellCodes = Cell::getCodeList($model->answer1->map_id);
         $cells = Cell::findAllByMapId($model->answer1->map_id);
 

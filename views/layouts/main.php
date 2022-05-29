@@ -21,11 +21,13 @@ $this->title = Yii::$app->name;
 
 if(Yii::$app->user->isGuest) {
     $type = 'guest';
-    $company = null;    
+    $company = null;
+    $product = null;
 } else {
     $types = User::getTypeList();
     $type = $types[Yii::$app->user->identity->user->type];
     $company = Yii::$app->user->identity->user->company;
+    $product = Yii::$app->user->identity->product;
     
 }
 $companyImg = '';
@@ -81,9 +83,9 @@ if($company) {
                 'options' => ['style' => "background: $brandColor"],
             ],*/            
 
-            ['label' => 'Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
-            ['label' => 'Introduction and Guidance', 'url' => ['/site/introduction'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => 'Home', 'url' => ['/site/index'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],            
             ['label' => 'Help', 'url' => ['/site/help'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]],
+            ['label' => 'Introduction and Guidance', 'url' => ['/product/introduction', 'id' => $product ? $product->id : $product], 'visible' => $product ? true : false, 'linkOptions' => ['style' => "color: $textColor"]],
             Yii::$app->user->isGuest ? (
                 ['label' => Icon::show('sign-in-alt'), 'url' => ['/site/login'], 'visible' => $type !== 'guest', 'linkOptions' => ['style' => "color: $textColor"]]
             ) : (

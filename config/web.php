@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Stakeholder Mapping App',
+    'name' => 'Customer Belief Mapping Tool',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'timezone' => 'Europe/London',

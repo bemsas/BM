@@ -45,7 +45,7 @@ class ProductController extends Controller
                             }
                         ],
                         [
-                            'actions' => ['list', 'view'],
+                            'actions' => ['list', 'view', 'resources', 'introduction'],
                             'allow' => true,
                             'roles' => ['@'],
                         ],
@@ -113,8 +113,40 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        \Yii::$app->user->identity->product = $model;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays a single Product model.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionIntroduction($id)
+    {
+        $model = $this->findModel($id);
+        \Yii::$app->user->identity->product = $model;
+        return $this->render('introduction', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays a single Product model.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionResources($id)
+    {
+        $model = $this->findModel($id);
+        \Yii::$app->user->identity->product = $model;
+        return $this->render('resources', [
+            'model' => $model,
         ]);
     }
 

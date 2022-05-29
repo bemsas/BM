@@ -185,7 +185,7 @@ $axisWidth = 65 * $map->size;
                     ?>                
                 </div>
                 <div class="shift-block-container">
-                    <div class="shift-title"> Practice</div>
+                    <div class="shift-title second"> Practice</div>
                     <div class="shift-block-grid"> 
                         <?php
                             foreach($shiftCells as $i => $shiftCell) { 

@@ -40,7 +40,7 @@ $this->registerJs($js);
     <div class="map-form">
         <div class="row">
             <div class="map-preview col-lg-4" style="padding-right: 30px;">
-                <h3 class="map-preview__title">customer<br>map</h3>
+                <h3 class="map-preview__title">customer position<br>map</h3>
                 <div class="map-preview__inner">
                 <?php
                     $rows = array_slice(['A', 'B', 'C', 'D', 'E'], 0, $model->size);
