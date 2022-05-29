@@ -283,6 +283,7 @@ main > .container {
 .product-card:hover::before{
     background: #A2BDC1;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .product-card.disable::before{

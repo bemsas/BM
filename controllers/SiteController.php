@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\User;
+use app\models\Page;
 
 class SiteController extends Controller
 {
@@ -97,9 +98,11 @@ class SiteController extends Controller
     public function actionHelp()
     {
         $company = Yii::$app->user->identity->user->company;
+        $page = Page::findOne(['name' => 'help']);
 
         return $this->render('help', [
-            'company' => $company
+            'company' => $company,
+            'content' => $page->content,
         ]);
     }
 
@@ -111,9 +114,11 @@ class SiteController extends Controller
     public function actionIntroduction()
     {
         $company = Yii::$app->user->identity->user->company;
+        $page = Page::findOne(['name' => 'introduction']);
 
         return $this->render('introduction', [
-            'company' => $company
+            'company' => $company,
+            'content' => $page->content,
         ]);
     }
 

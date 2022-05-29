@@ -4,6 +4,7 @@ use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $company app\models\Company */
+/* @var $content string */
 
 Icon::map($this, Icon::FA);
 
@@ -12,9 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="works">
-    <h1>How it works</h1>
-    <div class="row">
-        <div class="col-lg-6"><?=$company->hello_left?></div>
-        <div class="col-lg-6"><?=$company->hello_right?></div>
-    </div>
+    <h1><?=$this->title?></h1>
+    <?= $content ?>
 </div>

@@ -47,6 +47,7 @@ use kartik\icons\Icon;
                     <?= Html::a('Companies', ['company/index']) ?><br>
                     <?= Html::a('Users', ['user/index']) ?><br>
                     <?= Html::a('All contacts', ['contact/index', 'all' => 1]) ?><br>
+                    <?= Html::a('Pages', ['page/index']) ?><br>
                 </div>                 
             <?php } ?>
         </div>

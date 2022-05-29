@@ -9,6 +9,7 @@ use kartik\icons\Icon;
 use app\models\Product;
 use app\models\Cell;
 use app\models\Logbook;
+use yii\web\JqueryAsset;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,9 +18,16 @@ use app\models\Logbook;
 /* @var $company app\models\Company */
 
 Icon::map($this, Icon::FA);
+//JqueryAsset::register($this);
 
 $this->title = 'My Products';
 $this->params['breadcrumbs'][] = $this->title;
+$js = '$(function(){
+        $(".product-card").on("click", function() {
+            location.href = $(this).find("a").prop("href");
+        });
+    });';
+$this->registerJs($js);
 ?>
 <div class="user-hello">
     <?= Icon::show('exclamation-circle')?> Welcome back, <?=$userName ?>! You last logged on <?=$lastLogin ?>.
