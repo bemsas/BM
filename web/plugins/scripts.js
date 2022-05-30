@@ -1,13 +1,12 @@
 $(function(){
     $('.scroll-area').scrollbar();
 
-    var custom_values = $('.js-date-slider').data('dates').split(',');
+    if($('.date-slider').length){
 
-    $(".js-date-slider").ionRangeSlider({
-        values: custom_values,
+        var custom_values = $('.js-date-slider').data('dates').split(',');
 
-        onChange: function(data) {
-            console.log("value", data.from)
-        }
-    });
+        $(".js-date-slider").ionRangeSlider({
+            values: custom_values,
+        });
+    }
 });
