@@ -228,7 +228,9 @@ $axisWidth = 65 * $map->size;
                         <div class="shift-content">
                             <?=$shiftCell->content.$links?>
                         </div>
-                        <h3>Shift <?=$num ?> Messaging :</h3>
+                        <div class="shift-content__titles">
+                            <h3 class="shift-content__title-accent">Shift <?=$num ?> Messaging :</h3>
+                        </div>
                         <h4>Learn more :</h4>
                         <div class="shift-content-actions">
                             <?= Html::a("Presentation", $shiftCell->link_full_deck, ['class' => "btn content-btn-1 $dis2", 'target' => '_blank']) ?>

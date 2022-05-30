@@ -806,6 +806,13 @@ parent .legend {
     background: #A2BDC1;
 }
 
+.steps-row{
+    padding-left: 120px;
+    justify-content: center;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
 .steps-row .arrow-between{
     display: flex;
     flex-direction: column;
@@ -845,7 +852,7 @@ parent .legend {
 .shift-content-actions{
     display: flex;
     align-items: center;
-
+    margin-bottom: 110px;
     margin-top: 45px;
 }
 
@@ -1076,7 +1083,7 @@ parent .legend {
     display: flex;
     align-items: flex-start;
     
-    padding-left: 15px;
+    padding-left: 20px;
 }
 #login-form .field-loginform-rememberme .col-lg-3{
     flex: 0 0 100% !important;
@@ -1106,11 +1113,54 @@ parent .legend {
 
 #login-form .form-group > .offset-lg-1, #login-form .form-group > .col-lg-11{
     margin-left: 0 !important;
+    padding-left: 0 !important;
 }
 
 #login-form .col-lg-3{
     flex: 0 0 35% !important;
     max-width: 35% !important;
+}
+
+.shift-content__title-accent{
+    margin-top: 45px !important;
+
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: capitalize;
+    color: #000000 !important;
+    padding: 24px 0;
+    z-index: 1;
+    max-width: 380px;
+}
+
+.shift-content__titles{
+    margin-top: 180px;
+}
+
+.shift-content__title-accent::before{
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: calc(100% + 30px);
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 20px 0px 0px 20px;
+    z-index: -1;
+}
+
+.shift-content__title-accent::after{
+    content: '';
+    position: absolute;
+    top: -19px;
+    right: 18px;
+    width: 27px;
+    height: 106px;
+    background: url('../images/line-1.svg') no-repeat;
+    z-index: -1;
 }
 
 
@@ -1311,6 +1361,10 @@ h5 {
     }
 }
 .full-content-container {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
     margin-top: 10px;
     width: 100%;
     height: 713px;
@@ -1332,7 +1386,8 @@ h5 {
 }
 .full-content-container h4 {
     margin-left: 55px;
-    margin-top: 498px;
+    /* margin-top: 498px; */
+    margin-top: auto !important;
 
     font-style: normal;
     font-weight: 700;
@@ -1383,6 +1438,10 @@ h5 {
     font-size: 14px;
 }
 .shift-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
     width: 976px;
     overflow:auto;
     float:right;
@@ -1512,7 +1571,8 @@ h5 {
 }
 
 .cell-button:first-child {
-    margin-left:180px;
+    /* margin-left:180px; */
+    margin-left: 0;
 }
 
 
@@ -2120,6 +2180,15 @@ parent .legend {
         padding-right: 15px;
         padding-left: 120px;
     }
+
+    .shift-content__title-accent{
+        max-width: calc(35% - 62px);
+        width: 100%;
+    }
+
+    .shift-content__title-accent::after{
+        right: 0;
+    }
 }
 
 
@@ -2194,8 +2263,7 @@ parent .legend {
     }
 
     .full-content-container h3{
-        margin-left: 25px;
-        margin-top: 25px;
+        margin-top: 0px !important;
     }
     .full-content-container{
         height: 500px;
@@ -2236,6 +2304,14 @@ parent .legend {
 
     .map-view{
         max-width: 90%;
+    }
+
+    .shift-content__titles{
+        margin-top: 64px;
+    }
+
+    .shift-content-actions{
+        margin-bottom: 25px;
     }
 }
 
@@ -2502,10 +2578,6 @@ parent .legend {
         flex-direction: column;
     }
 
-    .full-content-container h3{
-        order: -2;
-    }
-
     .shift-content{
         width: calc(100% - 40px);
         order: -1;
@@ -2538,7 +2610,27 @@ parent .legend {
         padding-left: 10px;
         padding-right: 10px;
     }
-    
+    .shift-content{
+        position: static;
+        margin-bottom: 25px;
+    }
+
+    .shift-content__titles{
+        order: -2;
+        margin-top: 25px;
+    }
+
+    .shift-content__title-accent::before, .shift-content__title-accent::after{
+        display: none;
+    }
+
+    .shift-content__title-accent{
+        max-width: inherit;
+        color: #fff !important;
+        padding: 0;
+        margin-left: 0px !important;
+        padding-left: 25px !important;
+    }
 }
 
 @media (max-width: 480px){
