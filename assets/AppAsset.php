@@ -23,7 +23,9 @@ class AppAsset extends AssetBundle
         'css/site.css'
     ];
     public $js = [
-        'plugins/jquery.scrollbar.min.js'
+        'plugins/scripts.js',
+        'plugins/jquery.scrollbar.min.js',
+        'plugins/ion.rangeSlider.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
