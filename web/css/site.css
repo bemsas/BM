@@ -807,7 +807,6 @@ parent .legend {
 }
 
 .steps-row{
-    padding-left: 120px;
     justify-content: center;
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -1076,6 +1075,7 @@ parent .legend {
     line-height: 31px;
     text-transform: uppercase;
     color: #A8A8A8;
+    padding-left: 0 !important;
 }
 
 #login-form .field-loginform-rememberme{
@@ -2178,7 +2178,6 @@ parent .legend {
         display: flex;
         justify-content: center;
         padding-right: 15px;
-        padding-left: 120px;
     }
 
     .shift-content__title-accent{
