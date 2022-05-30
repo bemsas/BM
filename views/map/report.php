@@ -5,7 +5,6 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Logbook;
 use app\models\Cell;
-use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Map */
@@ -28,7 +27,7 @@ foreach($datesRaw as $date) {
 
 $js = "$(function(){        
         $('#select-date').on('change', function(){
-            let date = this.value;
+            let date = $('.irs-single').text().trim();
             $('.logbook-count').addClass('hidden');
             $('.logbook-count.date-'+date).removeClass('hidden');
         }).change();
@@ -95,16 +94,11 @@ $this->registerJs($js);
             <div class="col-lg-8 report-data-container">
 
                 <div class="date-slider" style="margin-bottom: 20px;">
-                    <div class="date-slider__start">Start  <span>23.03.2022 </span></div>
-                    <input type="range" class="date-slider__input js-date-slider" data-dates="01.02.2022, 02.02.2022, 03.02.2022, 04.02.2022, 05.02.2022, 06.02.2022, 07.02.2023, 02.02.2022, 03.02.2022, 04.02.2022, 05.02.2022, 06.02.2022, 07.02.2023, 02.02.2022, 03.02.2022, 04.02.2022, 05.02.2022, 06.02.2022, 07.02.2023, 02.02.2022, 03.02.2022, 04.02.2022, 05.02.2022, 06.02.2022, 07.02.2023, 02.02.2022, 03.02.2022, 04.02.2022, 05.02.2022, 06.02.2022, 07.02.2023">
-                    <div class="date-slider__end">Today<span>14.04.2022</span></div>
+                    <div class="date-slider__start">Start  <span><?=reset($dates) ?></span></div>
+                    <input type="range" class="date-slider__input js-date-slider" data-dates="<?=implode(', ', $dates) ?>" id="select-date">
+                    <div class="date-slider__end">Today<span><?=end($dates) ?></span></div>
                 </div>
                 
-                <?php /*
-                <div style="margin-bottom: 20px;">
-                    <?= Select2::widget(['name' => 'date', 'value' => reset($dates), 'data' => $dates, 'options' => ['class' => 'form-control', 'id' => 'select-date']]); ?>
-                </div>
-                */?>
                 <div class="scroll-area">
                     <?php Pjax::begin(); ?>
 
