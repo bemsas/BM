@@ -563,7 +563,28 @@ main > .container {
 }
 
 .select2-search{
-    display: none !important;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.select2-search::before{
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    width: 16px;
+    height: 16px;
+    display: block;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.4654 14.6957L12.3687 11.5886C13.2475 10.455 13.7915 9.0274 13.7915 7.47386C13.7915 3.77896 10.7786 0.755859 7.09607 0.755859C3.41358 0.755859 0.400635 3.77896 0.400635 7.47386C0.400635 11.1688 3.41358 14.1919 7.09607 14.1919C8.64439 14.1919 10.0672 13.646 11.197 12.7643L14.2937 15.8714L15.4654 14.6957ZM2.07449 7.47386C2.07449 4.70269 4.3342 2.43536 7.09607 2.43536C9.85794 2.43536 12.1177 4.70269 12.1177 7.47386C12.1177 10.245 9.85794 12.5124 7.09607 12.5124C4.3342 12.5124 2.07449 10.245 2.07449 7.47386Z' fill='%230C0C12'/%3E%3C/svg%3E%0A");
+}
+
+.select2-search__field{
+    padding: 0 40px 0 20px !important;
+    height: 35px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E6E6E6 !important;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 25px !important;
 }
 
 .select2-container--krajee-bs4 .select2-results__option--highlighted[aria-selected]{

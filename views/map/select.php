@@ -87,11 +87,17 @@ $axisWidth = 75 * $model->size + 25;
                 <?= $form->field($model, 'question1')->widget(Select2::class, [
                     'data' => $answers1,
                     'options' => ['placeholder' => 'Select your answer'],
+                    'pluginOptions' => [
+                        'minimumResultsForSearch' => '-1',            
+                    ], 
                 ])->label('CURRENT BELIEF') ?>
 
                 <?= $form->field($model, 'question2')->widget(Select2::class, [
                     'data' => $answers2,
                     'options' => ['placeholder' => 'Select your answer'],
+                    'pluginOptions' => [
+                        'minimumResultsForSearch' => '-1',            
+                    ],
                 ])->label('CURRENT PRACTICE') ?>
 
                 <div class="form-group">
