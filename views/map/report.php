@@ -104,7 +104,7 @@ $this->registerJs($js);
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => null,
+                        'filterModel' => $searchModel,
                         'summary' => null,
                         'columns' => [
                             [
@@ -112,6 +112,7 @@ $this->registerJs($js);
                                 'value' => function(Logbook $model) {
                                     return $model->contact->name;
                                 },
+                                'filter' => $contacts,
                             ],
                             [
                                 'attribute' => 'cell_id',
@@ -120,8 +121,13 @@ $this->registerJs($js);
                                     $codes = Cell::getCodeList($model->cell->answer1->map_id);
                                     return $codes[$model->cell->id];
                                 },
+                                'filter' => false,
                             ],
-                            'date_in:datetime',
+                            [
+                                'attribute' => 'date_in',
+                                'format' => 'datetime',
+                                'filter' => false
+                            ],
                         ],
                     ]); ?>
 

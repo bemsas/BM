@@ -88,6 +88,15 @@ class Contact extends \yii\db\ActiveRecord
         }
         return $list;
     }
+    public static function getListByMapId($mapId): array {
+        $query = Logbook::find()->joinWith('cell.answer1 a', false)->andWhere(['a.map_id' => $mapId])->select('contact_id');
+        $models = self::find()->andWhere(['in', 'id', $query])->orderBy('name')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    }
     public static function addOrFind(User $user, string $name): Contact {
         $model = self::findOne(['user_id' => $user->id, 'name' => $name]);
         if(!$model) {

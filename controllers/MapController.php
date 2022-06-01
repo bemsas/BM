@@ -150,6 +150,8 @@ class MapController extends Controller
             'cellIds' => $cellIds,
             'cellCounts' => Logbook::getCountsByCellIds($cellIds),
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'contacts' => Contact::getListByMapId($model->id),
         ]);
     }
     
