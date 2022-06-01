@@ -14,6 +14,7 @@ class LogbookSearch extends Logbook
 {
     public $company_id;
     public $cellIds;
+    public $contactName;
     /**
      * {@inheritdoc}
      */
@@ -21,7 +22,7 @@ class LogbookSearch extends Logbook
     {
         return [
             [['id', 'user_id', 'contact_id', 'company_id', 'cell_id'], 'integer'],
-            [['date_in', 'content', 'cellIds'], 'safe'],
+            [['date_in', 'content', 'cellIds', 'contactName'], 'safe'],
         ];
     }    
 
@@ -44,6 +45,7 @@ class LogbookSearch extends Logbook
     public function search($params)
     {
         $query = Logbook::find();
+        $query->joinWith('contact c');
         
         $sort = new Sort();
         $sort->defaultOrder = ['date_in' => SORT_DESC, 'id' => SORT_DESC];
@@ -69,6 +71,9 @@ class LogbookSearch extends Logbook
         }
         if($this->cellIds) {
             $query->andWhere(['cell_id' => $this->cellIds]);
+        }
+        if($this->contactName) {
+            $query->andWhere(['c.name' => $this->contactName]);
         }
 
         // grid filtering conditions

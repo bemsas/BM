@@ -93,7 +93,7 @@ class Contact extends \yii\db\ActiveRecord
         $models = self::find()->andWhere(['in', 'id', $query])->orderBy('name')->all();
         $list = [];
         foreach($models as $model) {
-            $list[$model->id] = $model->name;
+            $list[$model->name] = $model->name;
         }
         return $list;
     }

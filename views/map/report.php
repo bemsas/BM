@@ -108,7 +108,8 @@ $this->registerJs($js);
                         'summary' => null,
                         'columns' => [
                             [
-                                'attribute' => 'contact_id',
+                                'attribute' => 'contactName',
+                                'label' => 'Contact',
                                 'value' => function(Logbook $model) {
                                     return $model->contact->name;
                                 },
